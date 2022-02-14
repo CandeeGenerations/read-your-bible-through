@@ -3,7 +3,7 @@ import Blockquote from '../components/postComponents/blockquote'
 import Headings from '../components/postComponents/headings'
 import ButtonLink from '../components/buttonLink'
 import {Helmet} from 'react-helmet'
-import {siteTitle} from '../helpers/contants'
+import {siteTitle} from '../helpers/constants'
 
 const FourOhFour = () => {
   return (

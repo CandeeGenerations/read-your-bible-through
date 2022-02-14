@@ -5,37 +5,10 @@ body {
   background-color: #fafafa;
 }
 
-@layer base {
-  a {
-    color: rgb(85, 26, 139);
-  }
-
-  a:active {
-    color: rgb(255, 0, 0);
-  }
+a {
+  color: rgb(85, 26, 139);
 }
 
-.verse {
-  cursor: pointer;
-  color: #6166dc;
-}
-
-.verse-overlay {
-  width: 90%;
-  z-index: 10;
-  padding: 20px;
-  max-width: 500px;
-  position: absolute;
-  background: #000;
-  border-radius: 5px;
-  align-items: center;
-  color: rgb(197, 197, 204);
-  animation: animation-1xhp7f5 200ms forwards;
-  transition: left 75ms ease-out, right 75ms ease-out, background 200ms;
-}
-
-.verse-overlay span {
-  font-size: 18px;
-  font-weight: 600;
-  color: #73737d;
+a:active {
+  color: rgb(255, 0, 0);
 }

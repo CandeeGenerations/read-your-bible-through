@@ -1,8 +1,5 @@
-import dayjs from 'dayjs'
 import styled from '@emotion/styled'
-import SocialIcons from '../socialIcons'
-import NavigationMain from '../nav/navigation.main'
-import Verse from './verse'
+import dayjs from 'dayjs'
 
 const Footer = () => {
   const year = dayjs().format('YYYY')
@@ -13,19 +10,24 @@ const Footer = () => {
 
       <FooterWrapper className="relative flex items-center content-between lg:pb-20 pb-32 lg:flex-row flex-col">
         <div className="flex-grow pb-16 lg:pb-0 text-center lg:text-left">
-          &copy; 2020 - {year} Tyler Candee (
-          <a href="https://ko-fi.com/tylercandeekjv" target="_blank">
-            Buy me a Coffee
+          A Ministry of{' '}
+          <a href="https://cbcwoodbridge.org" target="_blank">
+            Central Baptist Church
           </a>
-          )
         </div>
 
-        <SocialIcons networkList={process.env.social} />
+        <div className="flex flex-grow-0">
+          &copy; 2022{year !== '2022' && ` - ${year}`}&nbsp;
+          <a
+            href="https://candeegenerations.com?ref=readyourbiblethrough.com"
+            target="_blank"
+          >
+            Candee Generations
+          </a>
+        </div>
       </FooterWrapper>
 
-      <NavigationMain footer />
-
-      <Verse />
+      {/*<NavigationMain footer />*/}
     </>
   )
 }
@@ -38,7 +40,5 @@ const Border = styled.div`
 const FooterWrapper = styled.div`
   color: #73737d;
 `
-
-const Copyright = styled.div``
 
 export default Footer
