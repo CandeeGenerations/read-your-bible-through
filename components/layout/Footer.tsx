@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import dayjs from 'dayjs'
+import {gtagEvent} from '../../libs/gtag'
 
 const Footer = () => {
   const year = dayjs().format('YYYY')
@@ -8,10 +9,20 @@ const Footer = () => {
     <>
       <Border className="relative" />
 
-      <FooterWrapper className="relative flex items-center content-between lg:pb-20 pb-32 lg:flex-row flex-col">
-        <div className="flex-grow pb-16 lg:pb-0 text-center lg:text-left">
-          A Ministry of{' '}
-          <a href="https://cbcwoodbridge.org" target="_blank">
+      <FooterWrapper className="relative flex items-center content-between lg:pb-20 pb-10 lg:flex-row flex-col">
+        <div className="flex-grow pb-3 lg:pb-0 text-center lg:text-left">
+          A ministry of{' '}
+          <a
+            href="https://cbcwoodbridge.org"
+            target="_blank"
+            onClick={() =>
+              gtagEvent({
+                action: 'footer__central_baptist_church__link',
+                category: 'engagement',
+                label: 'click_event',
+              })
+            }
+          >
             Central Baptist Church
           </a>
         </div>
@@ -21,6 +32,13 @@ const Footer = () => {
           <a
             href="https://candeegenerations.com?ref=readyourbiblethrough.com"
             target="_blank"
+            onClick={() =>
+              gtagEvent({
+                action: 'footer__candee_generations__link',
+                category: 'engagement',
+                label: 'click_event',
+              })
+            }
           >
             Candee Generations
           </a>

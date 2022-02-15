@@ -1,14 +1,20 @@
-import Footer from '../footer'
+import React from 'react'
+import Footer from './Footer'
+import TopPromo from './TopPromo'
 
 const Layout = ({children}) => {
   return (
-    <div className="container max-w-screen-xl mx-auto md:p-16 lg:p-4">
-      {/*<Nav />*/}
+    <>
+      <TopPromo />
 
-      {children}
+      <div className="container max-w-screen-xl mx-auto p-5 md:p-16 lg:p-10">
+        {/*<Nav />*/}
 
-      <Footer />
-    </div>
+        {children}
+
+        <Footer />
+      </div>
+    </>
   )
 }
 

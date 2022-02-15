@@ -2,12 +2,14 @@ import {Helmet} from 'react-helmet'
 import {DetailedHTMLProps} from 'react'
 import {siteTitle} from '../../helpers/constants'
 
-const SEO = ({title, description, children, url, image, pathname}) => {
+const SEO = () => {
+  const title = 'Read Your Bible Through'
+  const description = 'Read your Bible through in a year!'
+  const pathname = ''
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  const url = siteUrl
   const fullURL = (path: string) => (path ? `${siteUrl}${path}` : siteUrl)
-
-  // If no image is provided lets looks for a default novela static image
-  image = image ? image : '/preview.jpg'
+  const image = '/favicon/android-chrome-512x512.png'
 
   const metaTags: DetailedHTMLProps<any, any>[] = [
     {charset: 'utf-8'},
@@ -58,7 +60,6 @@ const SEO = ({title, description, children, url, image, pathname}) => {
         href="https://fonts.googleapis.com/css?family=Merriweather:700,700i&display=swap"
         rel="stylesheet"
       />
-      {children}
     </Helmet>
   )
 }

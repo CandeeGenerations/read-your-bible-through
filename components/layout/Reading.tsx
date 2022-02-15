@@ -1,7 +1,7 @@
 import {CheckCircleIcon} from '@heroicons/react/outline'
 import React from 'react'
-import {IDisplayReading, ITestamentReading} from '../helpers/types'
-import {IPageState} from '../pages'
+import {IDisplayReading, ITestamentReading} from '../../helpers/types'
+import {IPageState} from '../../pages'
 
 const Alert = ({
   title,
@@ -21,9 +21,11 @@ const Alert = ({
         </div>
 
         <div className="ml-3">
-          <h3 className="text-lg font-medium text-green-800">{title}</h3>
+          <h3 className="text-2xl font-linden font-medium text-green-800">
+            {title}
+          </h3>
 
-          <div className="mt-2 text-sm text-green-700">
+          <div className="mt-2 text-green-700">
             <p>{children}</p>
           </div>
         </div>
@@ -55,7 +57,7 @@ const Testament = ({
   return reading.length > 0 ? (
     <div className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3">
       <div className="flex-1 min-w-0">
-        <p className="text-xl font-medium text-gray-900">
+        <p className="text-2xl text-gray-900">
           {reading.map(
             (x, index) =>
               `${x.book} ${x.chapters
@@ -66,7 +68,7 @@ const Testament = ({
           )}
         </p>
 
-        <p className="text-sm text-gray-500 truncate">
+        <p className="text-primary-700 truncate">
           {newTestament ? 'New' : 'Old'} Testament
         </p>
       </div>
