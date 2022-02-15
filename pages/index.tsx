@@ -101,7 +101,7 @@ const Home = (props) => {
       <div className="md:grid md:grid-cols-4 md:divide-x md:divide-x-reverse md:divide-gray-200">
         <section className="mt-12 md:mt-0 md:pl-14 md:col-start-3 md:col-end-5 md:row-start-1">
           <h2 className="text-3xl text-gray-900 mb-14 font-linden text-center md:text-left">
-            Bible Reading for{' '}
+            Bible Reading for <br />
             <time
               className="text-primary-600"
               dateTime={pageState.selectedDay.format('YYYY-MM-DD')}
