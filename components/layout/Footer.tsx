@@ -44,8 +44,6 @@ const Footer = () => {
           </a>
         </div>
       </FooterWrapper>
-
-      {/*<NavigationMain footer />*/}
     </>
   )
 }
