@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'linden_hillregular';
+  src: url('/fonts/lindenhill-webfont.woff2') format('woff2'),
+    url('/fonts/lindenhill-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html,
 body {
   padding: 0;
@@ -5,37 +13,15 @@ body {
   background-color: #fafafa;
 }
 
-@layer base {
-  a {
-    color: rgb(85, 26, 139);
-  }
-
-  a:active {
-    color: rgb(255, 0, 0);
-  }
+.font-linden {
+  font-family: 'linden_hillregular';
 }
 
-.verse {
-  cursor: pointer;
-  color: #6166dc;
+a {
+  color: #968abf;
 }
 
-.verse-overlay {
-  width: 90%;
-  z-index: 10;
-  padding: 20px;
-  max-width: 500px;
-  position: absolute;
-  background: #000;
-  border-radius: 5px;
-  align-items: center;
-  color: rgb(197, 197, 204);
-  animation: animation-1xhp7f5 200ms forwards;
-  transition: left 75ms ease-out, right 75ms ease-out, background 200ms;
-}
-
-.verse-overlay span {
-  font-size: 18px;
-  font-weight: 600;
-  color: #73737d;
+a:active,
+a:hover {
+  color: #6e6297;
 }

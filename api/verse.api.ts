@@ -1,27 +1,16 @@
-import axios from 'axios'
+import axios from "axios";
 
-export const getVerse = async (book, chapter, verse) => {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_BIBLE_API_URL}/bibles/${process.env.NEXT_PUBLIC_BIBLE_ID}/verses/${book}.${chapter}.${verse}?content-type=text&include-titles=false&include-verse-numbers=false`,
-    {
-      headers: {
-        'api-key': process.env.NEXT_PUBLIC_BIBLE_API_KEY,
-      },
+const headers = {
+  "api-key": process.env.NEXT_PUBLIC_BIBLE_API_KEY
+};
+
+export const getBooks = async () => {
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_BIBLE_API_URL}/bibles/${process.env.NEXT_PUBLIC_BIBLE_ID}/books`, {
+    params: {
+      "include-chapters": true
     },
-  )
+    headers
+  });
 
-  return response.data.data
-}
-
-export const getPassage = async (book, chapter, verse, endVerse) => {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_BIBLE_API_URL}/bibles/${process.env.NEXT_PUBLIC_BIBLE_ID}/passages/${book}.${chapter}.${verse}-${book}.${chapter}.${endVerse}?content-type=text&include-titles=false`,
-    {
-      headers: {
-        'api-key': process.env.NEXT_PUBLIC_BIBLE_API_KEY,
-      },
-    },
-  )
-
-  return response.data.data
-}
+  return response.data.data;
+};

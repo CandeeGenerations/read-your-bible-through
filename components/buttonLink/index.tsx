@@ -1,58 +1,33 @@
-import styled from '@emotion/styled'
-import Link from 'next/link'
+import React from 'react'
+import {classNames} from '../../helpers'
 
 const ButtonLink = ({
   href = null,
+  onClick = null,
   children,
-  noBackground = false,
   anchor = false,
-  submit = false,
+  className = '',
 }) => {
-  let linkProps = {
-    className: 'rounded-md py-4 px-12',
-  }
+  const classes =
+    'mt-5 text-center items-center px-4 py-3 border-2 border-primary-300 shadow-sm font-medium rounded-md text-primary-700 bg-transparent hover:bg-secondary-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500'
+  const anchorProps = anchor
+    ? {rel: 'noopener noreferrer', target: '_blank'}
+    : {}
 
-  if (submit) {
-    return (
-      <RealButton type="submit" {...linkProps}>
-        {children}
-      </RealButton>
-    )
-  }
-
-  const anchorProps = {
-    href: href,
-    rel: 'noopener noreferrer',
-    target: '_blank',
-  }
-
-  if (anchor) {
-    linkProps = {...linkProps, ...anchorProps}
-  }
-
-  const link = noBackground ? (
-    <a {...linkProps}>{children}</a>
-  ) : (
-    <Button {...linkProps}>{children}</Button>
-  )
-
-  return anchor ? (
-    link
-  ) : (
-    <Link href={href} passHref>
-      {link}
-    </Link>
-  )
+  return href ? (
+    <a
+      className={classNames(classes, className)}
+      href={href}
+      {...anchorProps}
+      {...(onClick ? {onClick} : {})}
+    >
+      {children}
+    </a>
+  ) : onClick ? (
+    <button className={classNames(classes, className)} onClick={onClick}>
+      {children}
+    </button>
+  ) : null
 }
-
-const Button = styled.a`
-  background-color: #121212;
-  color: #fff;
-`
-
-const RealButton = styled.button`
-  background-color: #121212;
-  color: #fff;
-`
 
 export default ButtonLink
