@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.3.0...v1.4.0) (2022-04-04)
+
+
+### Features
+
+* added basic functionality ([782b6e0](https://github.com/CandeeGenerations/read-your-bible-through/commit/782b6e0cd8c1a278aec48171fe9fd0d3b03b7d72))
+* finished designs and integrations ([5ece21c](https://github.com/CandeeGenerations/read-your-bible-through/commit/5ece21c0643db19be7e2b91b3403fed362ec7e23))
+* removed nav ([494027e](https://github.com/CandeeGenerations/read-your-bible-through/commit/494027e0fb72042535b8a1e948fe1e07d06e95d9))
+
+
+### Bug Fixes
+
+* fix for the button links ([c926b43](https://github.com/CandeeGenerations/read-your-bible-through/commit/c926b4333f6f18d1e02758ec31d59199d152b8b2))
+* minor fix for bible reading text ([e2fc777](https://github.com/CandeeGenerations/read-your-bible-through/commit/e2fc777a9acabb89277fd02c2d784ff28d7b6fa7))
+* package updates ([9c7fd47](https://github.com/CandeeGenerations/read-your-bible-through/commit/9c7fd47054ccac4e6a1b7e9435e79042f05a6c5b))
+
 ## [1.3.0](https://github.com/CandeeGenerations/tyler-candee-kjv-nextjs/compare/v1.2.0...v1.3.0) (2022-01-27)
 
 
