@@ -15,6 +15,13 @@ export const LayoutContext = React.createContext<{
 }>({})
 
 function MyApp({Component, pageProps}) {
+  console.log(
+    `Read Your Bible Through | v${
+      process.env.NEXT_PUBLIC_APP_VERSION || '_dev'
+    }`,
+  )
+  console.log('-------------------------------------')
+
   const router = useRouter()
   const [pageState, stateFunc] = useState<IPageState>({
     open: false,
