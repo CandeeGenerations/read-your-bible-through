@@ -1,4 +1,3 @@
-import styled from '@emotion/styled'
 import dayjs from 'dayjs'
 import {gtagEvent} from '../../libs/gtag'
 
@@ -7,9 +6,9 @@ const Footer = () => {
 
   return (
     <>
-      <Border className="relative" />
+      <div className="relative border border-secondary-300 mt-24 mb-12" />
 
-      <FooterWrapper className="relative flex items-center content-between lg:pb-20 pb-10 lg:flex-row flex-col">
+      <div className="relative flex items-center content-between lg:pb-20 pb-10 lg:flex-row flex-col text-secondary-500">
         <div className="flex-grow pb-3 lg:pb-0 text-center lg:text-left">
           A ministry of{' '}
           <a
@@ -43,18 +42,9 @@ const Footer = () => {
             Candee Generations
           </a>
         </div>
-      </FooterWrapper>
+      </div>
     </>
   )
 }
-
-const Border = styled.div`
-  margin: 140px auto 50px;
-  border-bottom: 1px solid rgba(8, 8, 11, 0.15);
-`
-
-const FooterWrapper = styled.div`
-  color: #73737d;
-`
 
 export default Footer

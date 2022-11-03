@@ -1,5 +1,5 @@
-import {Helmet} from 'react-helmet'
 import {DetailedHTMLProps} from 'react'
+import {Helmet} from 'react-helmet'
 import {siteTitle} from '../../helpers/constants'
 
 const SEO = () => {

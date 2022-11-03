@@ -1,5 +1,5 @@
 import {Dialog, Transition} from '@headlessui/react'
-import {XIcon} from '@heroicons/react/outline'
+import {XMarkIcon} from '@heroicons/react/24/outline'
 import React, {Fragment} from 'react'
 import {gtagEvent} from '../../libs/gtag'
 import ButtonLink from '../buttonLink'
@@ -62,7 +62,7 @@ const LearnModal = ({open, onChange}: ILearnModal): React.ReactElement => {
                   }}
                 >
                   <span className="sr-only">Close</span>
-                  <XIcon className="h-6 w-6" aria-hidden="true" />
+                  <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
               </div>
 

@@ -1,4 +1,4 @@
-import {CheckCircleIcon} from '@heroicons/react/outline'
+import {CheckCircleIcon} from '@heroicons/react/24/outline'
 import React from 'react'
 import {IDisplayReading, ITestamentReading} from '../../helpers/types'
 import {IPageState} from '../../pages'

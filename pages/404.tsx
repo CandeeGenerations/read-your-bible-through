@@ -1,16 +1,16 @@
+import Head from 'next/head'
 import React from 'react'
-import Layout from '../components/layout'
-import Blockquote from '../components/typography/blockquote'
-import Headings from '../components/typography/headings'
 import ButtonLink from '../components/buttonLink'
-import {Helmet} from 'react-helmet'
+import Layout from '../components/layout'
 import {siteTitle} from '../helpers/constants'
 import {gtagEvent} from '../libs/gtag'
 
 const FourOhFour = () => {
   return (
     <Layout>
-      <Helmet title={`404 | ${siteTitle}`} />
+      <Head>
+        <title>{`404 | ${siteTitle}`}</title>
+      </Head>
 
       <div className="mt-24">
         <img
@@ -19,14 +19,18 @@ const FourOhFour = () => {
           alt="Read Your Bible Through"
         />
 
-        <Headings.h1>Jeremiah 29:13 says...</Headings.h1>
+        <h1 className="font-linden text-5xl font-bold text-primary-900">
+          Jeremiah 29:13 says...
+        </h1>
 
-        <Blockquote className="mb-5 text-lg">
+        <p className="my-5 text-lg italic text-secondary-600">
           And ye shall seek me, and find me, when ye shall search for me with
           all your heart.
-        </Blockquote>
+        </p>
 
-        <p>Looks like you must keep seeking :)</p>
+        <p className="my-5 text-lg italic text-secondary-600">
+          Looks like you must keep seeking :)
+        </p>
 
         <div className="py-10">
           <ButtonLink
@@ -43,7 +47,7 @@ const FourOhFour = () => {
           </ButtonLink>
         </div>
 
-        <small className="text-sm">
+        <small className="text-sm text-secondary-500">
           <em>404: Page not found</em>
         </small>
       </div>
