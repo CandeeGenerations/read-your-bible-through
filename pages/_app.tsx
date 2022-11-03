@@ -17,17 +17,20 @@ export const LayoutContext = React.createContext<{
 function MyApp({Component, pageProps}) {
   const sep = ' -------------------------------------'
 
-  console.log(`
-   _____    _____                
-  / ____|  / ____|               
- | |      | |  __  ___ _ __  
- | |      | | |_ |/ _ \\ '_ \\ 
- | |____  | |__| |  __/ | | |
-  \\_____|  \\_____|\\___|_| |_|
-  
-${sep}
- Read Your Bible Through | v${process.env.NEXT_PUBLIC_APP_VERSION || '_dev'}
-${sep}`)
+  console.log('   _____    _____')
+  console.log('  / ____|  / ____|')
+  console.log(' | |      | |  __  ___ _ __')
+  console.log(" | |      | | |_ |/ _ \\ '_ \\")
+  console.log(' | |____  | |__| |  __/ | | |')
+  console.log('  \\_____|  \\_____|\\___|_| |_|')
+  console.log('')
+  console.log(sep)
+  console.log(
+    ` Read Your Bible Through | v${
+      process.env.NEXT_PUBLIC_APP_VERSION || '_dev'
+    }`,
+  )
+  console.log(sep)
 
   const router = useRouter()
   const [pageState, stateFunc] = useState<IPageState>({
