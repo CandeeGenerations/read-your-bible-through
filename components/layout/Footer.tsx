@@ -24,6 +24,9 @@ const Footer = () => {
           >
             Central Baptist Church
           </a>
+          {process.env.NEXT_PUBLIC_APP_VERSION ? (
+            <small> v{process.env.NEXT_PUBLIC_APP_VERSION}</small>
+          ) : null}
         </div>
 
         <div className="flex flex-grow-0">
