@@ -15,12 +15,22 @@ export const LayoutContext = React.createContext<{
 }>({})
 
 function MyApp({Component, pageProps}) {
+  const sep = ' -------------------------------------'
+
+  console.log('   _____    _____')
+  console.log('  / ____|  / ____|')
+  console.log(' | |      | |  __  ___ _ __')
+  console.log(" | |      | | |_ |/ _ \\ '_ \\")
+  console.log(' | |____  | |__| |  __/ | | |')
+  console.log('  \\_____|  \\_____|\\___|_| |_|')
+  console.log('')
+  console.log(sep)
   console.log(
-    `Read Your Bible Through | v${
+    ` Read Your Bible Through | v${
       process.env.NEXT_PUBLIC_APP_VERSION || '_dev'
     }`,
   )
-  console.log('-------------------------------------')
+  console.log(sep)
 
   const router = useRouter()
   const [pageState, stateFunc] = useState<IPageState>({
