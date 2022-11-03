@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.4](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.4.3...v1.4.4) (2022-11-03)
+
+
+### Bug Fixes
+
+* added doppler ([54aadfc](https://github.com/CandeeGenerations/read-your-bible-through/commit/54aadfca6eff429066aae1a8d7cdab4accdb87a0))
+
 ### [1.4.3](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.4.2...v1.4.3) (2022-11-03)
 
 
