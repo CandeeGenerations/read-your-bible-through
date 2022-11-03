@@ -15,6 +15,20 @@ export const LayoutContext = React.createContext<{
 }>({})
 
 function MyApp({Component, pageProps}) {
+  const sep = ' -------------------------------------'
+
+  console.log(`
+   _____    _____                
+  / ____|  / ____|               
+ | |      | |  __  ___ _ __  
+ | |      | | |_ |/ _ \\ '_ \\ 
+ | |____  | |__| |  __/ | | |
+  \\_____|  \\_____|\\___|_| |_|
+  
+${sep}
+ Read Your Bible Through | v${process.env.NEXT_PUBLIC_APP_VERSION || '_dev'}
+${sep}`)
+
   const router = useRouter()
   const [pageState, stateFunc] = useState<IPageState>({
     open: false,
