@@ -9,7 +9,7 @@ const FourOhFour = () => {
   return (
     <Layout>
       <Head>
-        <title>404 | {siteTitle}</title>
+        <title>{`404 | ${siteTitle}`}</title>
       </Head>
 
       <div className="mt-24">
@@ -19,7 +19,7 @@ const FourOhFour = () => {
           alt="Read Your Bible Through"
         />
 
-        <h1 className="text-5xl font-bold text-primary-900">
+        <h1 className="font-linden text-5xl font-bold text-primary-900">
           Jeremiah 29:13 says...
         </h1>
 
