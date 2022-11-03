@@ -1,8 +1,8 @@
 import {ChevronLeftIcon, ChevronRightIcon} from '@heroicons/react/outline'
 import dayjs from 'dayjs'
 import dayOfYear from 'dayjs/plugin/dayOfYear'
+import Head from 'next/head'
 import React, {useContext, useEffect, useState} from 'react'
-import {Helmet} from 'react-helmet'
 import {getBooks} from '../api/verse.api'
 import ButtonLink from '../components/buttonLink'
 import Layout from '../components/layout'
@@ -70,7 +70,9 @@ const Home = (props) => {
 
   return (
     <Layout>
-      <Helmet title={siteTitle} />
+      <Head>
+        <title>{siteTitle}</title>
+      </Head>
 
       <SEO />
 

@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import React, {useContext} from 'react'
 import {gtagEvent} from '../../libs/gtag'
 import {LayoutContext} from '../../pages/_app'
@@ -10,7 +11,7 @@ const TopPromo = (): React.ReactElement => {
       <div className="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
         <div className="pr-16 sm:text-center sm:px-16">
           <p className="font-medium text-white">
-            <span>Read Your Bible Through in 2022!</span>
+            <span>Read Your Bible Through in {dayjs().format('YYYY')}!</span>
 
             <span className="block sm:ml-2 sm:inline-block">
               <a

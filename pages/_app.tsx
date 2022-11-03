@@ -1,11 +1,11 @@
-import {Helmet} from 'react-helmet'
-import 'tailwindcss/tailwind.css'
-import '../styles/globals.css'
+import Head from 'next/head'
 import {useRouter} from 'next/router'
 import React, {useState} from 'react'
+import 'tailwindcss/tailwind.css'
 import LearnModal from '../components/layout/LearnModal'
 import {setPageState} from '../helpers'
 import * as gtag from '../libs/gtag'
+import '../styles/globals.css'
 
 export interface IPageState {
   open?: boolean
@@ -38,7 +38,7 @@ function MyApp({Component, pageProps}) {
 
   return (
     <>
-      <Helmet>
+      <Head>
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Merriweather:700,700i&display=swap"
@@ -61,7 +61,7 @@ function MyApp({Component, pageProps}) {
           href="/favicon/favicon-16x16.png"
         />
         <link rel="manifest" href="/favicon/site.webmanifest" />
-      </Helmet>
+      </Head>
 
       <LayoutContext.Provider
         value={{

@@ -1,6 +1,6 @@
-import Document, {Html, Head, Main, NextScript} from 'next/document'
+import Document, {Head, Html, Main, NextScript} from 'next/document'
 
-export default class MyDocument extends Document {
+export default class AppDocument extends Document {
   render() {
     const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID
 
