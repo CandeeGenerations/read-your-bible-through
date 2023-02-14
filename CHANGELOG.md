@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.6](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.4.5...v1.4.6) (2023-02-14)
+
+
+### Bug Fixes
+
+* package updates ([4af2879](https://github.com/CandeeGenerations/read-your-bible-through/commit/4af28796531f621faa1d3b272901f1cac42b5026))
+
 ### [1.4.5](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.4.4...v1.4.5) (2022-12-15)
 
 
