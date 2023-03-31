@@ -11,6 +11,7 @@ export interface IPageState {
 }
 
 export const LayoutContext = React.createContext<{
+  // eslint-disable-next-line no-unused-vars
   showHideLearnModal?: (open: boolean) => void
 }>({})
 

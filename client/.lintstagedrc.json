@@ -1,0 +1,3 @@
+{
+  "**/*.+(js|md|ts|tsx|css|sass|less|graphql|yml|yaml|json|vue)": "prettier --write"
+}

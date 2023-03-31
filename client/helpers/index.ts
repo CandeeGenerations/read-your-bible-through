@@ -8,6 +8,7 @@ import {
   ITestamentReading,
 } from './types'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const advancedFormat = require('dayjs/plugin/advancedFormat')
 
 dayjs.extend(advancedFormat)
@@ -17,6 +18,7 @@ export const classNames = (...classes: string[]): string =>
 
 // eslint-disable-next-line no-unused-vars
 export function setPageState<T>(
+  // eslint-disable-next-line no-unused-vars
   setState: (updates: T) => void,
   current: T,
   updates: T,

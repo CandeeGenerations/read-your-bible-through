@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import React from 'react'
 import ButtonLink from '../components/buttonLink'
 import Layout from '../components/layout'
@@ -13,10 +14,12 @@ const FourOhFour = () => {
       </Head>
 
       <div className="mt-24">
-        <img
+        <Image
           src="/images/horizontal.svg"
           className="max-w-2xl w-full mb-14"
           alt="Read Your Bible Through"
+          width={1084}
+          height={634}
         />
 
         <h1 className="font-linden text-5xl font-bold text-primary-900">
