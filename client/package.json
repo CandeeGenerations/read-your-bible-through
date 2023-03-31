@@ -10,6 +10,7 @@
     "dev": "doppler run --command='NEXT_PUBLIC_APP_VERSION=$npm_package_version next dev -p ${PORT-3000}'",
     "build": "NEXT_PUBLIC_APP_VERSION=$npm_package_version next build",
     "start": "NEXT_PUBLIC_APP_VERSION=$npm_package_version next start",
+    "export": "next export",
     "lint": "eslint '**/*.+(ts|tsx)'"
   },
   "dependencies": {
