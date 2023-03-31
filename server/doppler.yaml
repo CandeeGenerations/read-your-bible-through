@@ -1,0 +1,3 @@
+setup:
+  project: read-your-bible-through-server
+  config: dev
