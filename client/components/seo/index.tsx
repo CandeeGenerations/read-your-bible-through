@@ -11,6 +11,7 @@ const SEO = () => {
   const fullURL = (path: string) => (path ? `${siteUrl}${path}` : siteUrl)
   const image = '/favicon/android-chrome-512x512.png'
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const metaTags: DetailedHTMLProps<any, any>[] = [
     {charset: 'utf-8'},
     {
@@ -55,12 +56,7 @@ const SEO = () => {
       title={`${title} | ${siteTitle}` || siteTitle}
       htmlAttributes={{lang: 'en'}}
       meta={metaTags}
-    >
-      <link
-        href="https://fonts.googleapis.com/css?family=Merriweather:700,700i&display=swap"
-        rel="stylesheet"
-      />
-    </Helmet>
+    />
   )
 }
 

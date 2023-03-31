@@ -1,0 +1,15 @@
+/node_modules
+.dockerignore
+.gitignore
+.prettierrc
+commitlint.config.js
+lerna.json
+
+/client/node_modules
+/client/.eslintrc.json
+/client/.lintstagedrc.json
+/client/doppler.yaml
+
+/server/node_modules
+/server/.eslintrc.json
+/server/doppler.yaml

@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/client/node_modules
+/server/node_modules
 /.pnp
 .pnp.js
 
@@ -9,11 +11,12 @@
 /coverage
 
 # next.js
-/.next/
-/out/
+/client/.next/
+/client/out/
 
 # production
-/build
+/client/build
+/server/dist
 
 # misc
 .DS_Store
@@ -23,16 +26,16 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
 # local env files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env*.local
 
 # vercel
 .vercel
 
-.idea/
-.vscode/
+# typescript
+*.tsbuildinfo
+client/next-env.d.ts
+
+.idea

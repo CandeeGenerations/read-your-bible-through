@@ -1,12 +1,14 @@
 import {Dialog, Transition} from '@headlessui/react'
 import {XMarkIcon} from '@heroicons/react/24/outline'
+import Image from 'next/image'
 import React, {Fragment} from 'react'
 import {gtagEvent} from '../../libs/gtag'
 import ButtonLink from '../buttonLink'
 
 interface ILearnModal {
-  open: boolean
+  // eslint-disable-next-line no-unused-vars
   onChange: (open: boolean) => void
+  open: boolean
 }
 
 const LearnModal = ({open, onChange}: ILearnModal): React.ReactElement => {
@@ -68,9 +70,11 @@ const LearnModal = ({open, onChange}: ILearnModal): React.ReactElement => {
 
               <div>
                 <div className="mx-auto flex items-center justify-center h-12 w-12">
-                  <img
+                  <Image
                     src="/favicon/apple-touch-icon.png"
                     alt="Read Your Bible Through"
+                    width={180}
+                    height={180}
                   />
                 </div>
 
@@ -87,7 +91,7 @@ const LearnModal = ({open, onChange}: ILearnModal): React.ReactElement => {
                       It can be difficult to remember what chapters of the Bible
                       you are supposed to read today to be able to read your
                       Bible through in a year. We aim to make it easier for you
-                      to read God's Word in a year.
+                      to read God&apos;s Word in a year.
                     </p>
 
                     <div className="relative mt-5">
@@ -158,8 +162,8 @@ const LearnModal = ({open, onChange}: ILearnModal): React.ReactElement => {
 
                     <p className="text-sm text-gray-500 mt-10">
                       The goal of this program is to edify you as a believer in
-                      reading God's Love Letter to you each year. May the Lord
-                      bless you in your endeavors to glorify Him.
+                      reading God&apos;s Love Letter to you each year. May the
+                      Lord bless you in your endeavors to glorify Him.
                     </p>
                   </div>
                 </div>

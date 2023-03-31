@@ -2,6 +2,7 @@ import {ChevronLeftIcon, ChevronRightIcon} from '@heroicons/react/24/outline'
 import dayjs from 'dayjs'
 import dayOfYear from 'dayjs/plugin/dayOfYear'
 import Head from 'next/head'
+import Image from 'next/image'
 import React, {useContext, useEffect, useState} from 'react'
 import {getBooks} from '../api/verse.api'
 import ButtonLink from '../components/buttonLink'
@@ -77,10 +78,12 @@ const Home = (props) => {
       <SEO />
 
       <div className="mt-14 mb-16 mx-5">
-        <img
+        <Image
           src="/images/default.png"
           className="mx-auto"
           alt="Read Your Bible Through"
+          width={672}
+          height={53}
         />
       </div>
 
@@ -222,7 +225,7 @@ const Home = (props) => {
               })
             }}
           >
-            Go to Today's Reading
+            Go to Today&apos;s Reading
           </ButtonLink>
         </div>
       </div>
