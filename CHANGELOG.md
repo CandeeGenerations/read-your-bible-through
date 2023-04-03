@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.4.6...v1.5.0) (2023-04-03)
+
+
+### Features
+
+* added legal pages ([c8027d3](https://github.com/CandeeGenerations/read-your-bible-through/commit/c8027d33265c55043a84543bb8a167db31187f53))
+* added server ([1cb0e76](https://github.com/CandeeGenerations/read-your-bible-through/commit/1cb0e76b6246444437078c310e5b7bd7456977a4))
+* moved to client and server structure ([ecd48ed](https://github.com/CandeeGenerations/read-your-bible-through/commit/ecd48ed830c60fa10f452127f47aa332dc1a77c4))
+
 ### [1.4.6](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.4.5...v1.4.6) (2023-02-14)
 
 
