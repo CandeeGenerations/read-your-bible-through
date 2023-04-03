@@ -10,7 +10,7 @@ const FourOhFour = () => {
   return (
     <Layout>
       <Head>
-        <title>{`404 | ${siteTitle}`}</title>
+        <title>404 | ${siteTitle}</title>
       </Head>
 
       <div className="mt-24">
