@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import Link from 'next/link'
 import {gtagEvent} from '../../libs/gtag'
 
 const Footer = () => {
@@ -24,6 +25,45 @@ const Footer = () => {
           >
             Central Baptist Church
           </a>
+          <br />
+          <Link
+            href="/privacy"
+            onClick={() =>
+              gtagEvent({
+                action: 'privacy__footer__link',
+                category: 'engagement',
+                label: 'click_event',
+              })
+            }
+          >
+            Privacy Policy
+          </Link>{' '}
+          |{' '}
+          <Link
+            href="/terms"
+            onClick={() =>
+              gtagEvent({
+                action: 'terms__footer__link',
+                category: 'engagement',
+                label: 'click_event',
+              })
+            }
+          >
+            Terms of Service
+          </Link>{' '}
+          |{' '}
+          <Link
+            href="/data"
+            onClick={() =>
+              gtagEvent({
+                action: 'data__footer__link',
+                category: 'engagement',
+                label: 'click_event',
+              })
+            }
+          >
+            Data Deletion
+          </Link>
         </div>
 
         <div className="flex flex-grow-0">
