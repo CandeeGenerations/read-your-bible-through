@@ -1,0 +1,60 @@
+import cors from 'cors'
+import express from 'express'
+import fs from 'fs'
+import path from 'path'
+import config from './common/config'
+import pingRoutes from './domains/ping/routes'
+import userRoutes from './domains/user/routes'
+
+const app = express()
+const {port} = config
+const pjson = JSON.parse(
+  fs.readFileSync(path.join(__dirname, '../', 'package.json'), 'utf8'),
+)
+const sep = ' -------------------------------------'
+
+app.use(express.json({limit: '50mb'}))
+app.use(cors())
+
+console.log(`
+   _____    _____                
+  / ____|  / ____|               
+ | |      | |  __  ___ _ __  
+ | |      | | |_ |/ _ \\ '_ \\ 
+ | |____  | |__| |  __/ | | |
+  \\_____|  \\_____|\\___|_| |_|
+     
+${sep}
+ Read Your Bible Through Server | v${pjson.version || '_dev'}
+ 🚀 Server ready on PORT: ${port}
+${sep}
+ Routes:`)
+
+const cleanseRouteName = (routeObject: any): string => {
+  const routeName = Object.keys(routeObject)[0]
+
+  return routeName
+    .replace('Routes', '')
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .toLowerCase()
+}
+
+const useRoute = (routeObject: any, parentRouteName?: string): void => {
+  const routeName = cleanseRouteName(routeObject)
+  const route = `/api/${
+    parentRouteName ? `${parentRouteName}/` : ''
+  }${routeName}`
+
+  console.log(` - ${route}`)
+
+  // noinspection TypeScriptValidateTypes
+  app.use(route, routeObject[Object.keys(routeObject)[0]])
+}
+
+for (const routeObject of [{pingRoutes}, {userRoutes}]) {
+  useRoute(routeObject)
+}
+
+console.log(sep)
+
+app.listen(port)

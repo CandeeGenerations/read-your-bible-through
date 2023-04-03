@@ -1,0 +1,120 @@
+name: Build and Deployment
+
+on:
+  push:
+    branches: [release]
+
+  workflow_dispatch:
+
+jobs:
+  start-notify:
+    name: Notify of Build Start
+    runs-on: ubuntu-latest
+    env:
+      ENV: PROD
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK }}
+
+    steps:
+      - uses: act10ns/slack@v2
+        with:
+          status: starting
+          channel: '#release'
+          message: '*[Read Your Bible Through Server]* Starting Build and Deployment to *${{ env.ENV }}*...'
+        if: always()
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    env:
+      APP_NAME: ${{ secrets.APP_NAME }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK }}
+
+      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+      AZURE_REGISTRY_LOGIN_SERVER: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
+      AZURE_REGISTRY_PASSWORD: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+      AZURE_REGISTRY_USERNAME: ${{ secrets.AZURE_REGISTRY_USERNAME }}
+      AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
+
+    steps:
+      - name: Check out code
+        id: checkout
+        uses: actions/checkout@v3
+
+      - name: Read node from package.json
+        uses: culshaw/read-package-node-version-actions@v1
+        id: read-package-json
+
+      - name: Login via Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ env.AZURE_CREDENTIALS }}
+
+      - name: Log into Azure docker
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.AZURE_REGISTRY_LOGIN_SERVER }}
+          username: ${{ env.AZURE_REGISTRY_USERNAME }}
+          password: ${{ env.AZURE_REGISTRY_PASSWORD }}
+
+      - name: Build, tag, and push image to Azure
+        env:
+          REGISTRY: ${{ env.AZURE_REGISTRY_LOGIN_SERVER }}
+          REPOSITORY: ${{ env.APP_NAME }}
+          IMAGE_TAG: ${{ steps.read-package-json.outputs.version }}
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:latest -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -t $REGISTRY/$REPOSITORY:${{ github.sha }} .
+          docker push $REGISTRY/$REPOSITORY:latest
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REPOSITORY:${{ github.sha }}
+
+      - name: Notify of failed build
+        uses: act10ns/slack@v2
+        if: ${{ failure() }}
+        with:
+          status: ${{ job.status }}
+          steps: '{"test":{"outcome":"success"},"build":{"outcome":"failure"},"deploy":{"outcome":"cancelled"}}'
+          channel: '#release'
+
+  deploy:
+    needs: [build]
+    name: Deploy
+    runs-on: ubuntu-latest
+    env:
+      APP_NAME: ${{ secrets.APP_NAME }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK }}
+
+      AZURE_CREDENTIALS: ${{ secrets.AZURE_SERVICE_APP_CREDENTIALS }}
+      AZURE_REGISTRY_LOGIN_SERVER: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
+      AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
+
+    steps:
+      - name: Azure deployment
+        uses: azure/webapps-deploy@v2.2.6
+        with:
+          publish-profile: ${{ env.AZURE_CREDENTIALS }}
+          app-name: ${{ env.APP_NAME }}
+          images: ${{ env.AZURE_REGISTRY_LOGIN_SERVER }}/${{ env.APP_NAME }}:${{ github.sha }}
+          resource-group-name: ${{ env.AZURE_RESOURCE_GROUP }}
+
+      - name: Notify of failed deploy
+        uses: act10ns/slack@v2
+        if: ${{ failure() }}
+        with:
+          status: ${{ job.status }}
+          steps: '{"test":{"outcome":"success"},"build":{"outcome":"success"},"deploy":{"outcome":"failure"}}'
+          channel: '#release'
+
+  end-notify:
+    needs: [build, deploy]
+    name: Notify of Deploy Complete
+    runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK }}
+
+    steps:
+      - uses: act10ns/slack@v2
+        with:
+          status: ${{ job.status }}
+          steps: '{"test":{"outcome":"success"},"build":{"outcome":"success"},"deploy":{"outcome":"success"}}'
+          channel: '#release'
+        if: always()
