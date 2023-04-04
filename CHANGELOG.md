@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.5.0...v1.6.0) (2023-04-04)
+
+
+### Features
+
+* added passage tracking, progress bar, and bible gateway ([cfb0664](https://github.com/CandeeGenerations/read-your-bible-through/commit/cfb066407eef8dc3dd63c8b6fc18e40c521832e1))
+
 ## [1.5.0](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.4.6...v1.5.0) (2023-04-03)
 
 

@@ -1,3 +1,5 @@
+import axios from 'axios'
+import {SessionProvider} from 'next-auth/react'
 import {useRouter} from 'next/router'
 import React, {useState} from 'react'
 import 'tailwindcss/tailwind.css'
@@ -5,6 +7,7 @@ import LearnModal from '../components/layout/LearnModal'
 import {setPageState} from '../helpers'
 import * as gtag from '../libs/gtag'
 import '../styles/globals.css'
+import UserProvider from '../providers/user.provider'
 
 export interface IPageState {
   open?: boolean
@@ -15,7 +18,9 @@ export const LayoutContext = React.createContext<{
   showHideLearnModal?: (open: boolean) => void
 }>({})
 
-function MyApp({Component, pageProps}) {
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL
+
+function MyApp({Component, pageProps: {session, ...pageProps}}) {
   const sep = ' -------------------------------------'
 
   console.log(`
@@ -52,13 +57,17 @@ ${sep}`)
 
   return (
     <>
-      <LayoutContext.Provider
-        value={{
-          showHideLearnModal: (open) => setState({open}),
-        }}
-      >
-        <Component {...pageProps} />
-      </LayoutContext.Provider>
+      <SessionProvider session={session}>
+        <UserProvider>
+          <LayoutContext.Provider
+            value={{
+              showHideLearnModal: (open) => setState({open}),
+            }}
+          >
+            <Component {...pageProps} />
+          </LayoutContext.Provider>
+        </UserProvider>
+      </SessionProvider>
 
       <LearnModal open={pageState.open} onChange={(open) => setState({open})} />
     </>

@@ -66,21 +66,29 @@ const Footer = () => {
           </Link>
         </div>
 
-        <div className="flex flex-grow-0">
-          &copy; 2022{year !== '2022' && ` - ${year}`}&nbsp;
-          <a
-            href="https://candeegenerations.com?ref=readyourbiblethrough.com"
-            target="_blank"
-            onClick={() =>
-              gtagEvent({
-                action: 'footer__candee_generations__link',
-                category: 'engagement',
-                label: 'click_event',
-              })
-            }
-          >
-            Candee Generations
-          </a>
+        <div className="flex flex-col text-center lg:text-right flex-grow-0">
+          <div>
+            &copy; 2022{year !== '2022' && ` - ${year}`}&nbsp;
+            <a
+              href="https://candeegenerations.com?ref=readyourbiblethrough.com"
+              target="_blank"
+              onClick={() =>
+                gtagEvent({
+                  action: 'footer__candee_generations__link',
+                  category: 'engagement',
+                  label: 'click_event',
+                })
+              }
+            >
+              Candee Generations
+            </a>
+          </div>
+
+          <div>
+            <small className="text-sm text-secondary-500">
+              v{process.env.NEXT_PUBLIC_APP_VERSION || '_dev'}
+            </small>
+          </div>
         </div>
       </div>
     </>
