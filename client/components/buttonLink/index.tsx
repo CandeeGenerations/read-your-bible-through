@@ -9,7 +9,7 @@ const ButtonLink = ({
   className = '',
 }) => {
   const classes =
-    'mt-5 text-center items-center px-4 py-3 border-2 border-primary-300 shadow-sm font-medium rounded-md text-primary-700 bg-transparent hover:bg-secondary-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500'
+    'inline-block mt-5 text-center items-center px-4 py-3 border-2 border-primary-300 shadow-sm font-medium rounded-md text-primary-700 bg-transparent hover:bg-secondary-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500'
   const anchorProps = anchor
     ? {rel: 'noopener noreferrer', target: '_blank'}
     : {}

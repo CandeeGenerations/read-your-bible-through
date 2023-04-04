@@ -15,4 +15,16 @@ model User {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   email String @unique
   name  String
+
+  passageTracks PassageTrack[] @relation("passageTracks")
+}
+
+model PassageTrack {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  user   User?   @relation("passageTracks", fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userId String? @db.ObjectId
+
+  trackDate   String
+  passageDate String
 }

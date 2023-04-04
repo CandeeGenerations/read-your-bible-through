@@ -5,6 +5,7 @@ import path from 'path'
 import config from './common/config'
 import pingRoutes from './domains/ping/routes'
 import userRoutes from './domains/user/routes'
+import trackRoutes from './domains/track/routes'
 
 const app = express()
 const {port} = config
@@ -53,6 +54,12 @@ const useRoute = (routeObject: any, parentRouteName?: string): void => {
 
 for (const routeObject of [{pingRoutes}, {userRoutes}]) {
   useRoute(routeObject)
+
+  if (cleanseRouteName(routeObject) === 'user') {
+    console.log(' - /api/user/:userId/track')
+
+    app.use('/api/user', trackRoutes)
+  }
 }
 
 console.log(sep)

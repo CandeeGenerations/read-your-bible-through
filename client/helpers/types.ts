@@ -43,3 +43,8 @@ export interface IDisplayReading {
   book: string
   chapters: string[]
 }
+
+export interface IPassageTrack {
+  id: string
+  passageDate: string
+}
