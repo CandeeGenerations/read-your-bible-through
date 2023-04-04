@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.1](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.6.0...v1.6.1) (2023-04-04)
+
+
+### Bug Fixes
+
+* fixed issue with server side rendering ([8dd9f2b](https://github.com/CandeeGenerations/read-your-bible-through/commit/8dd9f2bb404a2ac1f1ca420b55203930b91ab1e4))
+
 ## [1.6.0](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.5.0...v1.6.0) (2023-04-04)
 
 
