@@ -6,6 +6,7 @@ import config from './common/config'
 import pingRoutes from './domains/ping/routes'
 import userRoutes from './domains/user/routes'
 import trackRoutes from './domains/track/routes'
+import booksRoutes from './domains/books/routes'
 
 const app = express()
 const {port} = config
@@ -52,7 +53,7 @@ const useRoute = (routeObject: any, parentRouteName?: string): void => {
   app.use(route, routeObject[Object.keys(routeObject)[0]])
 }
 
-for (const routeObject of [{pingRoutes}, {userRoutes}]) {
+for (const routeObject of [{pingRoutes}, {userRoutes}, {booksRoutes}]) {
   useRoute(routeObject)
 
   if (cleanseRouteName(routeObject) === 'user') {

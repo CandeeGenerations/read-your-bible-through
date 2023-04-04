@@ -8,6 +8,7 @@ import dayOfYear from 'dayjs/plugin/dayOfYear'
 import React, {useEffect, useState} from 'react'
 import ButtonLink from '../../components/buttonLink'
 import Reading from '../../components/layout/Reading'
+import SmallLoader from '../../components/layout/SmallLoader'
 import {
   classNames,
   createCalendar,
@@ -30,14 +31,10 @@ export interface IPageState {
   countDays?: number
   goalAchieved?: boolean
   progress?: number
+  loading?: boolean
 }
 
-interface ICalendar {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  books: any
-}
-
-const Calendar = ({books}: ICalendar): React.ReactElement => {
+const Calendar = (): React.ReactElement => {
   const {userInfo} = useUser()
   const [pageState, stateFunc] = useState<IPageState>({
     days: [],
@@ -48,17 +45,20 @@ const Calendar = ({books}: ICalendar): React.ReactElement => {
     countDays: 365,
     goalAchieved: false,
     progress: 0,
+    loading: true,
   })
   const setState = (state: IPageState) =>
     setPageState<IPageState>(stateFunc, pageState, state)
 
   const getTracks = async () => {
+    const {data: books} = await axios.get('/books')
     const reading = getBibleReading(books)
     const state: IPageState = {
       days: createCalendar(dayjs(), true),
       reading,
       tracks: [],
       countDays: reading.filter((x) => x.otReading.length > 0).length,
+      loading: false,
     }
 
     if (userInfo) {
@@ -142,7 +142,11 @@ const Calendar = ({books}: ICalendar): React.ReactElement => {
 
   const goalAchieved = (goal: number, total: number): boolean => total >= goal
 
-  return (
+  return pageState.loading ? (
+    <div>
+      <SmallLoader size="large" addSpacing />
+    </div>
+  ) : (
     <div className="md:grid md:grid-cols-4 md:divide-x md:divide-x-reverse md:divide-gray-200">
       <section className="mt-12 md:mt-0 md:pl-14 md:col-start-3 md:col-end-5 md:row-start-1">
         <h2 className="text-3xl text-gray-900 mb-14 font-linden text-center md:text-left">
@@ -164,8 +168,8 @@ const Calendar = ({books}: ICalendar): React.ReactElement => {
               className={classNames(
                 'flex flex-row items-center w-full justify-center lg:justify-start lg:w-auto',
                 pageState.passageTrack
-                  ? 'text-rose-700 border-rose-300 bg-rose-50 hover:bg-rose-100 focus:ring-rose-500'
-                  : 'text-emerald-700 border-emerald-300 bg-emerald-50 hover:bg-emerald-100 focus:ring-emerald-500',
+                  ? '!text-rose-700 !border-rose-300 !bg-rose-50 hover:!bg-rose-100 focus:!ring-rose-500'
+                  : '!text-emerald-700 !border-emerald-300 !bg-emerald-50 hover:!bg-emerald-100 focus:!ring-emerald-500',
               )}
             >
               <FontAwesomeIcon
@@ -256,61 +260,67 @@ const Calendar = ({books}: ICalendar): React.ReactElement => {
           </div>
 
           <div className="isolate mt-2 text-sm grid grid-cols-7 gap-px rounded-lg bg-gray-200 shadow ring-1 ring-gray-200">
-            {pageState.days.map((day, dayIdx) => (
-              <button
-                key={dayIdx}
-                type="button"
-                disabled={!day.isCurrentMonth}
-                onClick={() => selectDay(day.date)}
-                className={classNames(
-                  'py-1.5 focus:z-10',
-                  day.isCurrentMonth
-                    ? 'hover:bg-gray-100'
-                    : 'hover:cursor-default',
-                  day.isCurrentMonth
-                    ? day.isToday
-                      ? 'bg-secondary-100'
-                      : 'bg-white'
-                    : 'bg-gray-50',
-                  (day.isSelected || day.isToday) && 'font-semibold',
-                  day.isSelected && 'text-white',
-                  !day.isSelected &&
-                    day.isCurrentMonth &&
-                    !day.isToday &&
-                    'text-gray-900',
-                  !day.isSelected &&
-                    !day.isCurrentMonth &&
-                    !day.isToday &&
-                    'text-gray-400',
-                  day.isToday && !day.isSelected && 'text-primary-600',
-                  dayIdx === 0 && 'rounded-tl-lg',
-                  dayIdx === 6 && 'rounded-tr-lg',
-                  dayIdx === pageState.days.length - 7 && 'rounded-bl-lg',
-                  dayIdx === pageState.days.length - 1 && 'rounded-br-lg',
-                  (pageState.tracks || []).find((x) =>
-                    dayjs(x.passageDate).isSame(dayjs(day.date), 'day'),
-                  ) &&
-                    day.isCurrentMonth &&
-                    'bg-emerald-100 text-white hover:bg-gray-50',
-                )}
-              >
-                <time
-                  dateTime={day.date}
+            {pageState.days.map((day, dayIdx) => {
+              const tracked = (pageState.tracks || []).find((x) =>
+                dayjs(x.passageDate).isSame(dayjs(day.date), 'day'),
+              )
+
+              return (
+                <button
+                  key={dayIdx}
+                  type="button"
+                  disabled={!day.isCurrentMonth}
+                  onClick={() => selectDay(day.date)}
                   className={classNames(
-                    'mx-auto flex h-10 w-10 lg:h-14 lg:w-14 items-center justify-center rounded-full',
-                    day.isSelected &&
-                      'bg-primary-300 border-2 border-primary-500',
-                    (pageState.tracks || []).find((x) =>
-                      dayjs(x.passageDate).isSame(dayjs(day.date), 'day'),
-                    ) &&
+                    'py-1.5 focus:z-10',
+                    day.isCurrentMonth
+                      ? 'hover:bg-gray-100'
+                      : 'hover:cursor-default',
+                    day.isCurrentMonth
+                      ? tracked
+                        ? 'bg-emerald-100'
+                        : day.isToday
+                        ? 'bg-secondary-100'
+                        : 'bg-white'
+                      : 'bg-gray-50',
+                    (day.isSelected || day.isToday) && 'font-semibold',
+                    day.isSelected && 'text-white',
+                    !day.isSelected &&
                       day.isCurrentMonth &&
-                      'bg-emerald-300 border-emerald-500',
+                      !day.isToday &&
+                      'text-gray-900',
+                    !day.isSelected &&
+                      !day.isCurrentMonth &&
+                      !day.isToday &&
+                      'text-gray-400',
+                    day.isToday && !day.isSelected && 'text-primary-600',
+                    dayIdx === 0 && 'rounded-tl-lg',
+                    dayIdx === 6 && 'rounded-tr-lg',
+                    dayIdx === pageState.days.length - 7 && 'rounded-bl-lg',
+                    dayIdx === pageState.days.length - 1 && 'rounded-br-lg',
+                    tracked &&
+                      day.isCurrentMonth &&
+                      'bg-emerald-100 text-white hover:bg-gray-50',
                   )}
                 >
-                  {day.date.split('-').pop().replace(/^0/, '')}
-                </time>
-              </button>
-            ))}
+                  <time
+                    dateTime={day.date}
+                    className={classNames(
+                      'mx-auto flex h-10 w-10 lg:h-14 lg:w-14 items-center justify-center rounded-full',
+                      day.isSelected &&
+                        !tracked &&
+                        'bg-primary-300 border-2 border-primary-500',
+                      day.isSelected && tracked && 'border-2',
+                      tracked &&
+                        day.isCurrentMonth &&
+                        'bg-emerald-300 border-emerald-500',
+                    )}
+                  >
+                    {day.date.split('-').pop().replace(/^0/, '')}
+                  </time>
+                </button>
+              )
+            })}
           </div>
         </div>
 

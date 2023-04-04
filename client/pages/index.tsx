@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import React from 'react'
-import {getBooks} from '../api/verse.api'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import {siteTitle} from '../helpers/constants'
@@ -10,7 +9,7 @@ import Calendar from './_components/Calendar'
 import HomeLinks from './_components/HomeLinks'
 import UserProfile from './_components/UserProfile'
 
-const Home = (props) => {
+const Home = () => {
   const {userInfo} = useUser()
 
   return (
@@ -35,19 +34,9 @@ const Home = (props) => {
 
       <HomeLinks />
 
-      <Calendar books={props.books} />
+      <Calendar />
     </Layout>
   )
-}
-
-export const getStaticProps = async () => {
-  const books = await getBooks()
-
-  return {
-    props: {
-      books,
-    },
-  }
 }
 
 export default Home
