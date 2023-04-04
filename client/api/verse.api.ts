@@ -5,6 +5,7 @@ const headers = {
 }
 
 export const getBooks = async () => {
+  // noinspection TypeScriptValidateTypes
   const response = await axios.get(
     `${process.env.NEXT_PUBLIC_BIBLE_API_URL}/bibles/${process.env.NEXT_PUBLIC_BIBLE_ID}/books`,
     {
