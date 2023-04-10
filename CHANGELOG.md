@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.2](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.6.1...v1.6.2) (2023-04-10)
+
+
+### Bug Fixes
+
+* fixed issue with chapters with multiple books ([41f7208](https://github.com/CandeeGenerations/read-your-bible-through/commit/41f7208d5f7ec9e2e184666bae8537ea3e36b6eb))
+
 ### [1.6.1](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.6.0...v1.6.1) (2023-04-04)
 
 
