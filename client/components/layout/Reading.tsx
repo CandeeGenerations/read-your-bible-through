@@ -50,7 +50,8 @@ const Testament = ({
     if (reading.find((x) => x.book === item.name)) {
       reading = reading.map((x) => ({
         ...x,
-        chapters: [...x.chapters, item.chapter],
+        chapters:
+          x.book === item.name ? [...x.chapters, item.chapter] : x.chapters,
       }))
     } else {
       reading.push({book: item.name, chapters: [item.chapter]})
