@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.6.2...v1.7.0) (2023-07-05)
+
+
+### Features
+
+* added splashscreen and go to next reading link ([c390200](https://github.com/CandeeGenerations/read-your-bible-through/commit/c3902007df89a5798701cee2df3abf3ccd221488))
+
 ### [1.6.2](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.6.1...v1.6.2) (2023-04-10)
 
 
