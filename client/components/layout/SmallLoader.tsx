@@ -5,31 +5,31 @@ interface ISmallLoader {
   className?: string
   size?: 'small' | 'medium' | 'large'
   addSpacing?: boolean
-  center?: boolean
+  notCenter?: boolean
 }
 
 const SmallLoader = ({
   className,
   size = 'small',
-  addSpacing = false,
-  center = true,
+  addSpacing,
+  notCenter,
 }: ISmallLoader): React.ReactElement => {
   return (
     <div
       className={classNames(
-        center ? 'flex flex-col items-center' : '',
-        addSpacing ? 'py-10' : '',
+        !notCenter && 'flex flex-col items-center',
+        addSpacing && 'py-10',
       )}
     >
       <svg
         className={classNames(
+          'animate-spin text-primary',
           className,
           size === 'small'
             ? 'h-5 w-5'
             : size === 'medium'
             ? 'h-10 w-10'
             : 'h-20 w-20',
-          'animate-spin text-primary-700',
         )}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

@@ -1,8 +1,8 @@
 import axios, {AxiosResponse} from 'axios'
 import NextAuth, {AuthOptions, User} from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
-import FacebookProvider from 'next-auth/providers/facebook'
 import AzureADProvider from 'next-auth/providers/azure-ad'
+import FacebookProvider from 'next-auth/providers/facebook'
+import GoogleProvider from 'next-auth/providers/google'
 
 export const authOptions: AuthOptions = {
   providers: [

@@ -1,14 +1,14 @@
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faCheckSquare} from '@fortawesome/free-solid-svg-icons'
 import {faSquareCheck} from '@fortawesome/free-regular-svg-icons'
+import {faCheckSquare} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {ChevronLeftIcon, ChevronRightIcon} from '@heroicons/react/24/outline'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import dayOfYear from 'dayjs/plugin/dayOfYear'
+import minMax from 'dayjs/plugin/minMax'
 import React, {useEffect, useState} from 'react'
 import ButtonLink from '../../components/buttonLink'
 import Reading from '../../components/layout/Reading'
-import SmallLoader from '../../components/layout/SmallLoader'
 import {
   classNames,
   createCalendar,
@@ -19,6 +19,7 @@ import {ICalendarDay, IPassageTrack, IReadingPlan} from '../../helpers/types'
 import {gtagEvent} from '../../libs/gtag'
 import {useUser} from '../../providers/user.provider'
 
+dayjs.extend(minMax)
 dayjs.extend(dayOfYear)
 
 export interface IPageState {
@@ -31,11 +32,12 @@ export interface IPageState {
   countDays?: number
   goalAchieved?: boolean
   progress?: number
-  loading?: boolean
+  nextReading?: dayjs.Dayjs
+  markingRead?: boolean
 }
 
 const Calendar = (): React.ReactElement => {
-  const {userInfo} = useUser()
+  const {userInfo, loadTracks, tracks} = useUser()
   const [pageState, stateFunc] = useState<IPageState>({
     days: [],
     reading: [],
@@ -45,10 +47,33 @@ const Calendar = (): React.ReactElement => {
     countDays: 365,
     goalAchieved: false,
     progress: 0,
-    loading: true,
+    markingRead: false,
   })
   const setState = (state: IPageState) =>
     setPageState<IPageState>(stateFunc, pageState, state)
+
+  const getNextReadingDate = (
+    tracks: IPassageTrack[],
+  ): dayjs.Dayjs | undefined => {
+    for (const key in tracks.sort((a, b) =>
+      dayjs(a.passageDate).diff(dayjs(b.passageDate), 'day'),
+    )) {
+      const track = tracks[Number(key)]
+      const nextTrack: IPassageTrack = tracks[Number(key) + 1]
+
+      if (!nextTrack) {
+        return dayjs(track.passageDate).add(1, 'day')
+      }
+
+      if (
+        dayjs(nextTrack.passageDate).diff(dayjs(track.passageDate), 'day') > 1
+      ) {
+        return dayjs(track.passageDate).add(1, 'day')
+      }
+    }
+
+    return undefined
+  }
 
   const getTracks = async () => {
     const {data: books} = await axios.get('/books')
@@ -58,19 +83,16 @@ const Calendar = (): React.ReactElement => {
       reading,
       tracks: [],
       countDays: reading.filter((x) => x.otReading.length > 0).length,
-      loading: false,
     }
 
     if (userInfo) {
-      const {data: dataTracks} = await axios.get(`/user/${userInfo.id}/tracks`)
-      const tracks: IPassageTrack[] = dataTracks as IPassageTrack[]
-
       state.tracks = tracks
       state.passageTrack = tracks.find((x) =>
         dayjs(x.passageDate).isSame(pageState.selectedDay, 'day'),
       )
       state.goalAchieved = goalAchieved(pageState.countDays, tracks.length)
       state.progress = calculateProgress(pageState.countDays, tracks.length)
+      state.nextReading = getNextReadingDate(tracks)
     }
 
     setState({...state})
@@ -116,6 +138,8 @@ const Calendar = (): React.ReactElement => {
   }
 
   const markAsReadUnread = async () => {
+    setState({markingRead: true})
+
     await axios.post(
       `/user/${userInfo.id}/track${
         pageState.passageTrack ? `/${pageState.passageTrack.id}` : ''
@@ -124,17 +148,43 @@ const Calendar = (): React.ReactElement => {
         passageDate: pageState.selectedDay.format('YYYY-MM-DD'),
       },
     )
-    const {data: dataTracks} = await axios.get(`/user/${userInfo.id}/tracks`)
-    const tracks: IPassageTrack[] = dataTracks as IPassageTrack[]
+    const updatedTracks = await loadTracks()
 
     setState({
-      tracks,
-      passageTrack: (tracks || []).find((x) =>
+      tracks: updatedTracks,
+      passageTrack: (updatedTracks || []).find((x) =>
         dayjs(x.passageDate).isSame(pageState.selectedDay, 'day'),
       ),
-      goalAchieved: goalAchieved(pageState.countDays, tracks.length),
-      progress: calculateProgress(pageState.countDays, tracks.length),
+      goalAchieved: goalAchieved(pageState.countDays, updatedTracks.length),
+      progress: calculateProgress(pageState.countDays, updatedTracks.length),
+      nextReading: getNextReadingDate(updatedTracks),
+      markingRead: false,
     })
+  }
+
+  const goToNextReading = () => {
+    if (pageState.nextReading) {
+      setState({
+        days: createCalendar(
+          pageState.nextReading,
+          false,
+          pageState.nextReading,
+        ),
+        selectedMonth: pageState.nextReading,
+        selectedDay: pageState.nextReading,
+        passageTrack: (pageState.tracks || []).find((x) =>
+          dayjs(x.passageDate).isSame(pageState.nextReading, 'day'),
+        ),
+        goalAchieved: goalAchieved(
+          pageState.countDays,
+          pageState.tracks.length,
+        ),
+        progress: calculateProgress(
+          pageState.countDays,
+          pageState.tracks.length,
+        ),
+      })
+    }
   }
 
   const calculateProgress = (goal: number, total: number): number =>
@@ -142,11 +192,7 @@ const Calendar = (): React.ReactElement => {
 
   const goalAchieved = (goal: number, total: number): boolean => total >= goal
 
-  return pageState.loading ? (
-    <div>
-      <SmallLoader size="large" addSpacing />
-    </div>
-  ) : (
+  return (
     <div className="md:grid md:grid-cols-4 md:divide-x md:divide-x-reverse md:divide-gray-200">
       <section className="mt-12 md:mt-0 md:pl-14 md:col-start-3 md:col-end-5 md:row-start-1">
         <h2 className="text-3xl text-gray-900 mb-14 font-linden text-center md:text-left">
@@ -163,21 +209,29 @@ const Calendar = (): React.ReactElement => {
 
         {userInfo && (
           <>
-            <ButtonLink
-              onClick={markAsReadUnread}
-              className={classNames(
-                'flex flex-row items-center w-full justify-center lg:justify-start lg:w-auto',
-                pageState.passageTrack
-                  ? '!text-rose-700 !border-rose-300 !bg-rose-50 hover:!bg-rose-100 focus:!ring-rose-500'
-                  : '!text-emerald-700 !border-emerald-300 !bg-emerald-50 hover:!bg-emerald-100 focus:!ring-emerald-500',
-              )}
-            >
-              <FontAwesomeIcon
-                icon={pageState.passageTrack ? faSquareCheck : faCheckSquare}
-                className="w-4 h-4 mr-2"
-              />{' '}
-              Mark as {pageState.passageTrack ? 'Unread' : 'Read'}
-            </ButtonLink>
+            {(
+              pageState.reading.find((x) =>
+                x.date.isSame(pageState.selectedDay, 'day'),
+              )?.otReading || []
+            ).length > 0 && (
+              <ButtonLink
+                onClick={markAsReadUnread}
+                loading={pageState.markingRead}
+                className={classNames(
+                  'flex flex-row items-center w-full justify-center lg:justify-start lg:w-auto',
+                  !pageState.markingRead &&
+                    (pageState.passageTrack
+                      ? '!text-rose-700 !border-rose-300 !bg-rose-50 hover:!bg-rose-100 focus:!ring-rose-500'
+                      : '!text-emerald-700 !border-emerald-300 !bg-emerald-50 hover:!bg-emerald-100 focus:!ring-emerald-500'),
+                )}
+              >
+                <FontAwesomeIcon
+                  icon={pageState.passageTrack ? faSquareCheck : faCheckSquare}
+                  className="w-4 h-4 mr-2"
+                />{' '}
+                Mark as {pageState.passageTrack ? 'Unread' : 'Read'}
+              </ButtonLink>
+            )}
 
             <h2 className="text-3xl text-gray-900 mb-6 mt-12 font-linden text-center md:text-left">
               Your Progress
@@ -337,6 +391,25 @@ const Calendar = (): React.ReactElement => {
         >
           Go to Today&apos;s Reading
         </ButtonLink>
+
+        {userInfo &&
+          pageState.nextReading &&
+          pageState.reading.filter((x) => x.otReading.length > 0).length >
+            pageState.tracks.length && (
+            <a
+              className="underline cursor-pointer block py-2 text-center mt-5"
+              onClick={() => {
+                goToNextReading()
+                gtagEvent({
+                  action: 'home__go_to_next_reading__button',
+                  category: 'engagement',
+                  label: 'click_event',
+                })
+              }}
+            >
+              Go to Next Reading
+            </a>
+          )}
       </div>
     </div>
   )
