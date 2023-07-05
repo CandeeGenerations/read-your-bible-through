@@ -34,6 +34,7 @@ export const createCalendarItem = (
   date: dayjs.Dayjs,
   todaySelected = false,
   isCurrentMonth = true,
+  selectedDate: dayjs.Dayjs | undefined = undefined,
 ): ICalendarDay => {
   const now = dayjs()
   const isToday = date.isSame(now, 'day')
@@ -44,13 +45,19 @@ export const createCalendarItem = (
     isToday,
     isSelected:
       (todaySelected && isToday) ||
-      (!todaySelected && !isToday && isCurrentMonth && date.date() === 1),
+      (!todaySelected &&
+        !isToday &&
+        !selectedDate &&
+        isCurrentMonth &&
+        date.date() === 1) ||
+      (selectedDate && date.isSame(selectedDate, 'day')),
   }
 }
 
 export const createCalendar = (
   month: dayjs.Dayjs,
   todaySelected = false,
+  selectedDate: dayjs.Dayjs | undefined = undefined,
 ): ICalendarDay[] => {
   const daysInMonth = month.daysInMonth()
   const startOfMonth = month.startOf('month').format('ddd')
@@ -66,17 +73,17 @@ export const createCalendar = (
   }
 
   for (let i = 0; i < daysBefore; i++) {
-    calendar.push(createCalendarItem(clone, todaySelected, false))
+    calendar.push(createCalendarItem(clone, todaySelected, false, selectedDate))
     clone = clone.add(1, 'day')
   }
 
   for (let i = 0; i < daysInMonth; i++) {
-    calendar.push(createCalendarItem(clone, todaySelected))
+    calendar.push(createCalendarItem(clone, todaySelected, true, selectedDate))
     clone = clone.add(1, 'day')
   }
 
   for (let i = 0; i < daysAfter; i++) {
-    calendar.push(createCalendarItem(clone, todaySelected, false))
+    calendar.push(createCalendarItem(clone, todaySelected, false, selectedDate))
     clone = clone.add(1, 'day')
   }
 

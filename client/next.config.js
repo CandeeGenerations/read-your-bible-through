@@ -1,6 +1,10 @@
 module.exports = {
   images: {
-    domains: ['localhost', 'readthroughyourbible.com'],
+    domains: [
+      'localhost',
+      'readthroughyourbible.com',
+      'lh3.googleusercontent.com',
+    ],
     unoptimized: true,
   },
   env: {

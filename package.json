@@ -1,6 +1,6 @@
 {
   "name": "read-your-bible-through",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "description": "Read your Bible through in a year!",
   "repository": "git@github.com:CandeeGenerations/read-your-bible-through.git",
   "author": "Tyler Candee <tyler@candeegenerations.com>",
@@ -15,14 +15,17 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.5.1",
-    "@commitlint/config-conventional": "^17.4.4",
-    "concurrently": "^8.0.1",
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
+    "concurrently": "^8.2.0",
     "husky": "^8.0.3",
-    "lerna": "^6.6.1",
-    "lint-staged": "^13.2.0",
-    "prettier": "^2.8.7",
+    "lerna": "^7.1.1",
+    "lint-staged": "^13.2.3",
+    "prettier": "^3.0.0",
     "standard-version": "^9.5.0",
-    "tsc-files": "^1.1.3"
+    "tsc-files": "^1.1.4"
+  },
+  "resolutions": {
+    "semver": "^7.5.2"
   }
 }

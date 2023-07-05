@@ -1,12 +1,16 @@
 import Avvvatars from 'avvvatars-react'
-import React from 'react'
+import React, {useState} from 'react'
+import {classNames} from '../../helpers'
+import {gtagEvent} from '../../libs/gtag'
 import {useUser} from '../../providers/user.provider'
 
 const UserProfile = (): React.ReactElement => {
-  const {userInfo} = useUser()
+  const {userInfo, logOut} = useUser()
+
+  const [loggingOut, setLoggingOut] = useState<boolean>(false)
 
   return (
-    <div className="flex flex-col items-center mb-10">
+    <div className="flex flex-col items-center">
       <div className="rounded-full drop-shadow-lg mb-5">
         {userInfo.image ? (
           <img
@@ -27,6 +31,28 @@ const UserProfile = (): React.ReactElement => {
       <p className="text-secondary-600">{userInfo.name}</p>
 
       <p className="text-secondary-600">{userInfo.email}</p>
+
+      {userInfo && (
+        <a
+          className={classNames(
+            loggingOut ? 'text-muted' : 'cursor-pointer underline',
+            'block py-2',
+          )}
+          onClick={() => {
+            if (!loggingOut) {
+              setLoggingOut(true)
+              logOut()
+              gtagEvent({
+                action: 'home__log-out__button',
+                category: 'engagement',
+                label: 'click_event',
+              })
+            }
+          }}
+        >
+          {loggingOut ? 'Logging Out...' : 'Log Out'}
+        </a>
+      )}
     </div>
   )
 }

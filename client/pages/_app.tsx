@@ -6,8 +6,8 @@ import 'tailwindcss/tailwind.css'
 import LearnModal from '../components/layout/LearnModal'
 import {setPageState} from '../helpers'
 import * as gtag from '../libs/gtag'
-import '../styles/globals.css'
 import UserProvider from '../providers/user.provider'
+import '../styles/globals.css'
 
 export interface IPageState {
   open?: boolean

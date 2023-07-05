@@ -1,31 +1,45 @@
+import Link from 'next/link'
 import React from 'react'
 import {classNames} from '../../helpers'
+import SmallLoader from '../layout/SmallLoader'
 
 const ButtonLink = ({
   href = null,
   onClick = null,
   children,
-  anchor = false,
   className = '',
+  loading = false,
 }) => {
   const classes =
-    'inline-block mt-5 text-center items-center px-4 py-3 border-2 border-primary-300 shadow-sm font-medium rounded-md text-primary-700 bg-transparent hover:bg-secondary-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500'
-  const anchorProps = anchor
-    ? {rel: 'noopener noreferrer', target: '_blank'}
-    : {}
+    'inline-block mt-5 text-center items-center px-4 py-3 border-2 shadow-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500'
 
   return href ? (
-    <a
-      className={classNames(classes, className)}
+    <Link
+      className={classNames(
+        classes,
+        className,
+        loading
+          ? 'border-muted hover:bg-muted bg-muted'
+          : 'border-primary-300 text-primary-700 bg-transparent hover:bg-secondary-100',
+      )}
       href={href}
-      {...anchorProps}
       {...(onClick ? {onClick} : {})}
     >
-      {children}
-    </a>
+      {loading ? <SmallLoader /> : children}
+    </Link>
   ) : onClick ? (
-    <button className={classNames(classes, className)} onClick={onClick}>
-      {children}
+    <button
+      className={classNames(
+        classes,
+        className,
+        loading
+          ? 'border-muted hover:bg-muted bg-muted'
+          : 'border-primary-300 text-primary-700 bg-transparent hover:bg-secondary-100',
+      )}
+      disabled={loading}
+      onClick={onClick}
+    >
+      {loading ? <SmallLoader /> : children}
     </button>
   ) : null
 }
