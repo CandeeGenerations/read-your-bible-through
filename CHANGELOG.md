@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.1](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.7.0...v1.7.1) (2023-07-06)
+
+
+### Bug Fixes
+
+* updates pwa icons ([1900c87](https://github.com/CandeeGenerations/read-your-bible-through/commit/1900c87476534dd21e1f2ceec328411955104ed1))
+
 ## [1.7.0](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.6.2...v1.7.0) (2023-07-05)
 
 

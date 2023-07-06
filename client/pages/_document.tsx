@@ -8,6 +8,13 @@ export default class AppDocument extends Document {
     return (
       <Html>
         <Head>
+          <meta name="theme-color" content="#8c80b5" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="black-translucent"
+          />
+
           {GA_TRACKING_ID && (
             <>
               <script
@@ -36,23 +43,23 @@ export default class AppDocument extends Document {
           <link
             rel="apple-touch-icon"
             sizes="180x180"
-            href="/favicon/apple-touch-icon.png"
+            href="/favicon_io/apple-touch-icon.png"
           />
           <link
             rel="icon"
             type="image/png"
             sizes="32x32"
-            href="/favicon/favicon-32x32.png"
+            href="/favicon_io/favicon-32x32.png"
           />
           <link
             rel="icon"
             type="image/png"
             sizes="16x16"
-            href="/favicon/favicon-16x16.png"
+            href="/favicon_io/favicon-16x16.png"
           />
-          <link rel="manifest" href="/favicon/site.webmanifest" />
+          <link rel="manifest" href="/favicon_io/site.webmanifest" />
         </Head>
-        <body>
+        <body className="bg-primary-600">
           <Main />
           <NextScript />
         </body>
