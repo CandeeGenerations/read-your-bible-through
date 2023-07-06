@@ -1,0 +1,22 @@
+{
+  "name": "Read Your Bible Through",
+  "short_name": "Bible Reading",
+  "description": "Read your Bible through in a year!",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#8c80b5",
+  "background_color": "#8c80b5"
+}
