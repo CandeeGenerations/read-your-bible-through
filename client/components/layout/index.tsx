@@ -7,7 +7,7 @@ const Layout = ({children}) => {
     <>
       <TopPromo />
 
-      <div className="bg-white">
+      <div className="bg-white pt-14">
         <div className="container max-w-screen-xl mx-auto p-5 md:p-16 lg:p-10">
           {children}
 

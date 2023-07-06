@@ -7,7 +7,7 @@ const TopPromo = (): React.ReactElement => {
   const {showHideLearnModal} = useContext(LayoutContext)
 
   return (
-    <div className="relative bg-primary-600">
+    <div className="fixed bg-primary-600 w-full z-10 pt-14 sm:pt-0">
       <div className="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
         <div className="pr-16 sm:text-center sm:px-16">
           <p className="font-medium text-white">

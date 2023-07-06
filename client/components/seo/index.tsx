@@ -9,23 +9,23 @@ const SEO = () => {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   const url = siteUrl
   const fullURL = (path: string) => (path ? `${siteUrl}${path}` : siteUrl)
-  const image = '/favicon/android-chrome-512x512.png'
+  const image = '/favicon_io/android-chrome-512x512.png'
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const metaTags: DetailedHTMLProps<any, any>[] = [
-    {charset: 'utf-8'},
+    // {charset: 'utf-8'},
     {
       'http-equiv': 'X-UA-Compatible',
       content: 'IE=edge',
     },
-    {
-      name: 'viewport',
-      content: 'width=device-width, initial-scale=1',
-    },
-    {
-      name: 'theme-color',
-      content: '#fff',
-    },
+    // {
+    //   name: 'viewport',
+    //   content: 'width=device-width, initial-scale=1',
+    // },
+    // {
+    //   name: 'theme-color',
+    //   content: '#8c80b5',
+    // },
     {
       rel: 'canonical',
       href: fullURL(pathname),

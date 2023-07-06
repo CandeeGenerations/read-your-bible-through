@@ -71,7 +71,7 @@ const LearnModal = ({open, onChange}: ILearnModal): React.ReactElement => {
               <div>
                 <div className="mx-auto flex items-center justify-center h-12 w-12">
                   <Image
-                    src="/favicon/apple-touch-icon.png"
+                    src="/favicon_old/apple-touch-icon.png"
                     alt="Read Your Bible Through"
                     width={180}
                     height={180}
