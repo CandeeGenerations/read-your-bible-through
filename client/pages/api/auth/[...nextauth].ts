@@ -4,6 +4,8 @@ import AzureADProvider from 'next-auth/providers/azure-ad'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
 
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL
+
 export const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
