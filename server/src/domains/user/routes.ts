@@ -16,7 +16,7 @@ export default express
     try {
       const user = await service.getSingleByEmail(req.query.email as string)
 
-      handleSuccess(res, user)
+      handleSuccess(res, {user})
     } catch (e) {
       handleError(res, e as IException)
     }
@@ -31,7 +31,7 @@ export default express
       const newUser: User = req.body
       const user = await service.create(newUser)
 
-      handleSuccess(res, user)
+      handleSuccess(res, {user})
     } catch (e) {
       handleError(res, e as IException)
     }
@@ -58,7 +58,7 @@ export default express
 
       await service.update(id, user)
 
-      handleSuccess(res, user)
+      handleSuccess(res, {user})
     } catch (e) {
       handleError(res, e as IException)
     }

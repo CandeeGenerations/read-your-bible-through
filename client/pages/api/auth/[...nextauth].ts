@@ -4,6 +4,8 @@ import AzureADProvider from 'next-auth/providers/azure-ad'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
 
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL
+
 export const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
@@ -23,14 +25,16 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async signIn(props) {
       try {
-        const {data: existingUser}: AxiosResponse<User | null> =
-          await axios.get('/user/email', {
+        const data: AxiosResponse<{user: User | null}> = await axios.get(
+          '/user/email',
+          {
             params: {email: props.user.email},
-          })
+          },
+        )
 
-        if (existingUser) {
-          await axios.post(`/user/${existingUser.id}`, {
-            ...existingUser,
+        if (data.data.user) {
+          await axios.post(`/user/${data.data.user.id}`, {
+            ...data.data.user,
             name: props.user.name,
           })
         } else {
