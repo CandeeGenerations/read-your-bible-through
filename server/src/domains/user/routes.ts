@@ -16,6 +16,8 @@ export default express
     try {
       const user = await service.getSingleByEmail(req.query.email as string)
 
+      console.log('user :', user)
+
       handleSuccess(res, user)
     } catch (e) {
       handleError(res, e as IException)
