@@ -16,7 +16,7 @@ export default express
     try {
       const user = await service.getSingleByEmail(req.query.email as string)
 
-      console.log('user :', user)
+      console.log('Found user :', user)
 
       handleSuccess(res, user)
     } catch (e) {
@@ -30,6 +30,7 @@ export default express
    */
   .post('/', async (req: Request, res: Response) => {
     try {
+      console.log('Creating user...')
       const newUser: User = req.body
       const user = await service.create(newUser)
 
@@ -47,6 +48,7 @@ export default express
    */
   .post('/:userId', async (req: Request<{userId: string}>, res: Response) => {
     try {
+      console.log('Getting user...', req.params.userId)
       const updatedUser: User = req.body
       const id: string = req.params.userId
       let user = await service.getSingle(id)
