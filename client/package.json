@@ -39,7 +39,6 @@
   },
   "devDependencies": {
     "@locator/runtime": "^0.2.4",
-    "@netlify/plugin-nextjs": "4.32.2",
     "@types/gtag.js": "^0.0.12",
     "@types/node": "^20.4.1",
     "@types/react": "^18.2.14",
