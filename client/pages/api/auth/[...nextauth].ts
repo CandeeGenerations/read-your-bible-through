@@ -28,6 +28,8 @@ export const authOptions: AuthOptions = {
             params: {email: props.user.email},
           })
 
+        console.log('existingUser :', existingUser)
+
         if (existingUser) {
           await axios.post(`/user/${existingUser.id}`, {
             ...existingUser,
