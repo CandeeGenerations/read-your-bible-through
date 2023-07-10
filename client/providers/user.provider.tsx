@@ -82,7 +82,7 @@ const UserProvider = ({children}: {children: ReactNode}): ReactElement => {
   }, [])
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout
+    let timeout
 
     if (status === 'unauthenticated') {
       timeout = setTimeout(() => {

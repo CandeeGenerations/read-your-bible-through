@@ -23,6 +23,8 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async signIn(props) {
       try {
+        console.log('Using API URL :', axios.defaults.baseURL)
+
         const {data: existingUser}: AxiosResponse<User | null> =
           await axios.get('/user/email', {
             params: {email: props.user.email},
