@@ -32,8 +32,6 @@ export const authOptions: AuthOptions = {
           },
         )
 
-        console.log('data :', data)
-
         if (data.data.user) {
           await axios.post(`/user/${data.data.user.id}`, {
             ...data.data.user,

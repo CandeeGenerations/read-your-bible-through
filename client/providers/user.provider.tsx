@@ -48,7 +48,9 @@ const UserProvider = ({children}: {children: ReactNode}): ReactElement => {
   const getUserId = async (user: IUserInfo) => {
     if (!user.email) return
 
-    const {data}: AxiosResponse<User> = await axios.get(`/user/email`, {
+    const {
+      data: {user: data},
+    }: AxiosResponse<{user: User}> = await axios.get(`/user/email`, {
       params: {email: user.email},
     })
 
