@@ -23,16 +23,18 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async signIn(props) {
       try {
-        const {data: existingUser}: AxiosResponse<User | null> =
-          await axios.get('/user/email', {
+        const data: AxiosResponse<{user: User | null}> = await axios.get(
+          '/user/email',
+          {
             params: {email: props.user.email},
-          })
+          },
+        )
 
-        console.log('existingUser :', existingUser)
+        console.log('data :', data)
 
-        if (existingUser) {
-          await axios.post(`/user/${existingUser.id}`, {
-            ...existingUser,
+        if (data.data.user) {
+          await axios.post(`/user/${data.data.user.id}`, {
+            ...data.data.user,
             name: props.user.name,
           })
         } else {
