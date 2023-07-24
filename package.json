@@ -15,11 +15,11 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.6",
-    "@commitlint/config-conventional": "^17.6.6",
+    "@commitlint/cli": "^17.6.7",
+    "@commitlint/config-conventional": "^17.6.7",
     "concurrently": "^8.2.0",
     "husky": "^8.0.3",
-    "lerna": "^7.1.1",
+    "lerna": "^7.1.4",
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.0",
     "standard-version": "^9.5.0",
