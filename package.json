@@ -1,6 +1,6 @@
 {
   "name": "read-your-bible-through",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Read your Bible through in a year!",
   "repository": "git@github.com:CandeeGenerations/read-your-bible-through.git",
   "author": "Tyler Candee <tyler@candeegenerations.com>",
@@ -21,7 +21,7 @@
     "husky": "^8.0.3",
     "lerna": "^7.1.4",
     "lint-staged": "^13.2.3",
-    "prettier": "^3.0.0",
+    "prettier": "^3.0.1",
     "standard-version": "^9.5.0",
     "tsc-files": "^1.1.4"
   },
