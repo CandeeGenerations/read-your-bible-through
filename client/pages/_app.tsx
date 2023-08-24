@@ -21,20 +21,6 @@ export const LayoutContext = React.createContext<{
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL
 
 function MyApp({Component, pageProps: {session, ...pageProps}}) {
-  const sep = ' -------------------------------------'
-
-  console.log(`
-   _____    _____                
-  / ____|  / ____|               
- | |      | |  __  ___ _ __  
- | |      | | |_ |/ _ \\ '_ \\ 
- | |____  | |__| |  __/ | | |
-  \\_____|  \\_____|\\___|_| |_|
-  
-${sep}
- Read Your Bible Through | v${process.env.NEXT_PUBLIC_APP_VERSION || '_dev'}
-${sep}`)
-
   const router = useRouter()
   const [pageState, stateFunc] = useState<IPageState>({
     open: false,
