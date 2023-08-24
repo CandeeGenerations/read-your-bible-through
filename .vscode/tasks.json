@@ -1,0 +1,36 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "dev",
+      "path": "client",
+      "problemMatcher": [],
+      "icon": {
+        "color": "terminal.ansiBlue",
+        "id": "device-desktop"
+      },
+      "label": "Start Client",
+      "detail": "doppler run --command='NEXT_PUBLIC_APP_VERSION=$npm_package_version next dev -p ${PORT-3000}'"
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "path": "server",
+      "problemMatcher": [],
+      "icon": {
+        "id": "server",
+        "color": "terminal.ansiRed"
+      },
+      "label": "Start Server",
+      "detail": "doppler run --command='yarn generate && NODE_ENV=development tsc-watch --onSuccess \"node dist/index.js\"'"
+    },
+    {
+      "type": "npm",
+      "script": "release",
+      "problemMatcher": [],
+      "label": "Release App",
+      "detail": "standard-version -a -- --release-as minor"
+    }
+  ]
+}
