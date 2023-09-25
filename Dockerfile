@@ -1,5 +1,7 @@
+FROM node:18-alpine AS base
+
 # BUILD SERVER
-FROM node:16.14.2 as build-app
+FROM base as build-app
 
 WORKDIR /app/server
 
@@ -12,7 +14,7 @@ COPY server .
 RUN yarn build
 
 # SERVE APP
-FROM node:16.14.2-alpine as serve-app
+FROM base as serve-app
 
 WORKDIR /app
 
