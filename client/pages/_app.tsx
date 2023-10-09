@@ -2,6 +2,7 @@ import axios from 'axios'
 import {SessionProvider} from 'next-auth/react'
 import {useRouter} from 'next/router'
 import React, {useState} from 'react'
+import {HelmetProvider} from 'react-helmet-async'
 import 'tailwindcss/tailwind.css'
 import LearnModal from '../components/layout/LearnModal'
 import {setPageState} from '../helpers'
@@ -42,7 +43,7 @@ function MyApp({Component, pageProps: {session, ...pageProps}}) {
   }, [router.events])
 
   return (
-    <>
+    <HelmetProvider>
       <SessionProvider session={session}>
         <UserProvider>
           <LayoutContext.Provider
@@ -56,7 +57,7 @@ function MyApp({Component, pageProps: {session, ...pageProps}}) {
       </SessionProvider>
 
       <LearnModal open={pageState.open} onChange={(open) => setState({open})} />
-    </>
+    </HelmetProvider>
   )
 }
 
