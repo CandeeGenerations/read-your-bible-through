@@ -1,7 +1,7 @@
 import axios from 'axios'
 import express, {Request, Response} from 'express'
-import config from '../../common/config'
-import {handleSuccess} from '../../common/helpers'
+import config from '../../common/config.js'
+import {handleSuccess} from '../../common/helpers.js'
 
 export default express
   .Router()

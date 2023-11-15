@@ -1,5 +1,5 @@
 import {User} from '@prisma/client'
-import client from '../../common/client'
+import client from '../../common/client.js'
 
 const getAll = async (): Promise<User[]> => await client.user.findMany()
 

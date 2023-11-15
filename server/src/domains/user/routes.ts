@@ -1,8 +1,8 @@
 import {User} from '@prisma/client'
 import express, {Request, Response} from 'express'
-import {handleError, handleSuccess} from '../../common/helpers'
-import {IException} from '../../types/logger'
-import service from './service'
+import {handleError, handleSuccess} from '../../common/helpers.js'
+import {IException} from '../../types/logger.js'
+import service from './service.js'
 
 export default express
   .Router()

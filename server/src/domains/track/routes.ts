@@ -1,9 +1,9 @@
 import {PassageTrack} from '@prisma/client'
 import dayjs from 'dayjs'
 import express, {Request, Response} from 'express'
-import {handleError, handleSuccess} from '../../common/helpers'
-import {IException} from '../../types/logger'
-import service from './service'
+import {handleError, handleSuccess} from '../../common/helpers.js'
+import {IException} from '../../types/logger.js'
+import service from './service.js'
 
 const route = '/:userId/track'
 

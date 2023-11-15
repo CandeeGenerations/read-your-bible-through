@@ -1,5 +1,5 @@
 import {PassageTrack} from '@prisma/client'
-import client from '../../common/client'
+import client from '../../common/client.js'
 
 const getAll = async (userId: string): Promise<PassageTrack[]> =>
   await client.passageTrack.findMany({where: {userId}})

@@ -2,12 +2,15 @@ import cors from 'cors'
 import express from 'express'
 import fs from 'fs'
 import path from 'path'
-import config from './common/config'
-import booksRoutes from './domains/books/routes'
-import pingRoutes from './domains/ping/routes'
-import trackRoutes from './domains/track/routes'
-import userRoutes from './domains/user/routes'
+import {fileURLToPath} from 'url'
+import config from './common/config.js'
+import booksRoutes from './domains/books/routes.js'
+import pingRoutes from './domains/ping/routes.js'
+import trackRoutes from './domains/track/routes.js'
+import userRoutes from './domains/user/routes.js'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 const app = express()
 const {port} = config
 const pjson = JSON.parse(
@@ -19,19 +22,20 @@ app.use(express.json({limit: '50mb'}))
 app.use(cors())
 
 console.log(`
-   _____    _____                
-  / ____|  / ____|               
- | |      | |  __  ___ _ __  
- | |      | | |_ |/ _ \\ '_ \\ 
+   _____    _____
+  / ____|  / ____|
+ | |      | |  __  ___ _ __
+ | |      | | |_ |/ _ \\ '_ \\
  | |____  | |__| |  __/ | | |
   \\_____|  \\_____|\\___|_| |_|
-     
+
 ${sep}
  Read Your Bible Through Server | v${pjson.version || '_dev'}
  🚀 Server ready on PORT: ${port}
 ${sep}
  Routes:`)
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const cleanseRouteName = (routeObject: any): string => {
   const routeName = Object.keys(routeObject)[0]
 
@@ -41,6 +45,7 @@ const cleanseRouteName = (routeObject: any): string => {
     .toLowerCase()
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useRoute = (routeObject: any, parentRouteName?: string): void => {
   const routeName = cleanseRouteName(routeObject)
   const route = `/api/${

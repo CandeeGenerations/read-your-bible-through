@@ -1,6 +1,6 @@
 import {createLogger, format, transports} from 'winston'
-import {IError, ILog} from '../types/logger'
-import {LOG_LEVELS} from './constants'
+import {IError, ILog} from '../types/logger.js'
+import {LOG_LEVELS} from './constants.js'
 
 const logger = createLogger({
   level: 'info',
@@ -21,18 +21,21 @@ const logger = createLogger({
   exceptionHandlers: [new transports.Console()],
 })
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const logInfo = (message: string, data?: any): ILog => {
   logger.info(message, {data})
 
   return {message, data, level: LOG_LEVELS.INFO}
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const logDebug = (message: string, data?: any): ILog => {
   logger.debug(message, {data})
 
   return {message, data, level: LOG_LEVELS.DEBUG}
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const logError = (message: string, data?: any): ILog => {
   logger.error(message, {data})
 
