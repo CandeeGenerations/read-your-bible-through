@@ -1,5 +1,5 @@
-module.exports = {
-  output: 'export',
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
     domains: [
       'localhost',
@@ -12,3 +12,5 @@ module.exports = {
     siteUrl: process.env.NEXT_PUBLIC_SITE_URL,
   },
 }
+
+module.exports = nextConfig
