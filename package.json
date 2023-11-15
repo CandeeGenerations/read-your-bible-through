@@ -6,6 +6,7 @@
   "author": "Tyler Candee <tyler@candeegenerations.com>",
   "license": "MIT",
   "private": true,
+  "packageManager": "yarn@4.0.1",
   "scripts": {
     "bootstrap": "yarn install && lerna bootstrap",
     "start": "concurrently -n server,client -c green,blue \"yarn start:server\" \"yarn start:client\"",
@@ -15,17 +16,15 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.7.2",
-    "@commitlint/config-conventional": "^17.7.0",
-    "concurrently": "^8.2.1",
+    "@commitlint/cli": "^18.4.1",
+    "@commitlint/config-conventional": "^18.4.0",
+    "concurrently": "^8.2.2",
     "husky": "^8.0.3",
-    "lerna": "^7.3.0",
-    "lint-staged": "^14.0.1",
-    "prettier": "^3.0.3",
+    "lerna": "^7.4.2",
+    "lint-staged": "^15.1.0",
+    "prettier": "^3.1.0",
     "standard-version": "^9.5.0",
-    "tsc-files": "^1.1.4"
-  },
-  "resolutions": {
-    "semver": "^7.5.2"
+    "tsc-files": "^1.1.4",
+    "typescript": "^5.2.2"
   }
 }
