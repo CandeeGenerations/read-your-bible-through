@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.8.6...v1.9.0) (2023-11-15)
+
+
+### Features
+
+* upgraded to esm ([efc0cdc](https://github.com/CandeeGenerations/read-your-bible-through/commit/efc0cdc90fd68efd58dab84b13a9e42b44bca46a))
+
 ### [1.8.6](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.8.5...v1.8.6) (2023-11-15)
 
 
