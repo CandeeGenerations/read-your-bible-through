@@ -6,7 +6,6 @@
   "author": "Tyler Candee <tyler@candeegenerations.com>",
   "license": "MIT",
   "private": true,
-  "packageManager": "yarn@4.0.1",
   "scripts": {
     "bootstrap": "yarn install && lerna bootstrap",
     "start": "concurrently -n server,client -c green,blue \"yarn start:server\" \"yarn start:client\"",
