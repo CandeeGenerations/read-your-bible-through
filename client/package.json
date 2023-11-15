@@ -28,7 +28,7 @@
     "avvvatars-react": "^0.4.2",
     "axios": "^1.6.2",
     "dayjs": "^1.11.10",
-    "next": "^14.0.2",
+    "next": "13.4.19",
     "next-auth": "^4.24.5",
     "nookies": "^2.5.2",
     "postcss": "^8.4.31",
