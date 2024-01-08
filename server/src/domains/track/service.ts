@@ -1,8 +1,21 @@
 import {PassageTrack} from '@prisma/client'
+import dayjs from 'dayjs'
 import client from '../../common/client.js'
 
 const getAll = async (userId: string): Promise<PassageTrack[]> =>
-  await client.passageTrack.findMany({where: {userId}})
+  await client.passageTrack.findMany({
+    where: {
+      AND: [
+        {userId},
+        {
+          trackDate: {
+            gte: dayjs().startOf('year').format(),
+            lte: dayjs().endOf('year').format(),
+          },
+        },
+      ],
+    },
+  })
 
 const getSingle = async (id: string): Promise<PassageTrack | null> =>
   await client.passageTrack.findFirst({where: {id}})
