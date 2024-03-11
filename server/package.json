@@ -4,7 +4,7 @@
   "repository": "git@github.com:CandeeGenerations/read-your-bible-through.git",
   "author": "Tyler Candee <tyler@candeegenerations.com>",
   "license": "MIT",
-  "version": "1.9.6",
+  "version": "1.9.7",
   "private": true,
   "main": "src/index.ts",
   "type": "module",
