@@ -275,6 +275,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@netlify/plugin-nextjs@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "@netlify/plugin-nextjs@npm:5.1.2"
+  checksum: 10c0/ba44bf15ae7d43ae04174d105c0e513f97d7acf43b5413ca57cacb089f2ce024ec5f062036d8af66436fb09f2a212b220ed9afa79a291442e8e49ebba88754f2
+  languageName: node
+  linkType: hard
+
 "@next/env@npm:13.4.19":
   version: 13.4.19
   resolution: "@next/env@npm:13.4.19"
@@ -4444,6 +4451,7 @@ __metadata:
     "@headlessui/react": "npm:^1.7.19"
     "@heroicons/react": "npm:^2.1.3"
     "@locator/runtime": "npm:^0.4.3"
+    "@netlify/plugin-nextjs": "npm:^5.1.2"
     "@tailwindcss/aspect-ratio": "npm:^0.4.2"
     "@tailwindcss/forms": "npm:^0.5.7"
     "@tailwindcss/typography": "npm:^0.5.12"
