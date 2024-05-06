@@ -6,28 +6,32 @@ on:
 
   workflow_dispatch:
 
+env:
+  ENV: PROD
+  APP: 'Read Your Bible Through Server'
+
 jobs:
   start-notify:
     name: Notify of Build Start
     runs-on: ubuntu-latest
     env:
       ENV: PROD
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK }}
+      NOTIFY_INCOMING_WEBHOOK: ${{ secrets.NOTIFY_INCOMING_WEBHOOK }}
 
     steps:
-      - uses: act10ns/slack@v2
-        with:
-          status: starting
-          channel: '#release'
-          message: '*[Read Your Bible Through Server]* Starting Build and Deployment to *${{ env.ENV }}*...'
+      - uses: tferreira/matterfy@releases/v1
         if: always()
+        with:
+          type: 'cancel'
+          job_name: '*[${{ env.APP }}]* Starting Build and Deployment to *${{ env.ENV }}*...'
+          url: ${{ env.NOTIFY_INCOMING_WEBHOOK }}
 
   build:
     name: Build
     runs-on: ubuntu-latest
     env:
       APP_NAME: ${{ secrets.APP_NAME }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK }}
+      NOTIFY_INCOMING_WEBHOOK: ${{ secrets.NOTIFY_INCOMING_WEBHOOK }}
 
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
       AZURE_REGISTRY_LOGIN_SERVER: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
@@ -68,12 +72,12 @@ jobs:
           docker push $REGISTRY/$REPOSITORY:${{ github.sha }}
 
       - name: Notify of failed build
-        uses: act10ns/slack@v2
+        uses: tferreira/matterfy@releases/v1
         if: ${{ failure() }}
         with:
-          status: ${{ job.status }}
-          steps: '{"test":{"outcome":"success"},"build":{"outcome":"failure"},"deploy":{"outcome":"cancelled"}}'
-          channel: '#release'
+          type: ${{ job.status }}
+          job_name: '*[${{ env.APP }}]* Failed to Build for *${{ env.ENV }}*'
+          url: ${{ env.NOTIFY_INCOMING_WEBHOOK }}
 
   deploy:
     needs: [build]
@@ -81,7 +85,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_NAME: ${{ secrets.APP_NAME }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK }}
+      NOTIFY_INCOMING_WEBHOOK: ${{ secrets.NOTIFY_INCOMING_WEBHOOK }}
 
       AZURE_CREDENTIALS: ${{ secrets.AZURE_SERVICE_APP_CREDENTIALS }}
       AZURE_REGISTRY_LOGIN_SERVER: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
@@ -97,24 +101,24 @@ jobs:
           resource-group-name: ${{ env.AZURE_RESOURCE_GROUP }}
 
       - name: Notify of failed deploy
-        uses: act10ns/slack@v2
+        uses: tferreira/matterfy@releases/v1
         if: ${{ failure() }}
         with:
-          status: ${{ job.status }}
-          steps: '{"test":{"outcome":"success"},"build":{"outcome":"success"},"deploy":{"outcome":"failure"}}'
-          channel: '#release'
+          type: ${{ job.status }}
+          job_name: '*[${{ env.APP }}]* Failed to Deploy to *${{ env.ENV }}*'
+          url: ${{ env.NOTIFY_INCOMING_WEBHOOK }}
 
   end-notify:
     needs: [build, deploy]
     name: Notify of Deploy Complete
     runs-on: ubuntu-latest
     env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK }}
+      NOTIFY_INCOMING_WEBHOOK: ${{ secrets.NOTIFY_INCOMING_WEBHOOK }}
 
     steps:
-      - uses: act10ns/slack@v2
-        with:
-          status: ${{ job.status }}
-          steps: '{"test":{"outcome":"success"},"build":{"outcome":"success"},"deploy":{"outcome":"success"}}'
-          channel: '#release'
+      - uses: tferreira/matterfy@releases/v1
         if: always()
+        with:
+          type: ${{ job.status }}
+          job_name: '*[${{ env.APP }}]* Successfully Completed Build and Deployment to *${{ env.ENV }}*'
+          url: ${{ env.NOTIFY_INCOMING_WEBHOOK }}
