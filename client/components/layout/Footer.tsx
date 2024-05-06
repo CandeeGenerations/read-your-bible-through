@@ -4,6 +4,8 @@ import {gtagEvent} from '../../libs/gtag'
 
 const Footer = () => {
   const year = dayjs().format('YYYY')
+  // eslint-disable-next-line no-undef
+  const version = process.env.NEXT_PUBLIC_APP_VERSION
 
   return (
     <>
@@ -85,9 +87,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <small className="text-sm text-secondary-500">
-              v{process.env.NEXT_PUBLIC_APP_VERSION || '_dev'}
-            </small>
+            <small className="text-sm text-secondary-500">v{version || '_dev'}</small>
           </div>
         </div>
       </div>

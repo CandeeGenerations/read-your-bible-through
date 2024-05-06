@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 export default {
   port: process.env.PORT || 1701,
   bible: {

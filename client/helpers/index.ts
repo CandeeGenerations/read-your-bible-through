@@ -1,22 +1,13 @@
 import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
 import {parseCookies, setCookie as sCookie} from 'nookies'
 import {NT_BOOKS} from './constants'
-import {
-  IBibleBook,
-  ICalendarDay,
-  IReadingPlan,
-  ITestamentReading,
-} from './types'
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const advancedFormat = require('dayjs/plugin/advancedFormat')
+import {IBibleBook, ICalendarDay, IReadingPlan, ITestamentReading} from './types'
 
 dayjs.extend(advancedFormat)
 
-export const classNames = (...classes: string[]): string =>
-  classes.filter(Boolean).join(' ')
+export const classNames = (...classes: string[]): string => classes.filter(Boolean).join(' ')
 
-// eslint-disable-next-line no-unused-vars
 export function setPageState<T>(
   // eslint-disable-next-line no-unused-vars
   setState: (updates: T) => void,
@@ -45,11 +36,7 @@ export const createCalendarItem = (
     isToday,
     isSelected:
       (todaySelected && isToday) ||
-      (!todaySelected &&
-        !isToday &&
-        !selectedDate &&
-        isCurrentMonth &&
-        date.date() === 1) ||
+      (!todaySelected && !isToday && !selectedDate && isCurrentMonth && date.date() === 1) ||
       (selectedDate && date.isSame(selectedDate, 'day')),
   }
 }
@@ -98,7 +85,7 @@ export const getBibleReading = (books: IBibleBook[]): IReadingPlan[] => {
   const ntChapters: ITestamentReading[] = []
 
   for (const book of books) {
-    for (const chapter of book.chapters.filter((x) => x.number !== 'intro')) {
+    for (const chapter of book.chapters.filter(x => x.number !== 'intro')) {
       const entry = {
         index,
         book: book.id,
@@ -149,7 +136,7 @@ export const getBibleReading = (books: IBibleBook[]): IReadingPlan[] => {
 
 /** --- COPIED --- **/
 
-export const getCookie = (name) => {
+export const getCookie = name => {
   const cookies = parseCookies()
 
   if (cookies && cookies[name]) {
@@ -166,26 +153,19 @@ export const setCookie = (name, value) => {
   })
 }
 
-export const getDate = (date) => {
+export const getDate = date => {
   const dayjsDate = dayjs(date)
 
   return dayjsDate.format('MMMM Do, YYYY')
 }
 
-export const clamp = (value: number, min: number, max: number) =>
-  value < min ? min : value > max ? max : value
+export const clamp = (value: number, min: number, max: number) => (value < min ? min : value > max ? max : value)
 
 export const getWindowDimensions = (): {height: number; width: number} => {
   if (typeof window !== 'undefined') {
-    const width =
-      window.innerWidth ||
-      document.documentElement.clientWidth ||
-      document.body.clientWidth
+    const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
 
-    const height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
+    const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
 
     return {
       height,

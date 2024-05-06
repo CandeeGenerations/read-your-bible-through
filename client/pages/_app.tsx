@@ -19,6 +19,7 @@ export const LayoutContext = React.createContext<{
   showHideLearnModal?: (open: boolean) => void
 }>({})
 
+// eslint-disable-next-line no-undef
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL
 
 function MyApp({Component, pageProps: {session, ...pageProps}}) {
@@ -27,8 +28,7 @@ function MyApp({Component, pageProps: {session, ...pageProps}}) {
     open: false,
   })
 
-  const setState = (state: IPageState) =>
-    setPageState<IPageState>(stateFunc, pageState, state)
+  const setState = (state: IPageState) => setPageState<IPageState>(stateFunc, pageState, state)
 
   React.useEffect(() => {
     const handleRouteChange = (url: URL) => {
@@ -48,7 +48,7 @@ function MyApp({Component, pageProps: {session, ...pageProps}}) {
         <UserProvider>
           <LayoutContext.Provider
             value={{
-              showHideLearnModal: (open) => setState({open}),
+              showHideLearnModal: open => setState({open}),
             }}
           >
             <Component {...pageProps} />
@@ -56,7 +56,7 @@ function MyApp({Component, pageProps: {session, ...pageProps}}) {
         </UserProvider>
       </SessionProvider>
 
-      <LearnModal open={pageState.open} onChange={(open) => setState({open})} />
+      <LearnModal open={pageState.open} onChange={open => setState({open})} />
     </HelmetProvider>
   )
 }

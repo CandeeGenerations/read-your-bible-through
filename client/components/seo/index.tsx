@@ -6,10 +6,12 @@ const SEO = () => {
   const title = 'Read Your Bible Through'
   const description = 'Read your Bible through in a year!'
   const pathname = ''
+  // eslint-disable-next-line no-undef
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   const url = siteUrl
   const fullURL = (path: string) => (path ? `${siteUrl}${path}` : siteUrl)
   const image = '/favicon_io/android-chrome-512x512.png'
+  const pageTitle = `${title} | ${siteTitle}`
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const metaTags: DetailedHTMLProps<any, any>[] = [
@@ -51,13 +53,7 @@ const SEO = () => {
     {property: 'og:site_name', content: 'Read Your Bible Through'},
   ]
 
-  return (
-    <Helmet
-      title={`${title} | ${siteTitle}` || siteTitle}
-      htmlAttributes={{lang: 'en'}}
-      meta={metaTags}
-    />
-  )
+  return <Helmet title={pageTitle || siteTitle} htmlAttributes={{lang: 'en'}} meta={metaTags} />
 }
 
 export default SEO

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import axios, {AxiosResponse} from 'axios'
 import NextAuth, {AuthOptions, User} from 'next-auth'
 import AzureADProvider from 'next-auth/providers/azure-ad'
@@ -25,12 +26,9 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async signIn(props) {
       try {
-        const data: AxiosResponse<{user: User | null}> = await axios.get(
-          '/user/email',
-          {
-            params: {email: props.user.email},
-          },
-        )
+        const data: AxiosResponse<{user: User | null}> = await axios.get('/user/email', {
+          params: {email: props.user.email},
+        })
 
         if (data.data.user) {
           await axios.post(`/user/${data.data.user.id}`, {

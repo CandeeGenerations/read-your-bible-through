@@ -3,15 +3,7 @@ import axios, {AxiosResponse} from 'axios'
 import {User} from 'next-auth'
 import {signOut, useSession} from 'next-auth/react'
 import Image from 'next/image'
-import React, {
-  createContext,
-  Fragment,
-  ReactElement,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import React, {createContext, Fragment, ReactElement, ReactNode, useContext, useEffect, useState} from 'react'
 import {clearTimeout} from 'timers'
 import SmallLoader from '../components/layout/SmallLoader'
 import {IPassageTrack} from '../helpers/types'
@@ -19,6 +11,7 @@ import {IPassageTrack} from '../helpers/types'
 interface IUserContext {
   userInfo?: IUserInfo
   logOut: () => void
+  // eslint-disable-next-line no-unused-vars
   loadTracks?: (initial?: boolean) => Promise<IPassageTrack[]>
   tracks: IPassageTrack[]
 }
@@ -63,9 +56,7 @@ const UserProvider = ({children}: {children: ReactNode}): ReactElement => {
     getUserId({
       initials: session.user.name
         .split(' ')
-        .map((word, index, arr) =>
-          index === 0 || index === arr.length - 1 ? word.charAt(0) : '',
-        )
+        .map((word, index, arr) => (index === 0 || index === arr.length - 1 ? word.charAt(0) : ''))
         .join(''),
       email: session.user.email,
       name: session.user.name,
@@ -84,6 +75,7 @@ const UserProvider = ({children}: {children: ReactNode}): ReactElement => {
   }, [])
 
   useEffect(() => {
+    // eslint-disable-next-line no-undef
     let timeout: NodeJS.Timeout
 
     if (status === 'unauthenticated') {
@@ -142,9 +134,7 @@ const UserProvider = ({children}: {children: ReactNode}): ReactElement => {
                     height={90}
                   />
 
-                  <h1 className="font-linden text-5xl text-white inline-block">
-                    Read Your Bible Through
-                  </h1>
+                  <h1 className="font-linden text-5xl text-white inline-block">Read Your Bible Through</h1>
 
                   <SmallLoader className="text-white mt-10" size="medium" />
                 </div>
