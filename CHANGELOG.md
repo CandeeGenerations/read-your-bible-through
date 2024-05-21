@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.11](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.9.10...v1.9.11) (2024-05-21)
+
+
+### Bug Fixes
+
+* migrated to eslint v9 ([bbff692](https://github.com/CandeeGenerations/read-your-bible-through/commit/bbff692e6882e72651f88e8ffd36e9047dca4ae6))
+* package updates ([650f593](https://github.com/CandeeGenerations/read-your-bible-through/commit/650f593777559f7fa4b48f8a744bc275f32b34c2))
+
 ### [1.9.10](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.9.9...v1.9.10) (2024-05-06)
 
 
