@@ -30,7 +30,6 @@
   "dependencies": {
     "@prisma/client": "^5.18.0",
     "axios": "^1.7.5",
-    "change-case": "^5.4.4",
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
     "express": "^4.19.2",
