@@ -1,4 +1,5 @@
 import React from 'react'
+
 import {classNames} from '../../helpers'
 
 interface ISmallLoader {
@@ -8,41 +9,20 @@ interface ISmallLoader {
   notCenter?: boolean
 }
 
-const SmallLoader = ({
-  className,
-  size = 'small',
-  addSpacing,
-  notCenter,
-}: ISmallLoader): React.ReactElement => {
+const SmallLoader = ({className, size = 'small', addSpacing, notCenter}: ISmallLoader): React.ReactElement => {
   return (
-    <div
-      className={classNames(
-        !notCenter && 'flex flex-col items-center',
-        addSpacing && 'py-10',
-      )}
-    >
+    <div className={classNames(!notCenter && 'flex flex-col items-center', addSpacing && 'py-10')}>
       <svg
         className={classNames(
           'animate-spin text-primary',
           className,
-          size === 'small'
-            ? 'h-5 w-5'
-            : size === 'medium'
-            ? 'h-10 w-10'
-            : 'h-20 w-20',
+          size === 'small' ? 'h-5 w-5' : size === 'medium' ? 'h-10 w-10' : 'h-20 w-20',
         )}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
       >
-        <circle
-          className="opacity-25"
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          strokeWidth="4"
-        />
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
         <path
           className="opacity-75"
           fill="currentColor"

@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import Link from 'next/link'
+
 import {gtagEvent} from '../../libs/gtag'
 
 const Footer = () => {

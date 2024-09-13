@@ -1,6 +1,7 @@
 import {Response} from 'express'
-import {IException} from '../types/logger.js'
-import {logError} from './logger.js'
+
+import {IException} from '../types/logger'
+import {logError} from './logger'
 
 export const handleError = (res: Response, error: IException): Response => {
   logError(error.message, error)
@@ -9,5 +10,4 @@ export const handleError = (res: Response, error: IException): Response => {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const handleSuccess = (res: Response, data?: any): Response =>
-  res.status(200).send(data)
+export const handleSuccess = (res: Response, data?: any): Response => res.status(200).send(data)

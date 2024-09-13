@@ -1,45 +1,57 @@
 {
   "name": "read-your-bible-through-server",
-  "description": "Read your Bible through in a year!",
-  "repository": "git@github.com:CandeeGenerations/read-your-bible-through.git",
-  "author": "Tyler Candee <tyler@candeegenerations.com>",
-  "license": "MIT",
   "version": "1.9.17",
   "private": true,
-  "main": "src/index.ts",
-  "type": "module",
+  "description": "Read your Bible through in a year!",
+  "homepage": "https://github.com/CandeeGenerations/read-your-bible-through#readme",
+  "bugs": {
+    "url": "https://github.com/CandeeGenerations/read-your-bible-through/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:CandeeGenerations/read-your-bible-through.git"
+  },
+  "license": "MIT",
+  "author": "Candee Generations <admin@candeegenerations.com>",
+  "type": "commonjs",
+  "main": "dist/src/index.js",
   "scripts": {
-    "start": "doppler run --command='yarn generate && NODE_ENV=development tsc-watch --onSuccess \"node dist/index.js\"'",
-    "build": "rm -rf dist && yarn generate && NODE_ENV=production tsc",
-    "generate": "npx prisma format && npx prisma generate",
+    "build": "rm -rf dist && pnpm generate && NODE_ENV=production tsc && tsc-alias",
     "db:push": "doppler run --command='npx prisma db push'",
-    "lint": "eslint 'src/**/*.ts'"
+    "dev": "pnpm start",
+    "eslint": "eslint 'src/**/*.ts'",
+    "fix": "pnpm run eslint && pnpm run prettier --cache",
+    "generate": "npx prisma format && npx prisma generate --no-hints",
+    "preinstall": "sh scripts/check-versions.sh && npx only-allow pnpm",
+    "prettier": "prettier --cache --check --write --ignore-unknown .",
+    "prettier:ci": "prettier --check .",
+    "start": "fnm use; doppler run --command='pnpm generate && NODE_ENV=development ts-node-dev --respawn -r tsconfig-paths/register src/index.ts'"
   },
   "dependencies": {
     "@prisma/client": "^5.18.0",
     "axios": "^1.7.5",
-    "body-parser": "^1.20.2",
     "change-case": "^5.4.4",
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
     "express": "^4.19.2",
-    "lodash": "^4.17.21",
-    "morphism": "^1.12.3",
     "winston": "^3.14.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
-    "@types/lodash": "^4.17.7",
     "@types/node": "^22.5.0",
     "eslint": "^9.9.1",
     "globals": "^15.9.0",
     "prettier": "^3.3.3",
     "prisma": "^5.18.0",
-    "ts-node": "^10.9.2",
-    "tsc-watch": "^6.2.0",
+    "tsc-alias": "^1.8.10",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
   }
 }

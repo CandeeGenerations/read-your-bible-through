@@ -1,6 +1,7 @@
 @font-face {
   font-family: 'linden_hillregular';
-  src: url('/fonts/lindenhill-webfont.woff2') format('woff2'),
+  src:
+    url('/fonts/lindenhill-webfont.woff2') format('woff2'),
     url('/fonts/lindenhill-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;

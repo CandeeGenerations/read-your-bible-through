@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import {parseCookies, setCookie as sCookie} from 'nookies'
+
 import {NT_BOOKS} from './constants'
 import {IBibleBook, ICalendarDay, IReadingPlan, ITestamentReading} from './types'
 
@@ -85,7 +86,7 @@ export const getBibleReading = (books: IBibleBook[]): IReadingPlan[] => {
   const ntChapters: ITestamentReading[] = []
 
   for (const book of books) {
-    for (const chapter of book.chapters.filter(x => x.number !== 'intro')) {
+    for (const chapter of book.chapters.filter((x) => x.number !== 'intro')) {
       const entry = {
         index,
         book: book.id,
@@ -136,7 +137,7 @@ export const getBibleReading = (books: IBibleBook[]): IReadingPlan[] => {
 
 /** --- COPIED --- **/
 
-export const getCookie = name => {
+export const getCookie = (name) => {
   const cookies = parseCookies()
 
   if (cookies && cookies[name]) {
@@ -153,7 +154,7 @@ export const setCookie = (name, value) => {
   })
 }
 
-export const getDate = date => {
+export const getDate = (date) => {
   const dayjsDate = dayjs(date)
 
   return dayjsDate.format('MMMM Do, YYYY')

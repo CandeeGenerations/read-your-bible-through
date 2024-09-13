@@ -4,6 +4,7 @@ import {useRouter} from 'next/router'
 import React, {useState} from 'react'
 import {HelmetProvider} from 'react-helmet-async'
 import 'tailwindcss/tailwind.css'
+
 import LearnModal from '../components/layout/LearnModal'
 import {setPageState} from '../helpers'
 import * as gtag from '../libs/gtag'
@@ -48,7 +49,7 @@ function MyApp({Component, pageProps: {session, ...pageProps}}) {
         <UserProvider>
           <LayoutContext.Provider
             value={{
-              showHideLearnModal: open => setState({open}),
+              showHideLearnModal: (open) => setState({open}),
             }}
           >
             <Component {...pageProps} />
@@ -56,7 +57,7 @@ function MyApp({Component, pageProps: {session, ...pageProps}}) {
         </UserProvider>
       </SessionProvider>
 
-      <LearnModal open={pageState.open} onChange={open => setState({open})} />
+      <LearnModal open={pageState.open} onChange={(open) => setState({open})} />
     </HelmetProvider>
   )
 }

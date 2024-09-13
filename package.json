@@ -1,30 +1,44 @@
 {
   "name": "read-your-bible-through",
   "version": "1.9.17",
-  "description": "Read your Bible through in a year!",
-  "repository": "git@github.com:CandeeGenerations/read-your-bible-through.git",
-  "author": "Tyler Candee <tyler@candeegenerations.com>",
-  "license": "MIT",
   "private": true,
+  "description": "Read your Bible through in a year!",
+  "homepage": "https://github.com/CandeeGenerations/read-your-bible-through#readme",
+  "bugs": {
+    "url": "https://github.com/CandeeGenerations/read-your-bible-through/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:CandeeGenerations/read-your-bible-through.git"
+  },
+  "license": "MIT",
+  "author": "Candee Generations <admin@candeegenerations.com>",
   "scripts": {
-    "bootstrap": "yarn install && lerna bootstrap",
-    "start": "concurrently -n server,client -c green,blue \"yarn start:server\" \"yarn start:client\"",
-    "start:server": "cd server && yarn start",
-    "start:client": "cd client && yarn start",
-    "release": "standard-version -a -- --release-as minor",
-    "prepare": "husky"
+    "dev": "nx run-many --target=dev --all",
+    "eslint": "cd client && pnpm eslint && cd ../server && pnpm eslint",
+    "preinstall": "sh scripts/check-versions.sh && npx only-allow pnpm",
+    "install:all": "pnpm install; cd client; fnm use; pnpm install; cd ../server; fnm use; pnpm install; pnpm generate; cd ../; fnm use;",
+    "install:ci": "pnpm install --ignore-scripts; cd client; pnpm install --ignore-scripts; cd ../server; pnpm install --ignore-scripts",
+    "prepare": "husky",
+    "prettier": "cd client && pnpm prettier && cd ../server && pnpm prettier",
+    "prettier:ci": "cd client && pnpm prettier:ci && cd ../server && pnpm prettier:ci",
+    "release": "standard-version -a -- --release-as minor"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
-    "concurrently": "^8.2.2",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "husky": "^9.1.5",
     "lerna": "^8.1.8",
     "lint-staged": "^15.2.9",
+    "nx": "^19.6.2",
     "prettier": "^3.3.3",
-    "standard-version": "^9.5.0",
-    "tsc-files": "^1.1.4",
-    "typescript": "^5.5.4"
+    "sort-package-json": "^2.10.1",
+    "standard-version": "^9.5.0"
   },
-  "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
+  "packageManager": "pnpm@9.10.0+sha512.73a29afa36a0d092ece5271de5177ecbf8318d454ecd701343131b8ebc0c1a91c487da46ab77c8e596d6acf1461e3594ced4becedf8921b074fbd8653ed7051c",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
 }

@@ -2,13 +2,7 @@ import React from 'react'
 
 export default function Logo({fill}) {
   return (
-    <svg
-      id="Layer_1"
-      data-name="Layer 1"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 135.83 24.44"
-      height="24px"
-    >
+    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135.83 24.44" height="24px">
       <path
         d="M11,17.07a3.29,3.29,0,0,1-3,1.83c-4.11,0-5-3.14-5-5.34V6.05H1.23V5.19H3.11v-3L5.18.56V5.19H9.29v.86H5.18v7.51s-.1,4.54,2.94,4.61a2.52,2.52,0,0,0,2.19-1.52Z"
         transform="translate(-1.23 -0.56)"

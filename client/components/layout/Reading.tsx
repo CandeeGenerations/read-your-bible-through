@@ -1,32 +1,19 @@
-import {
-  ArrowTopRightOnSquareIcon,
-  CheckCircleIcon,
-} from '@heroicons/react/24/outline'
+import {ArrowTopRightOnSquareIcon, CheckCircleIcon} from '@heroicons/react/24/outline'
 import React from 'react'
+
 import {IDisplayReading, ITestamentReading} from '../../helpers/types'
 import {IPageState} from '../../pages/_components/Calendar'
 
-const Alert = ({
-  title,
-  children,
-}: {
-  title: string
-  children: React.ReactNode
-}): React.ReactElement => {
+const Alert = ({title, children}: {title: string; children: React.ReactNode}): React.ReactElement => {
   return (
     <div className="rounded-md border-emerald-600 border-2 bg-emerald-50 p-4">
       <div className="flex">
         <div className="flex-shrink-0">
-          <CheckCircleIcon
-            className="h-7 w-7 text-emerald-600"
-            aria-hidden="true"
-          />
+          <CheckCircleIcon className="h-7 w-7 text-emerald-600" aria-hidden="true" />
         </div>
 
         <div className="ml-3">
-          <h3 className="text-2xl font-linden font-medium text-emerald-800">
-            {title}
-          </h3>
+          <h3 className="text-2xl font-linden font-medium text-emerald-800">{title}</h3>
 
           <div className="mt-2 text-emerald-700">
             <p>{children}</p>
@@ -50,8 +37,7 @@ const Testament = ({
     if (reading.find((x) => x.book === item.name)) {
       reading = reading.map((x) => ({
         ...x,
-        chapters:
-          x.book === item.name ? [...x.chapters, item.chapter] : x.chapters,
+        chapters: x.book === item.name ? [...x.chapters, item.chapter] : x.chapters,
       }))
     } else {
       reading.push({book: item.name, chapters: [item.chapter]})
@@ -71,17 +57,13 @@ const Testament = ({
           <p className="text-2xl text-gray-900">
             {reading.map(
               (x, index) =>
-                `${x.book} ${x.chapters
-                  .join(', ')
-                  .replace(/, ([^,]*)$/, ' and $1')}${
+                `${x.book} ${x.chapters.join(', ').replace(/, ([^,]*)$/, ' and $1')}${
                   reading.length > 1 && index !== reading.length - 1 ? ', ' : ''
                 }`,
             )}
           </p>
 
-          <p className="text-primary-700 truncate">
-            {newTestament ? 'New' : 'Old'} Testament
-          </p>
+          <p className="text-primary-700 truncate">{newTestament ? 'New' : 'Old'} Testament</p>
         </div>
 
         {link && (
@@ -103,25 +85,21 @@ const Testament = ({
     )
   ) : newTestament ? (
     <Alert title="New Testament Complete">
-      Since you have finished reading the New Testament, additional chapters
-      have been added to the Old Testament reading.
+      Since you have finished reading the New Testament, additional chapters have been added to the Old Testament
+      reading.
     </Alert>
   ) : null
 }
 
 const Reading = (pageState: IPageState): React.ReactElement => {
-  const reading = pageState.reading.find((x) =>
-    x.date.isSame(pageState.selectedDay, 'day'),
-  )
+  const reading = pageState.reading.find((x) => x.date.isSame(pageState.selectedDay, 'day'))
 
   if (!reading) {
     return (
       <div className="grid grid-cols-1 gap-4">
         <div className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3">
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-900">
-              No reading for today
-            </p>
+            <p className="text-sm font-medium text-gray-900">No reading for today</p>
           </div>
         </div>
       </div>
@@ -131,9 +109,8 @@ const Reading = (pageState: IPageState): React.ReactElement => {
   if (reading.otReading.length === 0) {
     return (
       <Alert title="Bible Reading Plan Completed">
-        <strong>Congratulations!</strong> You have completed the Bible reading
-        plan for this year! Check back on January 1st to start the next Bible
-        reading plan.
+        <strong>Congratulations!</strong> You have completed the Bible reading plan for this year! Check back on January
+        1st to start the next Bible reading plan.
       </Alert>
     )
   }

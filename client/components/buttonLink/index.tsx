@@ -1,15 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
+
 import {classNames} from '../../helpers'
 import SmallLoader from '../layout/SmallLoader'
 
-const ButtonLink = ({
-  href = null,
-  onClick = null,
-  children,
-  className = '',
-  loading = false,
-}) => {
+const ButtonLink = ({href = null, onClick = null, children, className = '', loading = false}) => {
   const classes =
     'inline-block mt-5 text-center items-center px-4 py-3 border-2 shadow-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500'
 

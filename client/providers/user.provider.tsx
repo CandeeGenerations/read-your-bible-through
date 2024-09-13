@@ -3,8 +3,9 @@ import axios, {AxiosResponse} from 'axios'
 import {User} from 'next-auth'
 import {signOut, useSession} from 'next-auth/react'
 import Image from 'next/image'
-import React, {createContext, Fragment, ReactElement, ReactNode, useContext, useEffect, useState} from 'react'
+import React, {Fragment, ReactElement, ReactNode, createContext, useContext, useEffect, useState} from 'react'
 import {clearTimeout} from 'timers'
+
 import SmallLoader from '../components/layout/SmallLoader'
 import {IPassageTrack} from '../helpers/types'
 

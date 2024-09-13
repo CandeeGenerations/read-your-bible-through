@@ -1,1 +1,10 @@
-{"eslint.workingDirectories": ["./client", "./server"]}
+{
+  "typescript.preferences.importModuleSpecifier": "shortest",
+  "eslint.workingDirectories": ["./client", "./server"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.removeUnusedImports": "explicit",
+    "source.organizeImports": "explicit",
+    "source.sortMembers": "explicit"
+  }
+}

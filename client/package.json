@@ -1,17 +1,28 @@
 {
   "name": "read-your-bible-through",
   "version": "1.9.17",
-  "description": "Read your Bible through in a year!",
-  "repository": "git@github.com:CandeeGenerations/read-your-bible-through.git",
-  "author": "Tyler Candee <tyler@candeegenerations.com>",
-  "license": "MIT",
   "private": true,
+  "description": "Read your Bible through in a year!",
+  "homepage": "https://github.com/CandeeGenerations/read-your-bible-through#readme",
+  "bugs": {
+    "url": "https://github.com/CandeeGenerations/read-your-bible-through/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:CandeeGenerations/read-your-bible-through.git"
+  },
+  "license": "MIT",
+  "author": "Candee Generations <admin@candeegenerations.com>",
   "scripts": {
-    "dev": "doppler run --command='NEXT_PUBLIC_APP_VERSION=$npm_package_version next dev -p ${PORT-3000}'",
     "build": "NEXT_PUBLIC_APP_VERSION=$npm_package_version next build",
-    "start": "NEXT_PUBLIC_APP_VERSION=$npm_package_version next start",
+    "dev": "fnm use; doppler run --command='NEXT_PUBLIC_APP_VERSION=$npm_package_version next dev -p ${PORT-3000}'",
+    "eslint": "eslint '**/*.{ts,tsx}'",
     "export": "next export",
-    "lint": "eslint '**/*.+(ts|tsx)'"
+    "fix": "pnpm run eslint && pnpm run prettier --cache",
+    "preinstall": "npx only-allow pnpm",
+    "prettier": "prettier --cache --check --write --ignore-unknown .",
+    "prettier:ci": "prettier --check .",
+    "start": "NEXT_PUBLIC_APP_VERSION=$npm_package_version next start"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
@@ -51,5 +62,9 @@
     "tsc-files": "^1.1.4",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
   }
 }

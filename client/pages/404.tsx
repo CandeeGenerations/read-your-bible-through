@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import React from 'react'
+
 import ButtonLink from '../components/buttonLink'
 import Layout from '../components/layout'
 import {siteTitle} from '../helpers/constants'
@@ -22,18 +23,13 @@ const FourOhFour = () => {
           height={634}
         />
 
-        <h1 className="font-linden text-5xl font-bold text-primary-900">
-          Jeremiah 29:13 says...
-        </h1>
+        <h1 className="font-linden text-5xl font-bold text-primary-900">Jeremiah 29:13 says...</h1>
 
         <p className="my-5 text-lg italic text-secondary-600">
-          And ye shall seek me, and find me, when ye shall search for me with
-          all your heart.
+          And ye shall seek me, and find me, when ye shall search for me with all your heart.
         </p>
 
-        <p className="my-5 text-lg italic text-secondary-600">
-          Looks like you must keep seeking :)
-        </p>
+        <p className="my-5 text-lg italic text-secondary-600">Looks like you must keep seeking :)</p>
 
         <div className="py-10">
           <ButtonLink

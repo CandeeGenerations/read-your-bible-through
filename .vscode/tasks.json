@@ -10,6 +10,10 @@
         "color": "terminal.ansiBlue",
         "id": "device-desktop"
       },
+      "presentation": {
+        "echo": false,
+        "group": "read-your-bible-through"
+      },
       "label": "Start Client",
       "detail": "doppler run --command='NEXT_PUBLIC_APP_VERSION=$npm_package_version next dev -p ${PORT-3000}'"
     },
@@ -22,8 +26,14 @@
         "id": "server",
         "color": "terminal.ansiRed"
       },
+      "presentation": {
+        "echo": false,
+        "reveal": "always",
+        "panel": "new",
+        "group": "read-your-bible-through"
+      },
       "label": "Start Server",
-      "detail": "doppler run --command='yarn generate && NODE_ENV=development tsc-watch --onSuccess \"node dist/index.js\"'"
+      "detail": "fnm use; doppler run --command='pnpm generate && NODE_ENV=development ts-node-dev --respawn -r tsconfig-paths/register src/index.ts'"
     },
     {
       "type": "npm",
@@ -31,6 +41,14 @@
       "problemMatcher": [],
       "label": "Release App",
       "detail": "standard-version -a -- --release-as minor"
+    },
+    {
+      "type": "npm",
+      "script": "generate",
+      "path": "server",
+      "problemMatcher": [],
+      "label": "Generate DB",
+      "detail": "npx prisma format && npx prisma generate --no-hints"
     }
   ]
 }

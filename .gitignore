@@ -23,11 +23,6 @@
 *.pem
 
 # debug
-.yarnrc.yml
-.yarn
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 .pnpm-debug.log*
 
 # local env files
@@ -41,3 +36,4 @@ yarn-error.log*
 client/next-env.d.ts
 
 .idea
+.nx

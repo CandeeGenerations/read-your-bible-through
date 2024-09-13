@@ -2,18 +2,17 @@ import cors from 'cors'
 import express from 'express'
 import fs from 'fs'
 import path from 'path'
-import {fileURLToPath} from 'url'
-import config from './common/config.js'
-import booksRoutes from './domains/books/routes.js'
-import pingRoutes from './domains/ping/routes.js'
-import trackRoutes from './domains/track/routes.js'
-import userRoutes from './domains/user/routes.js'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+import config from './common/config'
+import booksRoutes from './domains/books/routes'
+import pingRoutes from './domains/ping/routes'
+import trackRoutes from './domains/track/routes'
+import userRoutes from './domains/user/routes'
+
 const app = express()
 const {port} = config
 const pjson = JSON.parse(
+  // eslint-disable-next-line no-undef
   fs.readFileSync(path.join(__dirname, '../', 'package.json'), 'utf8'),
 )
 const sep = ' -------------------------------------'
@@ -48,9 +47,7 @@ const cleanseRouteName = (routeObject: any): string => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useRoute = (routeObject: any, parentRouteName?: string): void => {
   const routeName = cleanseRouteName(routeObject)
-  const route = `/api/${
-    parentRouteName ? `${parentRouteName}/` : ''
-  }${routeName}`
+  const route = `/api/${parentRouteName ? `${parentRouteName}/` : ''}${routeName}`
 
   console.log(` - ${route}`)
 
