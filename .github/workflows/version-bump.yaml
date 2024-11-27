@@ -28,17 +28,17 @@ jobs:
         run: |
           # Run the version bump
           pnpm run release
-          
+
           # Get the new version from package.json
           VERSION=$(node -p "require('./package.json').version")
-          
+
           # Create a branch name
           BRANCH="version-bump/v${VERSION}"
-          
+
           # Create and push the branch
           git checkout -b $BRANCH
           git push origin $BRANCH
-          
+
           # Set outputs
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "branch=${BRANCH}" >> $GITHUB_OUTPUT
@@ -60,4 +60,5 @@ jobs:
           gh pr create \
             --base main \
             --title "chore(release): bump version to v${VERSION}" \
-            --body "Automated version bump to v${VERSION}"
+            --body "Automated version bump to v${VERSION}" \
+            --reviewer cgen01
