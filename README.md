@@ -2,7 +2,7 @@
 
 [![Validate Branch](https://github.com/CandeeGenerations/read-your-bible-through/actions/workflows/validate-branch.yaml/badge.svg)](https://github.com/CandeeGenerations/read-your-bible-through/actions/workflows/validate-branch.yaml)
 
-Read your Bible through in a year
+Read your Bible through in a year!
 
 ## Getting Started
 
