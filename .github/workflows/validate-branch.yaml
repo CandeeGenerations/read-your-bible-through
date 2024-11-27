@@ -5,11 +5,20 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  merge_group: {}
 
 jobs:
+  check-merge-queue:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'merge_group'
+    steps:
+      - name: Success for merge queue
+        run: exit 0
+
   prettier:
     name: Check Prettier Formatting
     runs-on: ubuntu-latest
+    if: github.event_name != 'merge_group'
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -19,12 +28,14 @@ jobs:
           node-version-file: '.nvmrc'
           cache: pnpm
       - name: Install deps
-        run: pnpm install:ci
+        run: pnpm install --ignore-scripts
       - name: Run Prettier
         run: pnpm run prettier:ci
+
   lint:
     name: Run Linting
     runs-on: ubuntu-latest
+    if: github.event_name != 'merge_group'
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -34,6 +45,6 @@ jobs:
           node-version-file: '.nvmrc'
           cache: pnpm
       - name: Install deps
-        run: pnpm install:ci
+        run: pnpm install --ignore-scripts
       - name: Run ESLint
         run: pnpm run eslint
