@@ -28,7 +28,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: pnpm
       - name: Install deps
-        run: pnpm install --ignore-scripts
+        run: pnpm install:ci
       - name: Run Prettier
         run: pnpm run prettier:ci
 
@@ -45,6 +45,6 @@ jobs:
           node-version-file: '.nvmrc'
           cache: pnpm
       - name: Install deps
-        run: pnpm install --ignore-scripts
+        run: pnpm install:ci
       - name: Run ESLint
         run: pnpm run eslint
