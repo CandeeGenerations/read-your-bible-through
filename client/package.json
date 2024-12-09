@@ -37,29 +37,29 @@
     "@tailwindcss/typography": "^0.5.14",
     "autoprefixer": "^10.4.20",
     "avvvatars-react": "^0.4.2",
-    "axios": "^1.7.8",
+    "axios": "^1.7.9",
     "dayjs": "^1.11.13",
-    "next": "^15.0.3",
-    "next-auth": "^4.24.10",
+    "next": "^15.0.4",
+    "next-auth": "^4.24.11",
     "nookies": "^2.5.2",
     "postcss": "^8.4.49",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-helmet-async": "^2.0.4",
-    "tailwindcss": "^3.4.15"
+    "tailwindcss": "^3.4.16"
   },
   "devDependencies": {
     "@eslint/js": "^9.16.0",
     "@types/gtag.js": "^0.0.20",
     "@types/node": "^22.10.1",
-    "@types/react": "^18.3.12",
+    "@types/react": "^19.0.1",
     "@types/react-helmet": "^6.1.11",
     "cssnano": "^7.0.5",
     "eslint": "^9.16.0",
     "globals": "^15.13.0",
-    "prettier": "^3.4.1",
+    "prettier": "^3.4.2",
     "typescript": "^5.7.2",
-    "typescript-eslint": "^8.16.0"
+    "typescript-eslint": "^8.17.0"
   },
   "engines": {
     "node": ">=20.0.0",
