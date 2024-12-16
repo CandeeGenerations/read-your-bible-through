@@ -30,6 +30,7 @@ RUN pnpm build
 
 # RUNNER
 FROM base AS runner
+RUN apk add --no-cache openssl
 
 COPY --from=builder /app/node_modules node_modules
 COPY --from=builder /app/package.json package.json
