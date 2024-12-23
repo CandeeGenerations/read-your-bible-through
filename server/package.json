@@ -28,7 +28,7 @@
     "start": "fnm use; doppler run --command='pnpm generate && NODE_ENV=development ts-node-dev --respawn -r tsconfig-paths/register src/index.ts'"
   },
   "dependencies": {
-    "@prisma/client": "^6.0.1",
+    "@prisma/client": "^6.1.0",
     "axios": "^1.7.9",
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
@@ -41,14 +41,14 @@
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.2",
     "eslint": "^9.17.0",
-    "globals": "^15.13.0",
+    "globals": "^15.14.0",
     "prettier": "^3.4.2",
-    "prisma": "^6.0.1",
+    "prisma": "^6.1.0",
     "ts-node-dev": "^2.0.0",
     "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.2",
-    "typescript-eslint": "^8.18.0"
+    "typescript-eslint": "^8.18.1"
   },
   "engines": {
     "node": ">=20.0.0",
