@@ -24,6 +24,9 @@
     "prettier:ci": "prettier --check .",
     "start": "NEXT_PUBLIC_APP_VERSION=$npm_package_version next start"
   },
+  "resolutions": {
+    "cookie": "^0.7.0"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
@@ -46,12 +49,12 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-helmet-async": "^2.0.4",
-    "tailwindcss": "^4.0.0"
+    "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
     "@types/gtag.js": "^0.0.20",
-    "@types/node": "^22.10.10",
+    "@types/node": "^22.12.0",
     "@types/react": "^19.0.8",
     "@types/react-helmet": "^6.1.11",
     "cssnano": "^7.0.5",
@@ -59,7 +62,7 @@
     "globals": "^15.14.0",
     "prettier": "^3.4.2",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.21.0"
+    "typescript-eslint": "^8.22.0"
   },
   "engines": {
     "node": ">=20.0.0",
