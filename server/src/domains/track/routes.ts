@@ -32,7 +32,7 @@ router.get(`${route}s`, async (req: Request<{userId: string}>, res: Response) =>
  *          - :trackId? : `641546e3e6dffedba604e2b3`
  * PAYLOAD: {passageDate: '2023-01-01'}
  */
-router.post(`${route}/:trackId?`, async (req: Request<{userId: string; trackId?: string}>, res: Response) => {
+router.post(`${route}{/:trackId}`, async (req: Request<{userId: string; trackId?: string}>, res: Response) => {
   try {
     const {trackId, userId} = req.params
 
