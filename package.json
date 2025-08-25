@@ -14,7 +14,6 @@
   "license": "MIT",
   "author": "Candee Generations <admin@candeegenerations.com>",
   "scripts": {
-    "dev": "nx run-many --target=dev --all",
     "eslint": "cd client && pnpm eslint && cd ../server && pnpm eslint",
     "preinstall": "sh scripts/check-versions.sh && npx only-allow pnpm",
     "install:all": "pnpm install; cd client; fnm use; pnpm install; cd ../server; fnm use; pnpm install; pnpm generate; cd ../; fnm use;",
@@ -37,7 +36,6 @@
     "husky": "^9.1.5",
     "lerna": "^8.2.3",
     "lint-staged": "^16.1.5",
-    "nx": "^21.4.1",
     "prettier": "^3.6.2",
     "sort-package-json": "^3.4.0",
     "standard-version": "^9.5.0"
