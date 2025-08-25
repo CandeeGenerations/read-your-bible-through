@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.30](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.9.21...v1.9.30) (2025-08-25)
+
+
+### Bug Fixes
+
+* added version bump workflow ([0fd3620](https://github.com/CandeeGenerations/read-your-bible-through/commit/0fd3620e570699a83951b43286d00cc8724ba411))
+* fixed routes ([20be55f](https://github.com/CandeeGenerations/read-your-bible-through/commit/20be55f6f1f27924446bccd7e3e820627580c2a0))
+* fixed server deployment ([dd63227](https://github.com/CandeeGenerations/read-your-bible-through/commit/dd63227bd44839591de241159d859b08d8fb3e8f))
+* server deployment fixes ([cbc3ecb](https://github.com/CandeeGenerations/read-your-bible-through/commit/cbc3ecba843ee6477265adba611dc55f875c5bf1))
+* server fix ([cc135fd](https://github.com/CandeeGenerations/read-your-bible-through/commit/cc135fdedfed763c604a20fbc928a5ac5ea27ecf))
+
 ### 1.9.29 (2025-01-28)
 
 ### 1.9.28 (2025-01-21)
