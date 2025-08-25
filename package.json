@@ -25,21 +25,24 @@
     "release": "standard-version -a -- --release-as minor"
   },
   "resolutions": {
-    "cross-spawn": "^7.0.5"
+    "brace-expansion": "^2.0.2",
+    "cross-spawn": "^7.0.5",
+    "form-data": "^4.0.4",
+    "tmp": "^0.2.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "husky": "^9.1.5",
-    "lerna": "^8.1.8",
-    "lint-staged": "^16.1.0",
-    "nx": "^21.1.2",
-    "prettier": "^3.3.3",
-    "sort-package-json": "^3.0.0",
+    "lerna": "^8.2.3",
+    "lint-staged": "^16.1.5",
+    "nx": "^21.4.1",
+    "prettier": "^3.6.2",
+    "sort-package-json": "^3.4.0",
     "standard-version": "^9.5.0"
   },
-  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0",
+  "packageManager": "pnpm@10.15.0+sha512.486ebc259d3e999a4e8691ce03b5cac4a71cbeca39372a9b762cb500cfdf0873e2cb16abe3d951b1ee2cf012503f027b98b6584e4df22524e0c7450d9ec7aa7b",
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
