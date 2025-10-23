@@ -30,11 +30,11 @@
     "tmp": "^0.2.4"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.4.0",
-    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "husky": "^9.1.5",
-    "lerna": "^8.2.3",
+    "lerna": "^9.0.0",
     "lint-staged": "^16.1.5",
     "prettier": "^3.6.2",
     "sort-package-json": "^3.4.0",
