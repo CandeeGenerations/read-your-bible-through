@@ -10,7 +10,7 @@ Read your Bible through in a year!
 
 - Node.js 20.x
 - PNPM 9.x
-- [Phase](https://docs.phase.dev/quickstart#2-install-the-cli)
+- [phase.dev](https://docs.phase.dev/quickstart#2-install-the-cli)
 
 ### Local Setup
 
@@ -34,7 +34,7 @@ Read your Bible through in a year!
    ```sh
    pnpm run install:all
    ```
-1. Configure Phase:
+1. Configure phase.dev:
    ```sh
    cd client
    phase init
