@@ -8,8 +8,8 @@ lerna.json
 /client/node_modules
 /client/.eslintrc.json
 /client/.lintstagedrc.json
-/client/doppler.yaml
+/client/.phase.json
 
 /server/node_modules
 /server/.eslintrc.json
-/server/doppler.yaml
+/server/.phase.json

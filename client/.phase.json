@@ -1,0 +1,8 @@
+{
+  "version": "2",
+  "phaseApp": "Read Your Bible Through",
+  "appId": "229a82af-abae-4e56-b86c-c2cb0e9a21eb",
+  "defaultEnv": "Development",
+  "envId": "0fd768f4-b587-4eeb-9435-a1ceffc6a809",
+  "monorepoSupport": false
+}

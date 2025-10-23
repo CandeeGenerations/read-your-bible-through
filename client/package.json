@@ -15,7 +15,7 @@
   "author": "Candee Generations <admin@candeegenerations.com>",
   "scripts": {
     "build": "NEXT_PUBLIC_APP_VERSION=$npm_package_version next build",
-    "dev": "fnm use; doppler run --command='NEXT_PUBLIC_APP_VERSION=$npm_package_version next dev -p ${PORT-3000}'",
+    "dev": "fnm use; phase run 'NEXT_PUBLIC_APP_VERSION=$npm_package_version next dev -p ${PORT-3000}'",
     "eslint": "eslint '**/*.{ts,tsx}'",
     "export": "next export",
     "fix": "pnpm run eslint && pnpm run prettier --cache",

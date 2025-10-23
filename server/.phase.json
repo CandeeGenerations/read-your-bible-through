@@ -1,0 +1,8 @@
+{
+  "version": "2",
+  "phaseApp": "Read Your Bible Through Server",
+  "appId": "fe213d32-0c7d-47b5-afd3-3166d0419bb4",
+  "defaultEnv": "Development",
+  "envId": "3c724351-6666-4bf2-b759-ecf6f0e24700",
+  "monorepoSupport": false
+}

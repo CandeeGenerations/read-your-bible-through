@@ -17,7 +17,7 @@
   "main": "dist/src/index.js",
   "scripts": {
     "build": "rm -rf dist && pnpm generate && NODE_ENV=production tsc && tsc-alias",
-    "db:push": "doppler run --command='npx prisma db push'",
+    "db:push": "phase run 'npx prisma db push'",
     "dev": "pnpm start",
     "eslint": "eslint 'src/**/*.ts'",
     "fix": "pnpm run eslint && pnpm run prettier --cache",
@@ -25,7 +25,7 @@
     "preinstall": "sh scripts/check-versions.sh && npx only-allow pnpm",
     "prettier": "prettier --cache --check --write --ignore-unknown .",
     "prettier:ci": "prettier --check .",
-    "start": "fnm use; doppler run --command='pnpm generate && NODE_ENV=development ts-node-dev --respawn -r tsconfig-paths/register src/index.ts'"
+    "start": "fnm use; phase run 'pnpm generate && NODE_ENV=development ts-node-dev --respawn -r tsconfig-paths/register src/index.ts'"
   },
   "dependencies": {
     "@prisma/client": "^6.14.0",

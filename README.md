@@ -10,7 +10,7 @@ Read your Bible through in a year!
 
 - Node.js 20.x
 - PNPM 9.x
-- [Doppler](https://docs.doppler.com/docs/install-cli)
+- [Phase](https://docs.phase.dev/quickstart#2-install-the-cli)
 
 ### Local Setup
 
@@ -34,12 +34,12 @@ Read your Bible through in a year!
    ```sh
    pnpm run install:all
    ```
-1. Configure Doppler:
+1. Configure Phase:
    ```sh
    cd client
-   doppler setup
+   phase init
    cd ../server
-   doppler setup
+   phase init
    ```
 1. Start the client:
    ```sh
