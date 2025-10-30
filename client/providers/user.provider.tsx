@@ -1,9 +1,10 @@
-import {Transition} from '@headlessui/react'
+'use client'
+
 import axios, {AxiosResponse} from 'axios'
 import {User} from 'next-auth'
 import {signOut, useSession} from 'next-auth/react'
 import Image from 'next/image'
-import React, {Fragment, ReactElement, ReactNode, createContext, useContext, useEffect, useState} from 'react'
+import React, {ReactElement, ReactNode, createContext, useContext, useEffect, useState} from 'react'
 import {clearTimeout} from 'timers'
 
 import SmallLoader from '../components/layout/SmallLoader'
@@ -116,31 +117,24 @@ const UserProvider = ({children}: {children: ReactNode}): ReactElement => {
       {ready ? (
         children
       ) : (
-        <div className="flex items-center justify-center bg-primary-600 min-h-screen">
+        <div className="fixed inset-0 flex items-center justify-center bg-primary-600">
           <div className="flex-1 text-center px-4 py-2 m-2">
-            <Transition.Root show={showLogo} as={Fragment}>
-              <Transition.Child
-                as={Fragment}
-                enter="transition duration-300 ease-out"
-                enterFrom="transform opacity-0"
-                enterTo="transform opacity-100"
-              >
-                <div className="flex items-center flex-col">
-                  <Image
-                    src="/images/logo-white.svg"
-                    className="w-full mb-14 mx-auto inline-block"
-                    style={{maxWidth: 115}}
-                    alt="Read Your Bible Through"
-                    width={106}
-                    height={90}
-                  />
+            <div
+              className={`flex items-center flex-col transition-opacity duration-300 ${showLogo ? 'opacity-100' : 'opacity-0'}`}
+            >
+              <Image
+                src="/images/logo-white.svg"
+                className="w-full mb-14 mx-auto inline-block"
+                style={{maxWidth: 115}}
+                alt="Read Your Bible Through"
+                width={106}
+                height={90}
+              />
 
-                  <h1 className="font-linden text-5xl text-white inline-block">Read Your Bible Through</h1>
+              <h1 className="font-linden text-5xl text-white inline-block">Read Your Bible Through</h1>
 
-                  <SmallLoader className="text-white mt-10" size="medium" />
-                </div>
-              </Transition.Child>
-            </Transition.Root>
+              <SmallLoader className="text-white mt-10" size="medium" />
+            </div>
           </div>
         </div>
       )}

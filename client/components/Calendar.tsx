@@ -1,3 +1,5 @@
+'use client'
+
 import {faSquareCheck} from '@fortawesome/free-regular-svg-icons'
 import {faCheckSquare} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -8,12 +10,12 @@ import dayOfYear from 'dayjs/plugin/dayOfYear'
 import minMax from 'dayjs/plugin/minMax'
 import React, {useEffect, useState} from 'react'
 
-import ButtonLink from '../../components/buttonLink'
-import Reading from '../../components/layout/Reading'
-import {classNames, createCalendar, getBibleReading, setPageState} from '../../helpers'
-import {ICalendarDay, IPassageTrack, IReadingPlan} from '../../helpers/types'
-import {gtagEvent} from '../../libs/gtag'
-import {useUser} from '../../providers/user.provider'
+import {classNames, createCalendar, getBibleReading, setPageState} from '../helpers'
+import {ICalendarDay, IPassageTrack, IReadingPlan} from '../helpers/types'
+import {gtagEvent} from '../libs/gtag'
+import {useUser} from '../providers/user.provider'
+import ButtonLink from './buttonLink'
+import Reading from './layout/Reading'
 
 dayjs.extend(minMax)
 dayjs.extend(dayOfYear)

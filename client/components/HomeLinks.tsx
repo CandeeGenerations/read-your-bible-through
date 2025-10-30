@@ -1,9 +1,11 @@
+'use client'
+
 import React, {useContext} from 'react'
 
-import ButtonLink from '../../components/buttonLink'
-import {gtagEvent} from '../../libs/gtag'
-import {useUser} from '../../providers/user.provider'
-import {LayoutContext} from '../_app'
+import {LayoutContext} from '../app/providers'
+import {gtagEvent} from '../libs/gtag'
+import {useUser} from '../providers/user.provider'
+import ButtonLink from './buttonLink'
 
 const HomeLinks = (): React.ReactElement => {
   const {userInfo} = useUser()

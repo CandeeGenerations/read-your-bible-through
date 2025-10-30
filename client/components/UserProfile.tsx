@@ -1,14 +1,20 @@
+'use client'
+
 import Avvvatars from 'avvvatars-react'
 import React, {useState} from 'react'
 
-import {classNames} from '../../helpers'
-import {gtagEvent} from '../../libs/gtag'
-import {useUser} from '../../providers/user.provider'
+import {classNames} from '../helpers'
+import {gtagEvent} from '../libs/gtag'
+import {useUser} from '../providers/user.provider'
 
-const UserProfile = (): React.ReactElement => {
+const UserProfile = (): React.ReactElement | null => {
   const {userInfo, logOut} = useUser()
 
   const [loggingOut, setLoggingOut] = useState<boolean>(false)
+
+  if (!userInfo) {
+    return null
+  }
 
   return (
     <div className="flex flex-col items-center">

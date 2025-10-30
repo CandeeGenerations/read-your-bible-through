@@ -1,8 +1,10 @@
+'use client'
+
 import dayjs from 'dayjs'
 import React, {useContext} from 'react'
 
+import {LayoutContext} from '../../app/providers'
 import {gtagEvent} from '../../libs/gtag'
-import {LayoutContext} from '../../pages/_app'
 
 const TopPromo = (): React.ReactElement => {
   const {showHideLearnModal} = useContext(LayoutContext)

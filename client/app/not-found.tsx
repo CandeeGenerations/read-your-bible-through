@@ -1,19 +1,15 @@
-import Head from 'next/head'
+'use client'
+
 import Image from 'next/image'
 import React from 'react'
 
 import ButtonLink from '../components/buttonLink'
 import Layout from '../components/layout'
-import {siteTitle} from '../helpers/constants'
 import {gtagEvent} from '../libs/gtag'
 
-const FourOhFour = () => {
+export default function NotFound() {
   return (
     <Layout>
-      <Head>
-        <title>404 | ${siteTitle}</title>
-      </Head>
-
       <div className="mt-24">
         <Image
           src="/images/horizontal.svg"
@@ -53,5 +49,3 @@ const FourOhFour = () => {
     </Layout>
   )
 }
-
-export default FourOhFour
