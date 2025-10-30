@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.31](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.9.30...v1.9.31) (2025-10-30)
+
+
+### Bug Fixes
+
+* package updates and installed claude code ([ecd5c8c](https://github.com/CandeeGenerations/read-your-bible-through/commit/ecd5c8cfe88082925369d85a4ff1c34dee866c16))
+* styling fixes ([29f3d9a](https://github.com/CandeeGenerations/read-your-bible-through/commit/29f3d9ae4c946d12555b1d6d2e600d9dfca9a433))
+* updated the icons package ([a92a60c](https://github.com/CandeeGenerations/read-your-bible-through/commit/a92a60c66bc54ce05c9053f1db57bb3a6a61afc2))
+* upgraded next, moved to app router, removed headlessui ([68e267b](https://github.com/CandeeGenerations/read-your-bible-through/commit/68e267b4c299ef67757f7fef2519d5da395f5d8d))
+
 ### [1.9.30](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.9.21...v1.9.30) (2025-08-25)
 
 
