@@ -6,22 +6,16 @@
 version: 2
 updates:
   - package-ecosystem: 'npm'
-    directories:
-      - '/'
-      - '/client'
-      - '/server'
+    directory: '/'
     pull-request-branch-name:
       separator: '-' # Use hyphens to separate branch name segments
     schedule:
       interval: 'monthly'
-    reviewers:
-      - 'cgen01'
-    ignore:
-      - dependency-name: '@headlessui/react'
-      - dependency-name: 'tailwindcss'
-        versions: ['4.x']
     groups:
-      catchall:
+      minor-updates:
+        update-types:
+          - 'minor'
+          - 'patch'
         patterns:
           - '*'
   - package-ecosystem: 'github-actions' # Check for updates to GitHub Actions every week
@@ -30,9 +24,10 @@ updates:
       separator: '-'
     schedule:
       interval: 'monthly'
-    reviewers:
-      - 'cgen01'
     groups:
-      catchall:
+      minor-updates:
+        update-types:
+          - 'minor'
+          - 'patch'
         patterns:
           - '*'
