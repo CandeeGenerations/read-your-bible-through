@@ -16,7 +16,7 @@
   "scripts": {
     "build": "NEXT_PUBLIC_APP_VERSION=$npm_package_version next build",
     "dev": "fnm use; phase run 'NEXT_PUBLIC_APP_VERSION=$npm_package_version next dev -p ${PORT-3000}'",
-    "eslint": "eslint '**/*.{ts,tsx}'",
+    "eslint": "eslint '**/*.{ts,tsx}' --ignore-pattern '.next'",
     "export": "next export",
     "fix": "pnpm run eslint && pnpm run prettier --cache",
     "preinstall": "npx only-allow pnpm",
@@ -25,16 +25,16 @@
     "start": "NEXT_PUBLIC_APP_VERSION=$npm_package_version next start"
   },
   "resolutions": {
-    "@babel/runtime": ">=7.26.10",
-    "brace-expansion": ">=2.0.2",
-    "cookie": ">=0.7.0"
+    "@babel/runtime": "^7.26.10",
+    "brace-expansion": "^2.0.2",
+    "cookie": "^0.7.0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.7.2",
-    "@fortawesome/free-brands-svg-icons": "^6.7.2",
-    "@fortawesome/free-regular-svg-icons": "^6.7.2",
-    "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/free-brands-svg-icons": "^7.1.0",
+    "@fortawesome/free-regular-svg-icons": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/react-fontawesome": "^3.1.0",
     "@headlessui/react": "^1.7.19",
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
