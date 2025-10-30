@@ -2,7 +2,7 @@ import {ArrowTopRightOnSquareIcon, CheckCircleIcon} from '@heroicons/react/24/ou
 import React from 'react'
 
 import {IDisplayReading, ITestamentReading} from '../../helpers/types'
-import {IPageState} from '../../pages/_components/Calendar'
+import {IPageState} from '../Calendar'
 
 const Alert = ({title, children}: {title: string; children: React.ReactNode}): React.ReactElement => {
   return (

@@ -5,7 +5,20 @@ const path = require('path')
 
 const nextConfig = {
   images: {
-    domains: ['localhost', 'readthroughyourbible.com', 'lh3.googleusercontent.com'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'https',
+        hostname: 'readthroughyourbible.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
+    ],
     unoptimized: true,
   },
   env: {

@@ -1,27 +1,23 @@
+'use client'
+
 import {faFacebook, faGoogle, faWindows} from '@fortawesome/free-brands-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import type {GetServerSidePropsContext, InferGetServerSidePropsType} from 'next'
-import {getServerSession} from 'next-auth/next'
-import {getProviders, signIn} from 'next-auth/react'
-import Head from 'next/head'
+import {signIn} from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
 
-import ButtonLink from '../../components/buttonLink'
-import Layout from '../../components/layout'
-import {classNames} from '../../helpers'
-import {siteTitle} from '../../helpers/constants'
-import {gtagEvent} from '../../libs/gtag'
-import {authOptions} from '../api/auth/[...nextauth]'
+import ButtonLink from '../../../components/buttonLink'
+import Layout from '../../../components/layout'
+import {classNames} from '../../../helpers'
+import {gtagEvent} from '../../../libs/gtag'
 
-export default function SignIn({providers}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+interface SignInFormProps {
+  providers: Record<string, {id: string; name: string}>
+}
+
+export default function SignInForm({providers}: SignInFormProps) {
   return (
     <Layout>
-      <Head>
-        <title>Log In | {siteTitle}</title>
-      </Head>
-
       <div className="mt-14 mb-16 mx-5">
         <Image src="/images/default.png" className="mx-auto" alt="Read Your Bible Through" width={672} height={53} />
       </div>
@@ -36,11 +32,11 @@ export default function SignIn({providers}: InferGetServerSidePropsType<typeof g
             <ButtonLink
               className={classNames(
                 provider.id === 'facebook'
-                  ? '!bg-[#4267B2] text-white !border-[#4267B2] hover:bg-[#4267B2] !ring-[#4267B2]'
+                  ? 'bg-[#4267B2]! text-white border-[#4267B2]! hover:bg-[#4267B2] ring-[#4267B2]!'
                   : provider.id === 'google'
-                    ? '!bg-[#4285F4] text-white !border-[#4285F4] hover:bg-[#4285F4] !ring-[#4285F4]'
+                    ? 'bg-[#4285F4]! text-white border-[#4285F4]! hover:bg-[#4285F4] ring-[#4285F4]!'
                     : provider.id === 'azure-ad'
-                      ? '!bg-[#2E2E2E] text-white !border-[#2E2E2E] hover:bg-[#2E2E2E] !ring-[#2E2E2E]'
+                      ? 'bg-[#2E2E2E]! text-white border-[#2E2E2E]! hover:bg-[#2E2E2E] ring-[#2E2E2E]!'
                       : '',
                 'w-full',
               )}
@@ -72,21 +68,4 @@ export default function SignIn({providers}: InferGetServerSidePropsType<typeof g
       </div>
     </Layout>
   )
-}
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getServerSession(context.req, context.res, authOptions)
-
-  // If the user is already logged in, redirect.
-  // Note: Make sure not to redirect to the same page
-  // To avoid an infinite loop!
-  if (session) {
-    return {redirect: {destination: '/'}}
-  }
-
-  const providers = await getProviders()
-
-  return {
-    props: {providers: providers ?? []},
-  }
 }

@@ -1,19 +1,14 @@
-import Head from 'next/head'
+'use client'
+
 import Image from 'next/image'
-import React from 'react'
 
-import ButtonLink from '../components/buttonLink'
-import Layout from '../components/layout'
-import {siteTitle} from '../helpers/constants'
-import {gtagEvent} from '../libs/gtag'
+import ButtonLink from '../../components/buttonLink'
+import Layout from '../../components/layout'
+import {gtagEvent} from '../../libs/gtag'
 
-const Privacy = (): React.ReactElement => {
+export default function Privacy() {
   return (
     <Layout>
-      <Head>
-        <title>Privacy Policy | {siteTitle}</title>
-      </Head>
-
       <div className="mt-24">
         <Image
           src="/images/horizontal.svg"
@@ -98,5 +93,3 @@ const Privacy = (): React.ReactElement => {
     </Layout>
   )
 }
-
-export default Privacy

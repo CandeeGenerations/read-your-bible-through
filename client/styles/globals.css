@@ -1,3 +1,274 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Container settings */
+  --container-center: true;
+  --container-padding: 2rem;
+  --breakpoint-2xl: 1400px;
+
+  /* Font families */
+  --font-body:
+    -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Ubuntu, Roboto, Noto, 'Segoe UI',
+    Arial, sans-serif;
+  --font-serif: 'Merriweather', Georgia, serif;
+  --font-linden: 'linden_hillregular', serif;
+
+  /* Custom primary colors */
+  --color-primary-50: #c8bcf1;
+  --color-primary-100: #beb2e7;
+  --color-primary-200: #b4a8dd;
+  --color-primary-300: #aa9ed3;
+  --color-primary-400: #a094c9;
+  --color-primary-500: #968abf;
+  --color-primary-600: #8c80b5;
+  --color-primary-700: #8276ab;
+  --color-primary-800: #786ca1;
+  --color-primary-900: #6e6297;
+
+  /* Secondary (slate) colors */
+  --color-secondary-50: rgb(248 250 252);
+  --color-secondary-100: rgb(241 245 249);
+  --color-secondary-200: rgb(226 232 240);
+  --color-secondary-300: rgb(203 213 225);
+  --color-secondary-400: rgb(148 163 184);
+  --color-secondary-500: rgb(100 116 139);
+  --color-secondary-600: rgb(71 85 105);
+  --color-secondary-700: rgb(51 65 85);
+  --color-secondary-800: rgb(30 41 59);
+  --color-secondary-900: rgb(15 23 42);
+  --color-secondary-950: rgb(2 6 23);
+
+  /* shadcn/ui theme colors */
+  --color-background: hsl(0 0% 100%);
+  --color-foreground: hsl(222.2 84% 4.9%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(222.2 84% 4.9%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(222.2 84% 4.9%);
+  --color-primary: hsl(222.2 47.4% 11.2%);
+  --color-primary-foreground: hsl(210 40% 98%);
+  --color-secondary: hsl(210 40% 96.1%);
+  --color-secondary-foreground: hsl(222.2 47.4% 11.2%);
+  --color-muted: hsl(210 40% 96.1%);
+  --color-muted-foreground: hsl(215.4 16.3% 46.9%);
+  --color-accent: hsl(210 40% 96.1%);
+  --color-accent-foreground: hsl(222.2 47.4% 11.2%);
+  --color-destructive: hsl(0 84.2% 60.2%);
+  --color-destructive-foreground: hsl(210 40% 98%);
+  --color-border: hsl(214.3 31.8% 91.4%);
+  --color-input: hsl(214.3 31.8% 91.4%);
+  --color-ring: hsl(222.2 84% 4.9%);
+
+  /* Border radius */
+  --radius: 0.5rem;
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  /* Animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-in: animate-in 0.2s ease-out;
+  --animate-out: animate-out 0.2s ease-out;
+}
+
+/* Animation utilities */
+@utility animate-in {
+  animation: var(--animate-in);
+}
+
+@utility animate-out {
+  animation: var(--animate-out);
+}
+
+@utility fade-in-0 {
+  animation: fade-in 0.2s ease-out;
+}
+
+@utility fade-out-0 {
+  animation: fade-out 0.2s ease-out;
+}
+
+@utility zoom-in-95 {
+  animation: zoom-in-95 0.2s ease-out;
+}
+
+@utility zoom-out-95 {
+  animation: zoom-out-95 0.2s ease-out;
+}
+
+@utility slide-in-from-left-1_2 {
+  animation: slide-in-from-left-1_2 0.2s ease-out;
+}
+
+@utility slide-in-from-top-48pct {
+  animation: slide-in-from-top-48pct 0.2s ease-out;
+}
+
+@utility slide-out-to-left-1_2 {
+  animation: slide-out-to-left-1_2 0.2s ease-out;
+}
+
+@utility slide-out-to-top-48pct {
+  animation: slide-out-to-top-48pct 0.2s ease-out;
+}
+
+/* Keep keyframes */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes zoom-in-95 {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes zoom-out-95 {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-from-left-1_2 {
+  from {
+    transform: translateX(-50%) translateY(-50%) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(-50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-from-top-48pct {
+  from {
+    transform: translateX(-50%) translateY(-48%) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(-50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out-to-left-1_2 {
+  from {
+    transform: translateX(-50%) translateY(-50%) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-50%) translateY(-50%) scale(0.95);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-out-to-top-48pct {
+  from {
+    transform: translateX(-50%) translateY(-50%) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-50%) translateY(-48%) scale(0.95);
+    opacity: 0;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+}
+
 @font-face {
   font-family: 'linden_hillregular';
   src:
@@ -12,17 +283,35 @@ body {
   padding: 0;
   margin: 0;
   background-color: #fafafa;
+  color: #1a1a1a;
 }
 
 .font-linden {
   font-family: 'linden_hillregular';
 }
 
-a {
+/* Default link styling for content areas */
+article a,
+.prose a,
+.text-content a {
   color: #968abf;
 }
 
-a:active,
-a:hover {
+article a:active,
+article a:hover,
+.prose a:active,
+.prose a:hover,
+.text-content a:active,
+.text-content a:hover {
+  color: #6e6297;
+}
+
+/* Fallback for links without text color utilities */
+a:not([class*='text-']) {
+  color: #968abf;
+}
+
+a:not([class*='text-']):active,
+a:not([class*='text-']):hover {
   color: #6e6297;
 }
