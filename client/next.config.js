@@ -1,5 +1,8 @@
 /* eslint-disable no-undef */
 /** @type {import('next').NextConfig} */
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const path = require('path')
+
 const nextConfig = {
   images: {
     domains: ['localhost', 'readthroughyourbible.com', 'lh3.googleusercontent.com'],
@@ -12,6 +15,7 @@ const nextConfig = {
     workerThreads: false,
     cpus: 1,
   },
+  outputFileTracingRoot: path.join(__dirname, '..'),
 }
 
 module.exports = nextConfig
