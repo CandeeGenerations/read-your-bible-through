@@ -178,8 +178,8 @@ const Calendar = (): React.ReactElement => {
                   'flex flex-row items-center w-full justify-center lg:justify-start lg:w-auto',
                   !pageState.markingRead &&
                     (pageState.passageTrack
-                      ? '!text-rose-700 !border-rose-300 !bg-rose-50 hover:!bg-rose-100 focus:!ring-rose-500'
-                      : '!text-emerald-700 !border-emerald-300 !bg-emerald-50 hover:!bg-emerald-100 focus:!ring-emerald-500'),
+                      ? 'text-rose-700! border-rose-300! bg-rose-50 hover:bg-rose-100 focus:ring-rose-500!'
+                      : 'text-emerald-700! border-emerald-300! bg-emerald-50 hover:bg-emerald-100 focus:ring-emerald-500!'),
                 )}
               >
                 <FontAwesomeIcon
@@ -201,7 +201,7 @@ const Calendar = (): React.ReactElement => {
             ) : (
               <div className="w-full h-6 bg-gray-200 rounded-full">
                 <div
-                  className="font-medium text-center p-0.5 pt-1 text-white leading-none h-6 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-full"
+                  className="font-medium text-center p-0.5 pt-1 text-white leading-none h-6 bg-linear-to-r from-primary-600 to-secondary-600 rounded-full"
                   style={{
                     width: pageState.goalAchieved ? '100%' : `${pageState.progress}%`,
                   }}
@@ -222,7 +222,7 @@ const Calendar = (): React.ReactElement => {
               onClick={() => changeMonths(false)}
               disabled={pageState.selectedMonth.month() === 0}
               className={classNames(
-                '-m-1.5 flex flex-none items-center justify-center p-1.5',
+                '-m-1.5 flex flex-none items-center justify-center p-1.5 cursor-pointer',
                 pageState.selectedMonth.month() === 0
                   ? 'hover:cursor-default text-gray-200'
                   : 'text-gray-400 hover:text-gray-500',
@@ -239,7 +239,7 @@ const Calendar = (): React.ReactElement => {
               onClick={() => changeMonths(true)}
               disabled={pageState.selectedMonth.month() === 11}
               className={classNames(
-                '-m-1.5 flex flex-none items-center justify-center p-1.5',
+                '-m-1.5 flex flex-none items-center justify-center p-1.5 cursor-pointer',
                 pageState.selectedMonth.month() === 11
                   ? 'hover:cursor-default text-gray-200'
                   : 'text-gray-400 hover:text-gray-500',
@@ -272,6 +272,7 @@ const Calendar = (): React.ReactElement => {
                   onClick={() => selectDay(day.date)}
                   className={classNames(
                     'py-1.5 focus:z-10',
+                    day.isCurrentMonth && !day.isSelected ? 'cursor-pointer' : '',
                     day.isCurrentMonth ? 'hover:bg-gray-100' : 'hover:cursor-default',
                     day.isCurrentMonth
                       ? tracked
@@ -327,7 +328,7 @@ const Calendar = (): React.ReactElement => {
           pageState.nextReading &&
           pageState.reading.filter((x) => x.otReading.length > 0).length > pageState.tracks.length && (
             <a
-              className="underline cursor-pointer block py-2 text-center mt-5"
+              className="underline cursor-pointer block py-2 text-center mt-5 text-primary-600 hover:text-primary-700"
               onClick={() => {
                 goToNextReading()
                 gtagEvent({

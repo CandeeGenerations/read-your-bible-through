@@ -5,7 +5,6 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {signIn} from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
 
 import ButtonLink from '../../../components/buttonLink'
 import Layout from '../../../components/layout'
@@ -33,11 +32,11 @@ export default function SignInForm({providers}: SignInFormProps) {
             <ButtonLink
               className={classNames(
                 provider.id === 'facebook'
-                  ? '!bg-[#4267B2] text-white !border-[#4267B2] hover:bg-[#4267B2] !ring-[#4267B2]'
+                  ? 'bg-[#4267B2]! text-white border-[#4267B2]! hover:bg-[#4267B2] ring-[#4267B2]!'
                   : provider.id === 'google'
-                    ? '!bg-[#4285F4] text-white !border-[#4285F4] hover:bg-[#4285F4] !ring-[#4285F4]'
+                    ? 'bg-[#4285F4]! text-white border-[#4285F4]! hover:bg-[#4285F4] ring-[#4285F4]!'
                     : provider.id === 'azure-ad'
-                      ? '!bg-[#2E2E2E] text-white !border-[#2E2E2E] hover:bg-[#2E2E2E] !ring-[#2E2E2E]'
+                      ? 'bg-[#2E2E2E]! text-white border-[#2E2E2E]! hover:bg-[#2E2E2E] ring-[#2E2E2E]!'
                       : '',
                 'w-full',
               )}

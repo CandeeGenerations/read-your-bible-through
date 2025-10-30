@@ -32,7 +32,7 @@ const UserProfile = (): React.ReactElement | null => {
 
       {userInfo && (
         <a
-          className={classNames(loggingOut ? 'text-muted' : 'cursor-pointer underline', 'block py-2')}
+          className={classNames(!loggingOut && 'cursor-pointer underline', 'block py-2')}
           onClick={() => {
             if (!loggingOut) {
               setLoggingOut(true)
