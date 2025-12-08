@@ -44,7 +44,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.18",
-    "lucide-react": "^0.552.0",
+    "lucide-react": "^0.555.0",
     "next": "^16.0.1",
     "next-auth": "^4.24.13",
     "nookies": "^2.5.2",
@@ -54,23 +54,23 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@eslint/js": "9.39.0",
+    "@eslint/js": "9.39.1",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/postcss": "^4.1.16",
     "@tailwindcss/typography": "^0.5.19",
     "@types/gtag.js": "^0.0.20",
     "@types/node": "^24.9.2",
-    "@types/react": "19.2.2",
+    "@types/react": "19.2.7",
     "@types/react-helmet": "^6.1.11",
     "autoprefixer": "^10.4.21",
     "cssnano": "7.1.2",
-    "eslint": "9.39.0",
+    "eslint": "9.39.1",
     "globals": "16.5.0",
     "postcss": "^8.5.6",
-    "prettier": "3.6.2",
+    "prettier": "3.7.3",
     "tailwindcss": "^4.1.16",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.46.2"
+    "typescript-eslint": "8.48.0"
   },
   "engines": {
     "node": ">=22.0.0",
