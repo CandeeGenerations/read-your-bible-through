@@ -1,4 +1,5 @@
 import {PassageTrack} from '@prisma/client'
+import {PassageType} from '@src/common/constants'
 import {handleError, handleSuccess} from '@src/common/helpers'
 import {IException} from '@src/types/logger'
 import dayjs from 'dayjs'
@@ -28,40 +29,51 @@ router.get(`${route}s`, async (req: Request<{userId: string}>, res: Response) =>
 /*
  * POST:    `/api/user/:userId/track/:trackId?`
  * QUERY:
- *          - :userId   : `641546e3e6dffedba604e2b3`
- *          - :trackId? : `641546e3e6dffedba604e2b3`
- * PAYLOAD: {passageDate: '2023-01-01'}
+ *          - :userId       : `641546e3e6dffedba604e2b3`
+ *          - :trackId?     : `641546e3e6dffedba604e2b3`
+ * PAYLOAD:
+ * {
+ *   passageDate: '2023-01-01',
+ *   passageType?: 'proverbs' | 'psalms' | null
+ * }
  */
-router.post(`${route}{/:trackId}`, async (req: Request<{userId: string; trackId?: string}>, res: Response) => {
-  try {
-    const {trackId, userId} = req.params
+router.post(
+  `${route}{/:trackId}`,
+  async (
+    req: Request<{userId: string; trackId?: string}, unknown, {passageDate?: string; passageType?: PassageType}>,
+    res: Response,
+  ) => {
+    try {
+      const {trackId, userId} = req.params
 
-    if (trackId) {
-      const currentTrack = await service.getSingle(trackId)
+      if (trackId) {
+        const currentTrack = await service.getSingle(trackId)
 
-      if (!currentTrack) {
-        handleError(res, {
-          name: 'Passage Track not found',
-          message: 'Passage Track not found',
-        })
+        if (!currentTrack) {
+          handleError(res, {
+            name: 'Passage Track not found',
+            message: 'Passage Track not found',
+          })
+          return
+        }
+
+        await service.remove(trackId)
+
+        handleSuccess(res)
         return
       }
 
-      await service.remove(trackId)
+      await service.create({
+        passageDate: req.body.passageDate,
+        userId,
+        trackDate: dayjs().format(),
+        passageType: req.body.passageType,
+      } as PassageTrack)
 
       handleSuccess(res)
-      return
+    } catch (e) {
+      handleError(res, e as IException)
     }
-
-    await service.create({
-      passageDate: req.body.passageDate,
-      userId,
-      trackDate: dayjs().format(),
-    } as PassageTrack)
-
-    handleSuccess(res)
-  } catch (e) {
-    handleError(res, e as IException)
-  }
-})
+  },
+)
 export default router

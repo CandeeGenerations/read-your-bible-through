@@ -1,3 +1,5 @@
+import {pages} from '@/helpers/constants'
+import {usePage} from '@/providers/page.provider'
 import {ArrowTopRightOnSquareIcon, CheckCircleIcon} from '@heroicons/react/24/outline'
 import React from 'react'
 
@@ -92,6 +94,8 @@ const Testament = ({
 }
 
 const Reading = (pageState: IPageState): React.ReactElement => {
+  const {current: page, getTitle} = usePage()
+  const title = getTitle()
   const reading = pageState.reading.find((x) => x.date.isSame(pageState.selectedDay, 'day'))
 
   if (!reading) {
@@ -109,8 +113,8 @@ const Reading = (pageState: IPageState): React.ReactElement => {
   if (reading.otReading.length === 0) {
     return (
       <Alert title="Bible Reading Plan Completed">
-        <strong>Congratulations!</strong> You have completed the Bible reading plan for this year! Check back on January
-        1st to start the next Bible reading plan.
+        <strong>Congratulations!</strong> You have completed the {title} reading plan for this year! Check back on
+        January 1st to start the next {title} reading plan.
       </Alert>
     )
   }
@@ -119,7 +123,7 @@ const Reading = (pageState: IPageState): React.ReactElement => {
     <div className="grid grid-cols-1 gap-4">
       <Testament testamentReading={reading.otReading} />
 
-      <Testament testamentReading={reading.ntReading} newTestament />
+      {page === pages.home && <Testament testamentReading={reading.ntReading} newTestament />}
     </div>
   )
 }

@@ -1,5 +1,7 @@
 'use client'
 
+import {pages} from '@/helpers/constants'
+import {usePage} from '@/providers/page.provider'
 import {faSquareCheck} from '@fortawesome/free-regular-svg-icons'
 import {faCheckSquare} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -10,7 +12,14 @@ import dayOfYear from 'dayjs/plugin/dayOfYear'
 import minMax from 'dayjs/plugin/minMax'
 import React, {useEffect, useState} from 'react'
 
-import {classNames, createCalendar, getBibleReading, setPageState} from '../helpers'
+import {
+  classNames,
+  createCalendar,
+  getBibleReading,
+  getProverbsReading,
+  getPsalmsReading,
+  setPageState,
+} from '../helpers'
 import {ICalendarDay, IPassageTrack, IReadingPlan} from '../helpers/types'
 import {gtagEvent} from '../libs/gtag'
 import {useUser} from '../providers/user.provider'
@@ -36,6 +45,8 @@ export interface IPageState {
 
 const Calendar = (): React.ReactElement => {
   const {userInfo, loadTracks, tracks} = useUser()
+  const {current: page, getTitle} = usePage()
+  const title = getTitle()
   const [pageState, stateFunc] = useState<IPageState>({
     days: [],
     reading: [],
@@ -68,7 +79,16 @@ const Calendar = (): React.ReactElement => {
 
   const getTracks = async () => {
     const {data: books} = await axios.get('/books')
-    const reading = getBibleReading(books)
+    let reading: IReadingPlan[] = []
+
+    if (page === pages.psalms) {
+      reading = getPsalmsReading()
+    } else if (page === pages.proverbs) {
+      reading = getProverbsReading(dayjs())
+    } else {
+      reading = getBibleReading(books)
+    }
+
     const state: IPageState = {
       days: createCalendar(dayjs(), true),
       reading,
@@ -77,11 +97,13 @@ const Calendar = (): React.ReactElement => {
     }
 
     if (userInfo) {
-      state.tracks = tracks
-      state.passageTrack = tracks.find((x) => dayjs(x.passageDate).isSame(pageState.selectedDay, 'day'))
-      state.goalAchieved = goalAchieved(pageState.countDays, tracks.length)
-      state.progress = calculateProgress(pageState.countDays, tracks.length)
-      state.nextReading = getNextReadingDate(tracks)
+      const filteredTracks = tracks.filter((t) => t.passageType === (page === pages.home ? null : page))
+
+      state.tracks = filteredTracks
+      state.passageTrack = filteredTracks.find((x) => dayjs(x.passageDate).isSame(pageState.selectedDay, 'day'))
+      state.goalAchieved = goalAchieved(filteredTracks)
+      state.progress = calculateProgress(filteredTracks)
+      state.nextReading = getNextReadingDate(filteredTracks)
     }
 
     setState({...state})
@@ -95,14 +117,22 @@ const Calendar = (): React.ReactElement => {
     const updatedMonth = reset ? dayjs() : pageState.selectedMonth[forward ? 'add' : 'subtract'](1, 'month')
     const selectedDay = reset ? updatedMonth : updatedMonth.startOf('month')
 
-    setState({
+    const newState: IPageState = {
       selectedMonth: updatedMonth,
       days: createCalendar(updatedMonth, reset),
       selectedDay,
       passageTrack: (pageState.tracks || []).find((x) => dayjs(x.passageDate).isSame(selectedDay, 'day')),
-      goalAchieved: goalAchieved(pageState.countDays, pageState.tracks.length),
-      progress: calculateProgress(pageState.countDays, pageState.tracks.length),
-    })
+      goalAchieved: goalAchieved(pageState.tracks || [], updatedMonth),
+      progress: calculateProgress(pageState.tracks || [], updatedMonth),
+    }
+
+    if (page === pages.proverbs) {
+      newState.reading = getProverbsReading(updatedMonth)
+    } else if (page === pages.psalms) {
+      newState.reading = getPsalmsReading()
+    }
+
+    setState(newState)
   }
 
   const selectDay = (day: string) => {
@@ -115,8 +145,8 @@ const Calendar = (): React.ReactElement => {
       })),
       selectedDay,
       passageTrack: (pageState.tracks || []).find((x) => dayjs(x.passageDate).isSame(selectedDay, 'day')),
-      goalAchieved: goalAchieved(pageState.countDays, pageState.tracks.length),
-      progress: calculateProgress(pageState.countDays, pageState.tracks.length),
+      goalAchieved: goalAchieved(pageState.tracks || []),
+      progress: calculateProgress(pageState.tracks || []),
     })
   }
 
@@ -125,15 +155,17 @@ const Calendar = (): React.ReactElement => {
 
     await axios.post(`/user/${userInfo.id}/track${pageState.passageTrack ? `/${pageState.passageTrack.id}` : ''}`, {
       passageDate: pageState.selectedDay.format('YYYY-MM-DD'),
+      passageType: page === pages.home ? null : page,
     })
     const updatedTracks = await loadTracks()
+    const filteredTracks = updatedTracks.filter((t) => t.passageType === (page === pages.home ? null : page))
 
     setState({
-      tracks: updatedTracks,
-      passageTrack: (updatedTracks || []).find((x) => dayjs(x.passageDate).isSame(pageState.selectedDay, 'day')),
-      goalAchieved: goalAchieved(pageState.countDays, updatedTracks.length),
-      progress: calculateProgress(pageState.countDays, updatedTracks.length),
-      nextReading: getNextReadingDate(updatedTracks),
+      tracks: filteredTracks,
+      passageTrack: (filteredTracks || []).find((x) => dayjs(x.passageDate).isSame(pageState.selectedDay, 'day')),
+      goalAchieved: goalAchieved(filteredTracks),
+      progress: calculateProgress(filteredTracks),
+      nextReading: getNextReadingDate(filteredTracks),
       markingRead: false,
     })
   }
@@ -145,21 +177,50 @@ const Calendar = (): React.ReactElement => {
         selectedMonth: pageState.nextReading,
         selectedDay: pageState.nextReading,
         passageTrack: (pageState.tracks || []).find((x) => dayjs(x.passageDate).isSame(pageState.nextReading, 'day')),
-        goalAchieved: goalAchieved(pageState.countDays, pageState.tracks.length),
-        progress: calculateProgress(pageState.countDays, pageState.tracks.length),
+        goalAchieved: goalAchieved(pageState.tracks || []),
+        progress: calculateProgress(pageState.tracks || []),
       })
     }
   }
 
-  const calculateProgress = (goal: number, total: number): number => Math.ceil((total / goal) * 100)
+  const calculateProgress = (tracksToCount: IPassageTrack[], selectedMonth?: dayjs.Dayjs): number => {
+    if (page === pages.psalms) {
+      // Psalms: 0% = no readings, 50% = 1.5x through, 100% = 3x through
+      // Total readings needed: 150 psalms * 3 = 450 (plus Psalm 119 splits = 459)
+      const totalPsalmsReadings = 459
 
-  const goalAchieved = (goal: number, total: number): boolean => total >= goal
+      return Math.min(100, Math.ceil((tracksToCount.length / totalPsalmsReadings) * 100))
+    } else if (page === pages.proverbs) {
+      // Proverbs: progress is per month, 0% = no readings this month, 100% = 31 chapters read this month
+      const month = selectedMonth || pageState.selectedMonth
+      const tracksThisMonth = tracksToCount.filter((t) => dayjs(t.passageDate).isSame(month, 'month'))
+
+      return Math.min(100, Math.ceil((tracksThisMonth.length / 31) * 100))
+    } else {
+      // Bible: original calculation
+      return Math.ceil((tracksToCount.length / pageState.countDays) * 100)
+    }
+  }
+
+  const goalAchieved = (tracksToCount: IPassageTrack[], selectedMonth?: dayjs.Dayjs): boolean => {
+    if (page === pages.psalms) {
+      return tracksToCount.length >= 459
+    } else if (page === pages.proverbs) {
+      const month = selectedMonth || pageState.selectedMonth
+      const tracksThisMonth = tracksToCount.filter((t) => dayjs(t.passageDate).isSame(month, 'month'))
+
+      return tracksThisMonth.length >= 31
+    } else {
+      return tracksToCount.length >= pageState.countDays
+    }
+  }
 
   return (
     <div className="md:grid md:grid-cols-4 md:divide-x md:divide-x-reverse md:divide-gray-200">
       <section className="mt-12 md:mt-0 md:pl-14 md:col-start-3 md:col-end-5 md:row-start-1">
         <h2 className="text-3xl text-gray-900 mb-14 font-linden text-center md:text-left">
-          Bible Reading for <br />
+          {title} Reading for
+          <br />
           <time className="text-primary-600" dateTime={pageState.selectedDay.format('YYYY-MM-DD')}>
             {pageState.selectedDay.format('dddd, MMMM D, YYYY')}
           </time>

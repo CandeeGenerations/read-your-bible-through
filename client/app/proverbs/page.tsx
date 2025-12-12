@@ -4,12 +4,12 @@ import {pages} from '@/helpers/constants'
 import PageProvider from '@/providers/page.provider'
 import Image from 'next/image'
 
-import Calendar from '../components/Calendar'
-import HomeLinks from '../components/HomeLinks'
-import UserProfile from '../components/UserProfile'
-import Layout from '../components/layout'
+import Calendar from '../../components/Calendar'
+import HomeLinks from '../../components/HomeLinks'
+import UserProfile from '../../components/UserProfile'
+import Layout from '../../components/layout'
 
-export default function Home() {
+export default function Proverbs() {
   return (
     <Layout>
       <div className="mt-24 md:mt-14 mb-16 mx-5">
@@ -18,7 +18,7 @@ export default function Home() {
 
       <UserProfile />
 
-      <PageProvider page={pages.home}>
+      <PageProvider page={pages.proverbs}>
         <HomeLinks />
         <Calendar />
       </PageProvider>
