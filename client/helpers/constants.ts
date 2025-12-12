@@ -1,5 +1,21 @@
 export const siteTitle = 'Read Your Bible Through'
 
+export const pages = {
+  home: 'home',
+  proverbs: 'proverbs',
+  psalms: 'psalms',
+} as const
+
+export type PageType = (typeof pages)[keyof typeof pages]
+
+export const PASSAGE_TYPES = {
+  PROVERBS: 'proverbs',
+  PSALMS: 'psalms',
+  NULL: null,
+} as const
+
+export type PassageType = (typeof PASSAGE_TYPES)[keyof typeof PASSAGE_TYPES] | null
+
 export const NT_BOOKS = [
   'MAT',
   'MRK',

@@ -1,5 +1,7 @@
 import dayjs from 'dayjs'
 
+import {PassageType} from './constants'
+
 export interface ICalendarDay {
   date: string
   isCurrentMonth: boolean
@@ -47,4 +49,5 @@ export interface IDisplayReading {
 export interface IPassageTrack {
   id: string
   passageDate: string
+  passageType: PassageType
 }

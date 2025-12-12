@@ -135,6 +135,121 @@ export const getBibleReading = (books: IBibleBook[]): IReadingPlan[] => {
   return bibleReading
 }
 
+export const getProverbsReading = (month: dayjs.Dayjs): IReadingPlan[] => {
+  const now = dayjs()
+  const targetMonth = month.year(now.year()).startOf('month')
+  const daysInMonth = targetMonth.daysInMonth()
+  const totalChapters = 31
+
+  // Calculate how to distribute 31 chapters across the month
+  // 31 days: 1 chapter per day
+  // 30 days: 2 chapters on the last day
+  // 28 days (Feb): spread extra 3 chapters over last 3 days (2 chapters each)
+  // 29 days (Feb leap): spread extra 2 chapters over last 2 days (2 chapters each)
+  const extraChapters = totalChapters - daysInMonth
+  const proverbsReading: IReadingPlan[] = []
+
+  let chapterIndex = 0
+
+  for (let i = 0; i < daysInMonth; i++) {
+    const date = targetMonth.add(i, 'day')
+    const dayNumber = i + 1
+    const daysRemaining = daysInMonth - dayNumber
+
+    // Determine how many chapters to read today
+    let chaptersToRead = 1
+
+    if (extraChapters > 0 && daysRemaining < extraChapters) {
+      // We need to double up on the last `extraChapters` days
+      chaptersToRead = 2
+    }
+
+    const reading: ITestamentReading[] = []
+
+    for (let j = 0; j < chaptersToRead && chapterIndex < totalChapters; j++) {
+      reading.push({
+        index: chapterIndex,
+        book: 'PRO',
+        name: 'Proverbs',
+        chapter: String(chapterIndex + 1),
+      })
+      chapterIndex++
+    }
+
+    proverbsReading.push({
+      date,
+      index: i,
+      today: date.isSame(now.startOf('day'), 'day'),
+      otReading: reading,
+      ntReading: [],
+    })
+  }
+
+  return proverbsReading
+}
+
+export const getPsalmsReading = (): IReadingPlan[] => {
+  const now = dayjs()
+  const totalPsalms = 150
+  const timesThrough = 3
+
+  // Build the reading list: Psalms 1-150, three times
+  // Psalm 119 is split into 4 parts (it has 22 sections of 8 verses, ~176 verses total)
+  // We'll split it into parts: 1-44, 45-88, 89-132, 133-176 (by verse ranges)
+  const psalmsChapters: {chapter: string; name: string}[] = []
+
+  for (let round = 0; round < timesThrough; round++) {
+    for (let i = 1; i <= totalPsalms; i++) {
+      if (i === 119) {
+        // Split Psalm 119 into 4 parts
+        psalmsChapters.push({chapter: '119:1-44', name: 'Psalm'})
+        psalmsChapters.push({chapter: '119:45-88', name: 'Psalm'})
+        psalmsChapters.push({chapter: '119:89-132', name: 'Psalm'})
+        psalmsChapters.push({chapter: '119:133-176', name: 'Psalm'})
+      } else {
+        psalmsChapters.push({chapter: String(i), name: `Psalm`})
+      }
+    }
+  }
+
+  const psalmsReading: IReadingPlan[] = []
+  let chapterIndex = 0
+
+  for (let i = 0; i < 365; i++) {
+    const date = dayjs()
+      .dayOfYear(i + 1)
+      .startOf('day')
+    const dayOfWeek = date.day()
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6
+
+    // 1 chapter on weekdays, 2 on weekends
+    const chaptersToRead = isWeekend ? 2 : 1
+
+    const reading: ITestamentReading[] = []
+
+    for (let j = 0; j < chaptersToRead && chapterIndex < psalmsChapters.length; j++) {
+      const psalm = psalmsChapters[chapterIndex]
+      reading.push({
+        index: chapterIndex,
+        book: 'PSA',
+        name: psalm.name,
+        chapter: psalm.chapter,
+      })
+      chapterIndex++
+    }
+
+    psalmsReading.push({
+      date,
+      index: i,
+      today: date.isSame(now.startOf('day'), 'day'),
+      otReading: reading,
+      ntReading: [],
+    })
+  }
+
+  return psalmsReading
+}
+
 /** --- COPIED --- **/
 
 export const getCookie = (name) => {
