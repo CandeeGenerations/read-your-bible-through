@@ -79,18 +79,19 @@ const Calendar = (): React.ReactElement => {
 
   const getTracks = async () => {
     const {data: books} = await axios.get('/books')
+    const today = dayjs()
     let reading: IReadingPlan[] = []
 
     if (page === pages.psalms) {
       reading = getPsalmsReading()
     } else if (page === pages.proverbs) {
-      reading = getProverbsReading(dayjs())
+      reading = getProverbsReading(today)
     } else {
       reading = getBibleReading(books)
     }
 
     const state: IPageState = {
-      days: createCalendar(dayjs(), true),
+      days: createCalendar(today, true),
       reading,
       tracks: [],
       countDays: reading.filter((x) => x.otReading.length > 0).length,

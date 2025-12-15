@@ -9,8 +9,8 @@ export const pages = {
 export type PageType = (typeof pages)[keyof typeof pages]
 
 export const PASSAGE_TYPES = {
-  PROVERBS: 'proverbs',
-  PSALMS: 'psalms',
+  PROVERBS: pages.proverbs,
+  PSALMS: pages.psalms,
   NULL: null,
 } as const
 
