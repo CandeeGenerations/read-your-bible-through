@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.9.31...v1.11.0) (2026-01-01)
+
+
+### Features
+
+* added psalms and proverbs reading plans ([#54](https://github.com/CandeeGenerations/read-your-bible-through/issues/54)) ([d2d28d6](https://github.com/CandeeGenerations/read-your-bible-through/commit/d2d28d6a987940a4c302e26e4dd207caa63a04ec))
+
+
+### Bug Fixes
+
+* package updates ([9950737](https://github.com/CandeeGenerations/read-your-bible-through/commit/99507375682c8da8e68e130c32b634d037b2b178))
+
 ## [1.10.0](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.9.31...v1.10.0) (2025-12-12)
 
 
