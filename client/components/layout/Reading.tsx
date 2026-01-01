@@ -48,7 +48,7 @@ const Testament = ({
 
   const link =
     reading &&
-    `https://www.biblegateway.com/passage/?version=KJV&search=${encodeURIComponent(
+    `https://www.biblegateway.com/passage/?version=AKJV&search=${encodeURIComponent(
       reading.map((x) => `${x.book} ${x.chapters.join(',')}`).join(','),
     )}`
 
