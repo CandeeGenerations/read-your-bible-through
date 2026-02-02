@@ -20,7 +20,7 @@
     "install:ci": "pnpm install --ignore-scripts; cd client; pnpm install --ignore-scripts; cd ../server; pnpm install --ignore-scripts",
     "prepare": "husky",
     "prettier": "cd client && pnpm prettier && cd ../server && pnpm prettier",
-    "prettier:ci": "cd client && pnpm prettier:ci && cd ../server && pnpm prettier:ci",
+    "prettier:ci": "pnpm exec prettier --check .",
     "release": "standard-version -a -- --release-as minor"
   },
   "resolutions": {
