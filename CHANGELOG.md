@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.1](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.11.0...v1.11.1) (2026-02-27)
+
+
+### Bug Fixes
+
+* minor bug fix for percentage for proverbs reading ([c35665c](https://github.com/CandeeGenerations/read-your-bible-through/commit/c35665cfb5c1666bbad8f007928afc8f42e049e3))
+
 ## [1.11.0](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.9.31...v1.11.0) (2026-01-01)
 
 
