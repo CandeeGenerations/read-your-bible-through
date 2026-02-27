@@ -192,11 +192,12 @@ const Calendar = (): React.ReactElement => {
 
       return Math.min(100, Math.ceil((tracksToCount.length / totalPsalmsReadings) * 100))
     } else if (page === pages.proverbs) {
-      // Proverbs: progress is per month, 0% = no readings this month, 100% = 31 chapters read this month
+      // Proverbs: progress is per month, 0% = no readings this month, 100% = all days read this month
       const month = selectedMonth || pageState.selectedMonth
+      const daysInMonth = month.daysInMonth()
       const tracksThisMonth = tracksToCount.filter((t) => dayjs(t.passageDate).isSame(month, 'month'))
 
-      return Math.min(100, Math.ceil((tracksThisMonth.length / 31) * 100))
+      return Math.min(100, Math.ceil((tracksThisMonth.length / daysInMonth) * 100))
     } else {
       // Bible: original calculation
       return Math.ceil((tracksToCount.length / pageState.countDays) * 100)
@@ -208,9 +209,10 @@ const Calendar = (): React.ReactElement => {
       return tracksToCount.length >= 459
     } else if (page === pages.proverbs) {
       const month = selectedMonth || pageState.selectedMonth
+      const daysInMonth = month.daysInMonth()
       const tracksThisMonth = tracksToCount.filter((t) => dayjs(t.passageDate).isSame(month, 'month'))
 
-      return tracksThisMonth.length >= 31
+      return tracksThisMonth.length >= daysInMonth
     } else {
       return tracksToCount.length >= pageState.countDays
     }
