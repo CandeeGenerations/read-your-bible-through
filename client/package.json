@@ -24,10 +24,6 @@
     "prettier:ci": "prettier --check .",
     "start": "NEXT_PUBLIC_APP_VERSION=$npm_package_version next start"
   },
-  "resolutions": {
-    "cookie": "^0.7.0",
-    "next": "^16.1.5"
-  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-brands-svg-icons": "^7.1.0",
@@ -43,7 +39,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.19",
-    "lucide-react": "0.575.0",
+    "lucide-react": "0.576.0",
     "next": "16.1.1",
     "next-auth": "^4.24.13",
     "nookies": "^2.5.2",
@@ -65,7 +61,7 @@
     "autoprefixer": "10.4.27",
     "cssnano": "7.1.2",
     "eslint": "10.0.2",
-    "globals": "17.3.0",
+    "globals": "17.4.0",
     "postcss": "^8.5.6",
     "prettier": "3.8.1",
     "tailwindcss": "^4.1.18",
