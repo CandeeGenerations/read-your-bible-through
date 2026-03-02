@@ -80,7 +80,7 @@ const Calendar = (): React.ReactElement => {
   const getTracks = async () => {
     const {data: books} = await axios.get('/books')
     const today = dayjs()
-    let reading: IReadingPlan[] = []
+    let reading: IReadingPlan[]
 
     if (page === pages.psalms) {
       reading = getPsalmsReading()
