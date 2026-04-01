@@ -49,7 +49,7 @@ jobs:
         id: read-package-json
 
       - name: Login via Azure CLI
-        uses: azure/login@v2
+        uses: azure/login@v3
         with:
           creds: ${{ env.AZURE_CREDENTIALS }}
 
