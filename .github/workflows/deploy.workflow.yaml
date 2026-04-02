@@ -93,7 +93,7 @@ jobs:
 
     steps:
       - name: Azure deployment
-        uses: azure/webapps-deploy@v3.0.7
+        uses: azure/webapps-deploy@v3.0.8
         with:
           publish-profile: ${{ env.AZURE_CREDENTIALS }}
           app-name: ${{ env.APP_NAME }}
