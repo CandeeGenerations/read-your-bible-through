@@ -17,12 +17,12 @@
   "main": "dist/src/index.js",
   "scripts": {
     "build": "rm -rf dist && pnpm generate && NODE_ENV=production tsc && tsc-alias",
-    "db:push": "phase run 'npx prisma db push'",
+    "db:push": "phase run 'pnpm exec prisma db push'",
     "dev": "pnpm start",
     "eslint": "eslint 'src/**/*.ts'",
     "fix": "pnpm run eslint && pnpm run prettier --cache",
-    "generate": "npx prisma format && npx prisma generate --no-hints",
-    "preinstall": "sh scripts/check-versions.sh && npx only-allow pnpm",
+    "generate": "pnpm exec prisma format && pnpm exec prisma generate --no-hints",
+    "preinstall": "sh ../scripts/check-versions.sh && npx only-allow pnpm",
     "pcheck": "npm-check -u -i '{prisma,@prisma/client}' && pnpm audit",
     "prettier": "prettier --cache --check --write --ignore-unknown .",
     "prettier:ci": "prettier --check .",
@@ -53,7 +53,7 @@
     "typescript-eslint": "8.58.0"
   },
   "engines": {
-    "node": ">=22.0.0",
+    "node": ">=24.0.0",
     "pnpm": ">=10.0.0"
   }
 }

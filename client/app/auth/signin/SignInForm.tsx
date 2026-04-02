@@ -19,7 +19,15 @@ export default function SignInForm({providers}: SignInFormProps) {
   return (
     <Layout>
       <div className="mt-14 mb-16 mx-5">
-        <Image src="/images/default.png" className="mx-auto" alt="Read Your Bible Through" width={672} height={53} />
+        <Image
+          src="/images/default.png"
+          className="mx-auto"
+          alt="Read Your Bible Through"
+          width={672}
+          height={53}
+          style={{height: 'auto'}}
+          priority
+        />
       </div>
 
       <h1 className="font-linden text-5xl text-primary-900 my-12 text-center">Log in to track your progress</h1>

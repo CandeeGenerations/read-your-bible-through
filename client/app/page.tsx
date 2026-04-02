@@ -13,7 +13,15 @@ export default function Home() {
   return (
     <Layout>
       <div className="mt-24 md:mt-14 mb-16 mx-5">
-        <Image src="/images/default.png" className="mx-auto" alt="Read Your Bible Through" width={672} height={53} />
+        <Image
+          src="/images/default.png"
+          className="mx-auto"
+          alt="Read Your Bible Through"
+          width={672}
+          height={53}
+          style={{height: 'auto'}}
+          priority
+        />
       </div>
 
       <UserProfile />

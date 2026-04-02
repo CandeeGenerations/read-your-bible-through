@@ -1,16 +1,23 @@
 {
+  "ts-node": {
+    "files": true
+  },
   "compilerOptions": {
     "target": "es2021",
     "module": "node16",
     "resolveJsonModule": true,
+    "rootDir": "src",
     "outDir": "dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "sourceMap": true,
+    "ignoreDeprecations": "6.0",
     "baseUrl": "src",
     "paths": {
-      "@src/*": ["./*"]
+      "@src/*": ["./*"],
+      "@generated/client": ["../generated/prisma/client"],
+      "change-case-all": ["./types/change-case-all"]
     }
   },
   "include": ["src/**/*", "eslintrc.config.mjs"]

@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Skip version checks in CI environments (e.g., Netlify)
+if [ "$NETLIFY" = "true" ] || [ "$CI" = "true" ]; then
+    echo "CI environment detected, skipping version checks."
+    exit 0
+fi
+
 # region Dependencies
 # Check for jq and install it if not present
 if ! command -v jq &> /dev/null

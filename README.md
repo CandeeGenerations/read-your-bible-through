@@ -8,7 +8,7 @@ Read your Bible through in a year!
 
 ### Prerequisites
 
-- Node.js 22.x
+- Node.js 24.x
 - PNPM 10.x
 - [phase.dev](https://docs.phase.dev/quickstart#2-install-the-cli)
 

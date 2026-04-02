@@ -12,7 +12,7 @@ Read Your Bible Through is a Bible reading application that helps users read thr
 
 ## Prerequisites
 
-- Node.js 22.x (managed via fnm - `.nvmrc` files in root, client, and server)
+- Node.js 4.x (managed via fnm - `.nvmrc` files in root, client, and server)
 - PNPM 10.x (managed via corepack)
 - [phase.dev CLI](https://docs.phase.dev/quickstart#2-install-the-cli) for environment variable management
 
@@ -149,7 +149,7 @@ Users track progress by marking passages as read, stored in the PassageTrack mod
 - **Client**: Deployed to Netlify (see `netlify.toml`)
 - **Server**: Deployed as Docker container to Azure
 - **CI/CD**: GitHub Actions builds Docker image and pushes to Azure Container Registry
-- Docker build: Multi-stage build (deps → builder → runner) using Node 22 Alpine
+- Docker build: Multi-stage build (deps → builder → runner) using Node 24 Alpine
 
 ## Git Workflow
 
@@ -161,7 +161,7 @@ Users track progress by marking passages as read, stored in the PassageTrack mod
 ## Important Notes
 
 - The project uses PNPM workspaces (lerna.json present but managed via PNPM)
-- Node version must be 22+ (enforced via preinstall scripts and `.nvmrc`)
+- Node version must be 24+ (enforced via preinstall scripts and `.nvmrc`)
 - Prisma client must be regenerated after schema changes: `cd server && pnpm generate`
 - Client and server have separate `.nvmrc` files - use `fnm use` when switching directories
 - Plan markdown files should be saved in the `plans/` directory
