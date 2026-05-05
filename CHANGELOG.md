@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.6](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.11.5...v1.11.6) (2026-05-05)
+
+
+### Bug Fixes
+
+* linting ([82f52d4](https://github.com/CandeeGenerations/read-your-bible-through/commit/82f52d4c89fc4a0b272bac554b3fdbd3336c28aa))
+* linting fix ([f7a40f1](https://github.com/CandeeGenerations/read-your-bible-through/commit/f7a40f17fba6bb1aac08c66bcdea6e66d431e669))
+* package updates ([0ad2acc](https://github.com/CandeeGenerations/read-your-bible-through/commit/0ad2acc7f8cf1824405d13eb3fdb3665d322fd50))
+
 ### [1.11.5](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.11.4...v1.11.5) (2026-04-02)
 
 
