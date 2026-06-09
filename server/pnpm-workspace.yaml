@@ -1,0 +1,9 @@
+allowBuilds:
+  '@prisma/client': true
+  '@prisma/engines': true
+  prisma: true
+# The Docker build copies the server package in isolation (COPY server .), so its
+# deps are already provided by the deps stage. Skip pnpm's implicit pre-run install
+# check, which would otherwise re-run the supply-chain (minimumReleaseAge) policy
+# against the committed lockfile and fail on any just-published dep (e.g. prettier).
+verifyDepsBeforeRun: false
