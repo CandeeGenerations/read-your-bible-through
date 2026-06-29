@@ -1,14 +1,13 @@
 'use client'
 
 import axios, {AxiosResponse} from 'axios'
-import {User} from 'next-auth'
 import {signOut, useSession} from 'next-auth/react'
 import Image from 'next/image'
 import React, {ReactElement, ReactNode, createContext, useContext, useEffect, useState} from 'react'
 import {clearTimeout} from 'timers'
 
 import SmallLoader from '../components/layout/SmallLoader'
-import {IPassageTrack} from '../helpers/types'
+import {IPassageTrack, ITracksResponse} from '../helpers/types'
 
 interface IUserContext {
   userInfo?: IUserInfo
@@ -40,22 +39,12 @@ const UserProvider = ({children}: {children: ReactNode}): ReactElement => {
   const [tracks, setTracks] = useState<IPassageTrack[]>([])
   const [userInfo, setUserInfo] = useState<IUserInfo | undefined>(undefined)
 
-  const getUserId = async (user: IUserInfo) => {
-    if (!user.email) return
-
-    const {
-      data: {user: data},
-    }: AxiosResponse<{user: User}> = await axios.get(`/user/email`, {
-      params: {email: user.email},
-    })
-
-    setUserInfo({...user, id: data.id})
-  }
-
   useEffect(() => {
     if (!session || !session.user) return
 
-    getUserId({
+    // userId now comes from the app JWT exposed on the session (no /user/email lookup).
+    setUserInfo({
+      id: session.user.id,
       initials: session.user.name
         .split(' ')
         .map((word, index, arr) => (index === 0 || index === arr.length - 1 ? word.charAt(0) : ''))
@@ -98,8 +87,9 @@ const UserProvider = ({children}: {children: ReactNode}): ReactElement => {
   }
 
   const loadTracks = async (initial = false): Promise<IPassageTrack[]> => {
-    const {data: dataTracks} = await axios.get(`/user/${userInfo.id}/tracks`)
-    const tracks: IPassageTrack[] = dataTracks as IPassageTrack[]
+    const {data}: AxiosResponse<ITracksResponse> = await axios.get(`/user/tracks`)
+    // Only "read" passages drive the UI; tombstones (isRead=false) are filtered out.
+    const tracks: IPassageTrack[] = (data.passages || []).filter((t) => t.isRead)
 
     setTracks(tracks)
 

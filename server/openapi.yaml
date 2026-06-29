@@ -1,0 +1,172 @@
+openapi: 3.1.0
+info:
+  title: Read Your Bible Through API
+  version: 2.0.0
+  description: >
+    Phase 0 contract. Token-authenticated API. All timestamps (`updatedAt`) are
+    ISO-8601 UTC strings (e.g. `2026-06-29T12:00:00.000Z`) so lexicographic order
+    equals chronological order (required for last-write-wins).
+
+servers:
+  - url: '{baseUrl}/api'
+    variables:
+      baseUrl:
+        default: http://localhost:1701
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    User:
+      type: object
+      properties:
+        id: {type: string}
+        email: {type: string}
+        name: {type: string}
+        provider: {type: [string, 'null'], enum: [apple, google, null]}
+        settings:
+          type: [object, 'null']
+          properties:
+            autoTrackChapters: {type: boolean}
+    PassageTrack:
+      type: object
+      required: [passageDate, passageType, isRead, updatedAt]
+      properties:
+        id: {type: string}
+        passageDate: {type: string, description: 'YYYY-MM-DD'}
+        passageType: {type: string, enum: [bible, proverbs, psalms]}
+        isRead: {type: boolean}
+        trackDate: {type: string}
+        updatedAt: {type: string, description: ISO-8601 UTC client action-time}
+    ChapterTrack:
+      type: object
+      required: [book, chapter, isRead, updatedAt]
+      properties:
+        id: {type: string}
+        book: {type: string, description: USFM id (GEN, PRO, PSA, ...)}
+        chapter: {type: string}
+        isRead: {type: boolean}
+        trackDate: {type: string}
+        updatedAt: {type: string, description: ISO-8601 UTC client action-time}
+    TracksResponse:
+      type: object
+      properties:
+        passages: {type: array, items: {$ref: '#/components/schemas/PassageTrack'}}
+        chapters: {type: array, items: {$ref: '#/components/schemas/ChapterTrack'}}
+
+security:
+  - bearerAuth: []
+
+paths:
+  /ping:
+    get:
+      security: []
+      summary: Health check
+      responses:
+        '200': {description: pong}
+
+  /auth:
+    post:
+      security: []
+      summary: Verify a provider ID token, find-or-create the user, issue an app JWT.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [provider, idToken]
+              properties:
+                provider: {type: string, enum: [apple, google]}
+                idToken: {type: string}
+                nonce: {type: string}
+      responses:
+        '200':
+          description: Authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token: {type: string, description: app JWT (~90d), store in Keychain}
+                  user: {$ref: '#/components/schemas/User'}
+
+  /books:
+    get:
+      security: []
+      summary: Bible books + chapters (proxied from the external Bible API).
+      responses:
+        '200': {description: Books list}
+
+  /user/me:
+    get:
+      summary: The authenticated user.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {user: {$ref: '#/components/schemas/User'}}
+        '401': {description: Missing/invalid token}
+
+  /user:
+    patch:
+      summary: Update the authenticated user (name, settings).
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: {type: string}
+                settings: {type: object}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {user: {$ref: '#/components/schemas/User'}}
+        '401': {description: Missing/invalid token}
+
+  /user/tracks:
+    get:
+      summary: Incremental pull of tracks for the authenticated user.
+      parameters:
+        - name: since
+          in: query
+          required: false
+          schema: {type: string}
+          description: ISO-8601 UTC. Returns rows with updatedAt > since. Omit for full pull.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TracksResponse'}
+        '401': {description: Missing/invalid token}
+    put:
+      summary: Batch upsert (outbox drain). Idempotent, last-write-wins by updatedAt.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                passages:
+                  type: array
+                  items: {$ref: '#/components/schemas/PassageTrack'}
+                chapters:
+                  type: array
+                  items: {$ref: '#/components/schemas/ChapterTrack'}
+      responses:
+        '200':
+          description: Resolved server state for upserted keys.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TracksResponse'}
+        '401': {description: Missing/invalid token}

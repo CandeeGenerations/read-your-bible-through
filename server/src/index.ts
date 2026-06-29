@@ -4,6 +4,7 @@ import fs from 'fs'
 import path from 'path'
 
 import config from './common/config'
+import authRoutes from './domains/auth/routes'
 import booksRoutes from './domains/books/routes'
 import pingRoutes from './domains/ping/routes'
 import trackRoutes from './domains/track/routes'
@@ -55,7 +56,7 @@ const useRoute = (routeObject: any, parentRouteName?: string): void => {
   app.use(route, routeObject[Object.keys(routeObject)[0]])
 }
 
-for (const routeObject of [{pingRoutes}, {userRoutes}, {booksRoutes}]) {
+for (const routeObject of [{pingRoutes}, {authRoutes}, {userRoutes}, {booksRoutes}]) {
   useRoute(routeObject)
 
   if (cleanseRouteName(routeObject) === 'user') {

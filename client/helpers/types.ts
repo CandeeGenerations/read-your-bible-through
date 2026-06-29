@@ -47,7 +47,22 @@ export interface IDisplayReading {
 }
 
 export interface IPassageTrack {
-  id: string
+  id?: string
   passageDate: string
   passageType: PassageType
+  isRead: boolean
+  updatedAt?: string
+}
+
+export interface IChapterTrack {
+  id?: string
+  book: string
+  chapter: string
+  isRead: boolean
+  updatedAt?: string
+}
+
+export interface ITracksResponse {
+  passages: IPassageTrack[]
+  chapters: IChapterTrack[]
 }

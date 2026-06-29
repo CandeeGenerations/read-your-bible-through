@@ -1,6 +1,6 @@
 'use client'
 
-import {pages} from '@/helpers/constants'
+import {pageToPassageType, pages} from '@/helpers/constants'
 import {usePage} from '@/providers/page.provider'
 import {faSquareCheck} from '@fortawesome/free-regular-svg-icons'
 import {faCheckSquare} from '@fortawesome/free-solid-svg-icons'
@@ -98,7 +98,7 @@ const Calendar = (): React.ReactElement => {
     }
 
     if (userInfo) {
-      const filteredTracks = tracks.filter((t) => t.passageType === (page === pages.home ? null : page))
+      const filteredTracks = tracks.filter((t) => t.passageType === pageToPassageType(page))
 
       state.tracks = filteredTracks
       state.passageTrack = filteredTracks.find((x) => dayjs(x.passageDate).isSame(pageState.selectedDay, 'day'))
@@ -154,12 +154,19 @@ const Calendar = (): React.ReactElement => {
   const markAsReadUnread = async () => {
     setState({markingRead: true})
 
-    await axios.post(`/user/${userInfo.id}/track${pageState.passageTrack ? `/${pageState.passageTrack.id}` : ''}`, {
-      passageDate: pageState.selectedDay.format('YYYY-MM-DD'),
-      passageType: page === pages.home ? null : page,
+    // Toggle: if currently read (a track is present), write a tombstone; else mark read.
+    await axios.put(`/user/tracks`, {
+      passages: [
+        {
+          passageDate: pageState.selectedDay.format('YYYY-MM-DD'),
+          passageType: pageToPassageType(page),
+          isRead: !pageState.passageTrack,
+          updatedAt: new Date().toISOString(),
+        },
+      ],
     })
     const updatedTracks = await loadTracks()
-    const filteredTracks = updatedTracks.filter((t) => t.passageType === (page === pages.home ? null : page))
+    const filteredTracks = updatedTracks.filter((t) => t.passageType === pageToPassageType(page))
 
     setState({
       tracks: filteredTracks,

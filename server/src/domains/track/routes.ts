@@ -1,24 +1,23 @@
-import {PassageTrack} from '@prisma/client'
-import {PassageType} from '@src/common/constants'
 import {handleError, handleSuccess} from '@src/common/helpers'
+import {requireAuth} from '@src/common/middleware'
 import {IException} from '@src/types/logger'
-import dayjs from 'dayjs'
 import express, {Request, Response, Router} from 'express'
 
-import service from './service'
-
-const route = '/:userId/track'
+import service, {ChapterInput, PassageInput} from './service'
 
 const router: Router = express.Router()
 
+router.use(requireAuth)
+
 /*
- * GET:   `/api/user/:userId/tracks`
- * QUERY:
- *        - :userId : `641546e3e6dffedba604e2b3`
+ * GET: `/api/user/tracks?since=<ISO>`  -> incremental pull
+ * RETURNS: { passages: PassageTrack[], chapters: ChapterTrack[] }
+ *  - passages: current calendar year, changed since `since`
+ *  - chapters: lifetime, changed since `since`
  */
-router.get(`${route}s`, async (req: Request<{userId: string}>, res: Response) => {
+router.get('/tracks', async (req: Request<unknown, unknown, unknown, {since?: string}>, res: Response) => {
   try {
-    const tracks = await service.getAll(req.params.userId)
+    const tracks = await service.getAll(req.userId as string, req.query.since)
 
     handleSuccess(res, tracks)
   } catch (e) {
@@ -27,53 +26,24 @@ router.get(`${route}s`, async (req: Request<{userId: string}>, res: Response) =>
 })
 
 /*
- * POST:    `/api/user/:userId/track/:trackId?`
- * QUERY:
- *          - :userId       : `641546e3e6dffedba604e2b3`
- *          - :trackId?     : `641546e3e6dffedba604e2b3`
- * PAYLOAD:
- * {
- *   passageDate: '2023-01-01',
- *   passageType?: 'proverbs' | 'psalms' | null
+ * PUT: `/api/user/tracks`  -> batch upsert (outbox drain). Idempotent, LWW by updatedAt.
+ * PAYLOAD: {
+ *   passages?: [{ passageDate, passageType, isRead, updatedAt }],
+ *   chapters?: [{ book, chapter, isRead, updatedAt }]
  * }
+ * RETURNS: resolved server state for the upserted keys.
  */
-router.post(
-  `${route}{/:trackId}`,
-  async (
-    req: Request<{userId: string; trackId?: string}, unknown, {passageDate?: string; passageType?: PassageType}>,
-    res: Response,
-  ) => {
+router.put(
+  '/tracks',
+  async (req: Request<unknown, unknown, {passages?: PassageInput[]; chapters?: ChapterInput[]}>, res: Response) => {
     try {
-      const {trackId, userId} = req.params
+      const result = await service.upsertBatch(req.userId as string, req.body.passages || [], req.body.chapters || [])
 
-      if (trackId) {
-        const currentTrack = await service.getSingle(trackId)
-
-        if (!currentTrack) {
-          handleError(res, {
-            name: 'Passage Track not found',
-            message: 'Passage Track not found',
-          })
-          return
-        }
-
-        await service.remove(trackId)
-
-        handleSuccess(res)
-        return
-      }
-
-      await service.create({
-        passageDate: req.body.passageDate,
-        userId,
-        trackDate: dayjs().format(),
-        passageType: req.body.passageType,
-      } as PassageTrack)
-
-      handleSuccess(res)
+      handleSuccess(res, result)
     } catch (e) {
       handleError(res, e as IException)
     }
   },
 )
+
 export default router

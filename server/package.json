@@ -23,6 +23,7 @@
     "fix": "pnpm run eslint && pnpm run prettier --cache",
     "generate": "pnpm exec prisma format && pnpm exec prisma generate --no-hints",
     "preinstall": "sh ../scripts/check-versions.sh && npx only-allow pnpm",
+    "migrate:phase0": "phase run 'pnpm exec ts-node -r tsconfig-paths/register scripts/migrate-phase0.ts'",
     "pcheck": "npm-check -u -i '{prisma,@prisma/client}' && pnpm audit",
     "prettier": "prettier --cache --check --write --ignore-unknown .",
     "prettier:ci": "prettier --check .",
@@ -34,6 +35,7 @@
     "cors": "^2.8.5",
     "dayjs": "^1.11.19",
     "express": "^5.2.1",
+    "jose": "^4.15.9",
     "winston": "^3.19.0"
   },
   "devDependencies": {

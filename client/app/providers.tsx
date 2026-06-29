@@ -2,7 +2,7 @@
 
 import {PageType, pages} from '@/helpers/constants'
 import axios from 'axios'
-import {SessionProvider} from 'next-auth/react'
+import {SessionProvider, getSession} from 'next-auth/react'
 import {usePathname} from 'next/navigation'
 import React, {useEffect, useState} from 'react'
 
@@ -24,6 +24,17 @@ export const LayoutContext = React.createContext<{
 // Set axios base URL
 // eslint-disable-next-line no-undef
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL
+
+// Attach the app JWT (from the NextAuth session) to every API request.
+axios.interceptors.request.use(async (cfg) => {
+  const session = await getSession()
+
+  if (session?.apiToken) {
+    cfg.headers.Authorization = `Bearer ${session.apiToken}`
+  }
+
+  return cfg
+})
 
 export function Providers({children}: {children: React.ReactNode}) {
   const pathname = usePathname()

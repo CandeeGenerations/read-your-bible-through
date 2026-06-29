@@ -9,12 +9,24 @@ export const pages = {
 export type PageType = (typeof pages)[keyof typeof pages]
 
 export const PASSAGE_TYPES = {
+  BIBLE: 'bible',
   PROVERBS: pages.proverbs,
   PSALMS: pages.psalms,
-  NULL: null,
 } as const
 
-export type PassageType = (typeof PASSAGE_TYPES)[keyof typeof PASSAGE_TYPES] | null
+export type PassageType = (typeof PASSAGE_TYPES)[keyof typeof PASSAGE_TYPES]
+
+// Map a page to its passageType ('home' plan is stored as 'bible').
+export const pageToPassageType = (page: PageType): PassageType =>
+  page === pages.home ? PASSAGE_TYPES.BIBLE : (page as PassageType)
+
+// Login method / OAuth provider.
+export const PROVIDERS = {
+  APPLE: 'apple',
+  GOOGLE: 'google',
+} as const
+
+export type Provider = (typeof PROVIDERS)[keyof typeof PROVIDERS]
 
 export const NT_BOOKS = [
   'MAT',
