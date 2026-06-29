@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.11.6...v1.12.0) (2026-06-29)
+
+
+### Features
+
+* updating authentication for app development ([19426f9](https://github.com/CandeeGenerations/read-your-bible-through/commit/19426f93d8c1715e6ac0169f55a5837a6b6c950f))
+
+
+### Bug Fixes
+
+* build ([6e06bf8](https://github.com/CandeeGenerations/read-your-bible-through/commit/6e06bf8971e1d570a7ee614738730c0aba339cbe))
+* build fix ([19f1068](https://github.com/CandeeGenerations/read-your-bible-through/commit/19f1068fc743a6556d84b58e6c3b8c890264b066))
+* merge ([9d067b7](https://github.com/CandeeGenerations/read-your-bible-through/commit/9d067b7404c84e3744475102aad9823c39471c03))
+* merge fix ([58ed91e](https://github.com/CandeeGenerations/read-your-bible-through/commit/58ed91e507de2a77227050f45f60100a6d8aac47))
+* package updates ([ab59456](https://github.com/CandeeGenerations/read-your-bible-through/commit/ab594567bd53ff7bab3858b55ba976a73d5701f2))
+* testing fixes ([a94b165](https://github.com/CandeeGenerations/read-your-bible-through/commit/a94b165c47c5b2742ecc03ed4d335ce388b3c382))
+
 ### [1.11.7](https://github.com/CandeeGenerations/read-your-bible-through/compare/v1.11.6...v1.11.7) (2026-06-09)
 
 
