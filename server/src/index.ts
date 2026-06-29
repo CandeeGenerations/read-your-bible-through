@@ -60,7 +60,7 @@ for (const routeObject of [{pingRoutes}, {authRoutes}, {userRoutes}, {booksRoute
   useRoute(routeObject)
 
   if (cleanseRouteName(routeObject) === 'user') {
-    console.log(' - /api/user/:userId/track')
+    console.log(' - /api/user/tracks')
 
     app.use('/api/user', trackRoutes)
   }

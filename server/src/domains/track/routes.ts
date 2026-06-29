@@ -1,5 +1,5 @@
 import {handleError, handleSuccess} from '@src/common/helpers'
-import {requireAuth} from '@src/common/middleware'
+import {requireAuth, userIdOf} from '@src/common/middleware'
 import {IException} from '@src/types/logger'
 import express, {Request, Response, Router} from 'express'
 
@@ -17,7 +17,7 @@ router.use(requireAuth)
  */
 router.get('/tracks', async (req: Request<unknown, unknown, unknown, {since?: string}>, res: Response) => {
   try {
-    const tracks = await service.getAll(req.userId as string, req.query.since)
+    const tracks = await service.getAll(userIdOf(req), req.query.since)
 
     handleSuccess(res, tracks)
   } catch (e) {
@@ -37,7 +37,7 @@ router.put(
   '/tracks',
   async (req: Request<unknown, unknown, {passages?: PassageInput[]; chapters?: ChapterInput[]}>, res: Response) => {
     try {
-      const result = await service.upsertBatch(req.userId as string, req.body.passages || [], req.body.chapters || [])
+      const result = await service.upsertBatch(userIdOf(req), req.body.passages || [], req.body.chapters || [])
 
       handleSuccess(res, result)
     } catch (e) {
