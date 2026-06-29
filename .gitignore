@@ -7,6 +7,10 @@
 /.pnp
 .pnp.js
 
+# nested pnpm lockfiles — this is a single-lockfile workspace; only the root lock is tracked
+/client/pnpm-lock.yaml
+/server/pnpm-lock.yaml
+
 # testing
 /coverage
 
