@@ -83,6 +83,14 @@ paths:
                 provider: {type: string, enum: [apple, google]}
                 idToken: {type: string}
                 nonce: {type: string}
+                name:
+                  type: string
+                  description: Apple only - the name from the first authorization, which Apple's token never carries.
+                authorizationCode:
+                  type: string
+                  description: >
+                    Apple only - the authorization code from the sign-in. Exchanged for a refresh token,
+                    kept to revoke the user's Sign in with Apple when they delete their account.
       responses:
         '200':
           description: Authenticated
@@ -132,6 +140,18 @@ paths:
                 type: object
                 properties: {user: {$ref: '#/components/schemas/User'}}
         '401': {description: Missing/invalid token}
+    delete:
+      summary: >
+        Delete the authenticated user and all of their tracks, and revoke their Sign in with Apple
+        (App Store Guideline 5.1.1(v)). Tokens for a deleted user are refused with 401 from then on.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {deleted: {type: boolean}}
+        '401': {description: Missing/invalid token, or the account no longer exists}
 
   /user/tracks:
     get:
@@ -147,7 +167,7 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/TracksResponse'}
-        '401': {description: Missing/invalid token}
+        '401': {description: Missing/invalid token, or the account no longer exists}
     put:
       summary: Batch upsert (outbox drain). Idempotent, last-write-wins by updatedAt.
       requestBody:

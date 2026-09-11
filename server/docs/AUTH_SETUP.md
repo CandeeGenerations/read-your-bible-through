@@ -14,6 +14,9 @@ rejected.
 | `JWT_EXPIRY`                                | server       | optional, default `90d`                                             |
 | `GOOGLE_CLIENT_IDS`                         | server       | comma-sep audiences: **web** client ID + **iOS** client ID          |
 | `APPLE_CLIENT_IDS`                          | server       | comma-sep audiences: **Services ID** (web) + **bundle ID** (native) |
+| `APPLE_TEAM_ID`                             | server       | the Apple Developer team ID (`ZRK933FC73`)                          |
+| `APPLE_KEY_ID`                              | server       | the Sign in with Apple key's Key ID                                 |
+| `APPLE_PRIVATE_KEY`                         | server       | the key's `.p8` contents (newlines may be written as `\n`)          |
 | `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | client (web) | web OAuth client (NextAuth)                                         |
 
 The server's `GOOGLE_CLIENT_IDS` **must include** the web `GOOGLE_CLIENT_ID` NextAuth
@@ -43,13 +46,18 @@ uses, plus the iOS client ID once the app exists. Same idea for Apple.
    `GOOGLE_CLIENT_SECRET`.
 5. Add that **Client ID** to the server's `GOOGLE_CLIENT_IDS`.
 
-### 3. iOS client (native, later)
+### 3. iOS client (native)
+
+Made on 2026-09-11: `166209721221-bvo5a5d271id0bmm9ooa3bbonjkp9s1b.apps.googleusercontent.com`,
+for `com.candeegenerations.rybt`. It must be an **iOS** client - Google refuses the app's
+redirect for a Web client ("custom scheme URIs are not allowed for WEB client type").
 
 1. **Create credentials → OAuth client ID → iOS**. Enter the app's **bundle ID**.
 2. Copy the **iOS Client ID** and append it to the server's `GOOGLE_CLIENT_IDS`
    (comma-separated), so the server accepts tokens whose `aud` is the iOS client.
-3. The native app uses GoogleSignIn / `ASWebAuthenticationSession`, obtains the
-   `idToken`, and POSTs it to `/api/auth`.
+3. The native app uses `ASWebAuthenticationSession` (no Google SDK), obtains the
+   `idToken`, and POSTs it to `/api/auth`. Until the server has restarted with the ID in
+   `GOOGLE_CLIENT_IDS`, every sign-in fails with `unexpected "aud" claim value`.
 
 > The server verifies `iss ∈ {accounts.google.com, https://accounts.google.com}`,
 > `aud ∈ GOOGLE_CLIENT_IDS`, signature (Google JWKS), and `exp`.
@@ -106,6 +114,18 @@ Apple's "client secret" is a short-lived JWT you generate, signed with a private
 > signature (Apple JWKS), `exp`, and the hashed `nonce` when supplied. It does **not**
 > need the `.p8` — that's only for the web client secret. Native verification works
 > with the bundle ID in `APPLE_CLIENT_IDS` alone.
+
+### 4. Revoking on account deletion
+
+App Review requires that deleting an account also revokes the app's Sign in with Apple
+(Guideline 5.1.1(v)). The native app sends the sign-in's `authorizationCode` to
+`/api/auth`; the server exchanges it for a refresh token (`src/common/apple.ts`) and keeps
+it on the user, and `DELETE /api/user` revokes it before deleting. Both calls need a client
+secret signed with a Sign in with Apple key, so the server needs `APPLE_TEAM_ID`,
+`APPLE_KEY_ID` and `APPLE_PRIVATE_KEY` - the same kind of `.p8` key as in step 3, and the
+same key can serve both. Without them sign-in and deletion still work; the exchange and the
+revocation are skipped and logged, and an account deleted meanwhile keeps its Apple link
+until the person removes it in Settings.
 
 ### Nonce (native)
 

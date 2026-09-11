@@ -14,6 +14,9 @@ export interface ProviderIdentity {
   email: string
   name?: string
   subject: string
+  // The client the token was issued to - for Apple, the app's bundle ID or the website's
+  // services ID - which Apple's token and revoke endpoints must be called as.
+  audience: string
 }
 
 // Verifies a provider ID token against the provider's public keys (JWKS).
@@ -47,6 +50,7 @@ export const verifyProviderToken = async (
     email,
     name: (payload.name as string) || undefined,
     subject: payload.sub as string,
+    audience: (Array.isArray(payload.aud) ? payload.aud[0] : payload.aud) as string,
   }
 }
 

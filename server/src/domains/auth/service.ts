@@ -1,19 +1,28 @@
-import {User} from '@prisma/client'
+import {exchangeAuthorizationCode} from '@src/common/apple'
 import {ProviderIdentity, signAppToken, verifyProviderToken} from '@src/common/auth'
 import client from '@src/common/client'
-import {Provider} from '@src/common/constants'
+import {PROVIDERS, Provider} from '@src/common/constants'
+import {PublicUser, toPublicUser} from '@src/domains/user/service'
 
 // Verify provider ID token -> find-or-create user by email -> issue app JWT.
 // `name` is supplied separately for Apple, whose id_token carries no name claim
 // (Apple returns the user's name only in the first authorization payload).
+// `authorizationCode` is Apple's too, sent by the app: exchanged now for a refresh token,
+// kept only to revoke the user's Apple sign-in if they delete their account.
 const authenticate = async (
   provider: Provider,
   idToken: string,
   nonce: string | undefined,
   name: string | undefined,
-): Promise<{token: string; user: User}> => {
+  authorizationCode?: string,
+): Promise<{token: string; user: PublicUser}> => {
   const identity: ProviderIdentity = await verifyProviderToken(provider, idToken, nonce)
   const resolvedName = identity.name || name
+  const appleRefreshToken =
+    provider === PROVIDERS.APPLE && authorizationCode
+      ? await exchangeAuthorizationCode(authorizationCode, identity.audience)
+      : undefined
+  const apple = appleRefreshToken ? {appleRefreshToken, appleClientId: identity.audience} : {}
 
   let user = await client.user.findFirst({where: {email: identity.email}})
 
@@ -25,6 +34,7 @@ const authenticate = async (
         name: resolvedName || identity.email,
         provider, // login method
         subject: identity.subject,
+        ...apple,
       },
     })
   } else {
@@ -37,13 +47,14 @@ const authenticate = async (
         provider, // login method used this sign-in
         subject: user.subject || identity.subject,
         ...(shouldSetName ? {name: resolvedName} : {}),
+        ...apple,
       },
     })
   }
 
   const token = await signAppToken({sub: user.id, email: user.email})
 
-  return {token, user}
+  return {token, user: toPublicUser(user)}
 }
 
 export default {authenticate}
