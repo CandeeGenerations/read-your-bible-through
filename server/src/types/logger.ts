@@ -24,4 +24,7 @@ export interface IError {
 export interface IException {
   name: string
   message: string
+  // An HTTP status for a refusal the client should tell apart from a failure: 409 for a
+  // request that conflicts with the account as it is. Anything without one is a 500.
+  status?: number
 }

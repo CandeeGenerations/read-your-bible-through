@@ -6,7 +6,7 @@ import {logError} from './logger'
 export const handleError = (res: Response, error: IException): Response => {
   logError(error.message, error)
 
-  return res.status(500).send(`${error.name}: ${error.message}`)
+  return res.status(error.status ?? 500).send(`${error.name}: ${error.message}`)
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

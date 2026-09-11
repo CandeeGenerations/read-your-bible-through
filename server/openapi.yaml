@@ -31,6 +31,16 @@ components:
           type: [object, 'null']
           properties:
             autoTrackChapters: {type: boolean}
+        signInMethods:
+          type: array
+          description: >
+            The ways into this account - a particular Apple ID, a particular Google account. Sign-in
+            finds the account by these first, then by a verified email.
+          items:
+            type: object
+            properties:
+              provider: {type: string, enum: [apple, google]}
+              email: {type: [string, 'null'], description: 'What the provider gave - perhaps an Apple relay address'}
     PassageTrack:
       type: object
       required: [passageDate, passageType, isRead, updatedAt]
@@ -71,7 +81,10 @@ paths:
   /auth:
     post:
       security: []
-      summary: Verify a provider ID token, find-or-create the user, issue an app JWT.
+      summary: >
+        Verify a provider ID token, find the account - by its sign-in method, then by a verified email -
+        or create one, and issue an app JWT. 409 `EmailNotVerified` when an unverified email matches an
+        account.
       requestBody:
         required: true
         content:
@@ -152,6 +165,55 @@ paths:
                 type: object
                 properties: {deleted: {type: boolean}}
         '401': {description: Missing/invalid token, or the account no longer exists}
+
+  /user/sign-in-methods:
+    post:
+      summary: >
+        Add a way to sign in to the authenticated user's account (link, never merge). The provider
+        token proves the person owns the sign-in being added.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [provider, idToken]
+              properties:
+                provider: {type: string, enum: [apple, google]}
+                idToken: {type: string}
+                nonce: {type: string}
+                authorizationCode: {type: string, description: Apple only - kept to revoke it later}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {user: {$ref: '#/components/schemas/User'}}
+        '401': {description: Missing/invalid token, or the account no longer exists}
+        '409':
+          description: >
+            `SignInMethodInUse` - it already opens a different account; `EmailInUse` - its verified email
+            belongs to a different account; `ProviderAlreadyAdded` - the account already has one from this
+            provider. Nothing is merged.
+
+  /user/sign-in-methods/{provider}:
+    delete:
+      summary: Remove a way to sign in, revoking it with Apple if it is Sign in with Apple.
+      parameters:
+        - name: provider
+          in: path
+          required: true
+          schema: {type: string, enum: [apple, google]}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {user: {$ref: '#/components/schemas/User'}}
+        '401': {description: Missing/invalid token, or the account no longer exists}
+        '409': {description: '`LastSignInMethod` - the last one goes only by deleting the account'}
 
   /user/tracks:
     get:

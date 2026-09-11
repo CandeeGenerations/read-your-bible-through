@@ -17,6 +17,9 @@ export interface ProviderIdentity {
   // The client the token was issued to - for Apple, the app's bundle ID or the website's
   // services ID - which Apple's token and revoke endpoints must be called as.
   audience: string
+  // Whether the provider has confirmed the person owns the email. Only a verified email may
+  // join an existing account by matching it.
+  emailVerified: boolean
 }
 
 // Verifies a provider ID token against the provider's public keys (JWKS).
@@ -51,6 +54,11 @@ export const verifyProviderToken = async (
     name: (payload.name as string) || undefined,
     subject: payload.sub as string,
     audience: (Array.isArray(payload.aud) ? payload.aud[0] : payload.aud) as string,
+    // Google sends a boolean, Apple the string "true"; Apple verifies every email it gives.
+    emailVerified:
+      payload.email_verified === true ||
+      payload.email_verified === 'true' ||
+      (isApple && payload.email_verified == null),
   }
 }
 

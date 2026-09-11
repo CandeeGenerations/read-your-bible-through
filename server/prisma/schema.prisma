@@ -13,19 +13,38 @@ datasource db {
 
 model User {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  email    String  @unique
+  email    String  @unique // the one the account was made with; a sign-in method added later never replaces it
   name     String
-  provider String? // 'apple' | 'google'
-  subject  String? // provider 'sub' — for future account linking
+  provider String? // 'apple' | 'google' — the sign-in method used most recently
+  subject  String? // accounts from before SignInMethod: their first sign-in's provider 'sub'. Never written now
   settings Json? // { autoTrackChapters: Boolean, ... }
 
-  // Sign in with Apple's refresh token, from the authorization code the app sends at sign-in,
-  // and the client it was issued to. Kept only to revoke it when the account is deleted.
+  signInMethods SignInMethod[] @relation("signInMethods")
+  passageTracks PassageTrack[] @relation("passageTracks")
+  chapterTracks ChapterTrack[] @relation("chapterTracks")
+}
+
+// One way into an account: a particular Apple ID, or a particular Google account. A user has
+// one or more; each opens exactly one user, which the unique index enforces. Signing in finds
+// the user by this first, and only then by email. See docs/adr/0004 in the iOS app's repo.
+model SignInMethod {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  user   User   @relation("signInMethods", fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userId String @db.ObjectId
+
+  provider String // 'apple' | 'google'
+  subject  String // the provider's 'sub' for this person
+  email    String? // what the provider gave when it was added — an Apple relay address, perhaps
+  addedAt  String
+
+  // Sign in with Apple's refresh token, from the authorization code the app sends, and the
+  // client it was issued to. Kept only to revoke it when this method is removed or the
+  // account deleted.
   appleRefreshToken String?
   appleClientId     String?
 
-  passageTracks PassageTrack[] @relation("passageTracks")
-  chapterTracks ChapterTrack[] @relation("chapterTracks")
+  @@unique([provider, subject])
 }
 
 model PassageTrack {

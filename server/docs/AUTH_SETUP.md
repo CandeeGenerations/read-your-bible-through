@@ -135,6 +135,21 @@ same key can serve both. Without them sign-in and deletion still work; the excha
 revocation are skipped and logged, and an account deleted meanwhile keeps its Apple link
 until the person removes it in Settings.
 
+### 5. Sign-in methods
+
+An account can have more than one way in: a user signed in with Google can add Sign in with
+Apple from the app (`POST /api/user/sign-in-methods`), and then either opens the same
+account, whatever email Apple gives. Signing in finds the account by its `SignInMethod`
+(provider and `sub`) first, then by a matching email - verified only - and otherwise makes a
+new one. Adding one that already opens a different account is refused, never merged. The
+reasoning is ADR 0004 in the iOS app's repo (`docs/adr/0004-sign-in-methods-link-never-merge.md`).
+
+Accounts from before this have no `SignInMethod` rows. They are matched by the `subject` their
+first sign-in recorded on the user, and get their first row then.
+
+The unique index on `SignInMethod (provider, subject)` is what guarantees one sign-in opens
+one account; it exists in a database only after `prisma db push` against it.
+
 ### Nonce (native)
 
 For native Sign in with Apple, generate a random nonce, pass its **SHA-256 hash** to
