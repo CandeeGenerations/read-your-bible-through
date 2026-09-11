@@ -3,7 +3,7 @@ import React from 'react'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Privacy policy for Read Your Bible Through - learn how we protect your personal information.',
+  description: 'What the Read Your Bible Through website and iPhone app collect, why, and how to delete it.',
 }
 
 export default function PrivacyLayout({children}: {children: React.ReactNode}) {

@@ -30,6 +30,19 @@ const Footer = () => {
           </a>
           <br />
           <Link
+            href="/support"
+            onClick={() =>
+              gtagEvent({
+                action: 'support__footer__link',
+                category: 'engagement',
+                label: 'click_event',
+              })
+            }
+          >
+            Support
+          </Link>{' '}
+          |{' '}
+          <Link
             href="/privacy"
             onClick={() =>
               gtagEvent({
