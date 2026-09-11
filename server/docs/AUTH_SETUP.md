@@ -8,6 +8,14 @@ rejected.
 
 ## Env var summary
 
+**Production does not read Phase.** The live server takes its settings from the Azure App
+Service `read-your-bible-through-server` (resource group `cgen-sites`), under Settings ›
+Environment variables. Phase is for running the server locally (`phase run`). A new or
+changed server setting has to be set in the App Service too - on 2026-09-11 the iOS
+Google client and the Apple settings were added to Phase's Production environment and
+the live server kept refusing sign-ins until they were set in Azure. Saving there
+restarts the server.
+
 | Var                                         | Where        | Value                                                               |
 | ------------------------------------------- | ------------ | ------------------------------------------------------------------- |
 | `JWT_SECRET`                                | server       | long random string (e.g. `openssl rand -hex 32`)                    |
