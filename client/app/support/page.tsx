@@ -71,7 +71,8 @@ export default function Support() {
         <Question question="What if I fall behind?">
           <Paragraph>
             Pick up with today’s reading, and catch up on the days you missed when you can. You can open any day of the
-            year from the calendar.
+            year from the calendar. In the app, the daily reminder names the first day you haven’t marked read, so it
+            picks up where you left off.
           </Paragraph>
         </Question>
 
@@ -85,15 +86,16 @@ export default function Support() {
 
         <Question question="Which Bible translation do the readings use?">
           <Paragraph>
-            Passages open on BibleGateway in the Authorized King James Version (AKJV). You can switch to another
-            translation there.
+            The King James Version. The iPhone app has it built in, so a reading opens right in the app. On the website,
+            passages open on BibleGateway in the Authorized King James Version (AKJV), the same text.
           </Paragraph>
         </Question>
 
         <Question question="Does the app work without an internet connection?">
           <Paragraph>
-            Yes. The reading plans are built into the app, so you can see any day’s reading offline. Opening a passage
-            on BibleGateway needs a connection.
+            Yes. The reading plans and the whole King James Version are built into the app, so you can read any day’s
+            reading and mark it read with no connection. If you’ve signed in, what you mark offline syncs when you’re
+            back online. Only syncing and opening a passage on BibleGateway need a connection.
           </Paragraph>
         </Question>
 
