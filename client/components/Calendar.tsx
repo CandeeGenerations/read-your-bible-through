@@ -102,8 +102,10 @@ const Calendar = (): React.ReactElement => {
 
       state.tracks = filteredTracks
       state.passageTrack = filteredTracks.find((x) => dayjs(x.passageDate).isSame(pageState.selectedDay, 'day'))
-      state.goalAchieved = goalAchieved(filteredTracks)
-      state.progress = calculateProgress(filteredTracks)
+      // This plan's count, not pageState's, which still holds the default of 365 until
+      // this state is set.
+      state.goalAchieved = goalAchieved(filteredTracks, undefined, state.countDays)
+      state.progress = calculateProgress(filteredTracks, undefined, state.countDays)
       state.nextReading = getNextReadingDate(filteredTracks)
     }
 
@@ -191,13 +193,31 @@ const Calendar = (): React.ReactElement => {
     }
   }
 
-  const calculateProgress = (tracksToCount: IPassageTrack[], selectedMonth?: dayjs.Dayjs): number => {
-    if (page === pages.psalms) {
-      // Psalms: 0% = no readings, 50% = 1.5x through, 100% = 3x through
-      // Total readings needed: 150 psalms * 3 = 450 (plus Psalm 119 splits = 459)
-      const totalPsalmsReadings = 459
+  // The Psalms Plan is counted in days, as the Bible plan is: the 357 days with a reading,
+  // one track each. It was counted against its 459 readings, but a day with two psalms is
+  // still one track, so marking every day stopped at 78% and never reached Goal Achieved.
+  const psalmsDaysRead = (tracksToCount: IPassageTrack[]): {read: number; total: number} => {
+    const days = new Set(
+      getPsalmsReading()
+        .filter((x) => x.otReading.length > 0)
+        .map((x) => x.date.format('YYYY-MM-DD')),
+    )
 
-      return Math.min(100, Math.ceil((tracksToCount.length / totalPsalmsReadings) * 100))
+    return {
+      read: tracksToCount.filter((t) => days.has(dayjs(t.passageDate).format('YYYY-MM-DD'))).length,
+      total: days.size,
+    }
+  }
+
+  const calculateProgress = (
+    tracksToCount: IPassageTrack[],
+    selectedMonth?: dayjs.Dayjs,
+    countDays = pageState.countDays,
+  ): number => {
+    if (page === pages.psalms) {
+      const {read, total} = psalmsDaysRead(tracksToCount)
+
+      return Math.min(100, Math.ceil((read / total) * 100))
     } else if (page === pages.proverbs) {
       // Proverbs: progress is per month, 0% = no readings this month, 100% = all days read this month
       const month = selectedMonth || pageState.selectedMonth
@@ -207,13 +227,19 @@ const Calendar = (): React.ReactElement => {
       return Math.min(100, Math.ceil((tracksThisMonth.length / daysInMonth) * 100))
     } else {
       // Bible: original calculation
-      return Math.ceil((tracksToCount.length / pageState.countDays) * 100)
+      return Math.ceil((tracksToCount.length / countDays) * 100)
     }
   }
 
-  const goalAchieved = (tracksToCount: IPassageTrack[], selectedMonth?: dayjs.Dayjs): boolean => {
+  const goalAchieved = (
+    tracksToCount: IPassageTrack[],
+    selectedMonth?: dayjs.Dayjs,
+    countDays = pageState.countDays,
+  ): boolean => {
     if (page === pages.psalms) {
-      return tracksToCount.length >= 459
+      const {read, total} = psalmsDaysRead(tracksToCount)
+
+      return read >= total
     } else if (page === pages.proverbs) {
       const month = selectedMonth || pageState.selectedMonth
       const daysInMonth = month.daysInMonth()
@@ -221,7 +247,7 @@ const Calendar = (): React.ReactElement => {
 
       return tracksThisMonth.length >= daysInMonth
     } else {
-      return tracksToCount.length >= pageState.countDays
+      return tracksToCount.length >= countDays
     }
   }
 

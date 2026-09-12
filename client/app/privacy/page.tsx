@@ -24,14 +24,14 @@ export default function Privacy() {
           </li>
           <li>We never sell your information, show you ads, or share your information for marketing.</li>
           <li>The app has no advertising or analytics, and it doesn’t track you.</li>
-          <li>You can ask us to delete your information at any time.</li>
+          <li>You can delete your account and your information at any time, in the app or by asking us.</li>
         </List>
       </Section>
 
       <Section title="Using the app without an account">
         <Paragraph>
-          The reading plans are built into the app. The plan you last chose, the readings you mark as read and your
-          reminder settings are stored on your iPhone and are not sent to us. Deleting the app deletes them.
+          The reading plans are built into the app. The plan you last chose, the days and chapters you mark as read and
+          your settings are stored on your iPhone and are not sent to us. Deleting the app deletes them.
         </Paragraph>
       </Section>
 
@@ -47,8 +47,13 @@ export default function Privacy() {
             to hide your email, Apple gives us a private relay address instead of your real one.
           </li>
           <li>
-            <strong>Which service you signed in with</strong>, and the account ID it gives us, so we recognize you next
-            time.
+            <strong>Which services you sign in with</strong>, and the account ID each gives us, so we recognize you next
+            time. If you add a second way to sign in, such as Sign in with Apple beside Google, we store its account ID
+            and the email address it gives us too.
+          </li>
+          <li>
+            <strong>A token from Apple</strong>, if you use Sign in with Apple, which we use only to tell Apple to stop
+            Sign in with Apple for Read Your Bible Through when you remove it or delete your account.
           </li>
           <li>
             <strong>Your reading progress</strong>: which days’ readings, and which chapters, you’ve marked as read or
@@ -126,24 +131,26 @@ export default function Privacy() {
       <Section title="How long we keep it">
         <Paragraph>
           We keep your account and your reading progress, including progress from past years, for as long as you have an
-          account, so your history is there when you come back. When you ask us to delete your account, we delete it and
-          all of your reading progress within 30 days.
+          account, so your history is there when you come back. When you delete your account in the app, we delete it
+          and all of your reading progress straight away. When you ask us to by email, we do it within 30 days.
         </Paragraph>
       </Section>
 
       <Section title="Your choices">
         <List>
           <li>
-            <strong>Delete your data.</strong> If you haven’t signed in, delete the app. If you have, follow the steps
-            on our <Link href="/data">Data Deletion</Link> page.
+            <strong>Delete your data.</strong> If you haven’t signed in, delete the app. If you have, delete your
+            account in the app: tap the person icon at the top right, then Delete Account. Or follow the steps on our{' '}
+            <Link href="/data">Data Deletion</Link> page.
           </li>
           <li>
             <strong>See or correct your data.</strong> Email us and we’ll send you a copy of what we hold about you, or
             fix anything that’s wrong.
           </li>
           <li>
-            <strong>Stop using Apple or Google sign-in.</strong> For Apple, open your iPhone’s Settings, tap your name,
-            then find Read Your Bible Through under Sign in with Apple. For Google, remove it at{' '}
+            <strong>Stop using Apple or Google sign-in.</strong> If your account has both, you can remove either one in
+            the app, under the person icon at the top right. For Apple, you can also open your iPhone’s Settings, tap
+            your name, then find Read Your Bible Through under Sign in with Apple. For Google, remove it at{' '}
             <a href="https://myaccount.google.com/connections">myaccount.google.com/connections</a>. This stops us
             receiving your sign-in, but doesn’t delete what we already hold. To do that, ask us to delete your account.
           </li>
