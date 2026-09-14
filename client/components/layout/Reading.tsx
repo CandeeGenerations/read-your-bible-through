@@ -1,4 +1,5 @@
-import {pages} from '@/helpers/constants'
+import {pageToPassageType, pages} from '@/helpers/constants'
+import {passageUrl} from '@/helpers/links'
 import {usePage} from '@/providers/page.provider'
 import {ArrowTopRightOnSquareIcon, CheckCircleIcon} from '@heroicons/react/24/outline'
 import React from 'react'
@@ -28,9 +29,12 @@ const Alert = ({title, children}: {title: string; children: React.ReactNode}): R
 
 const Testament = ({
   testamentReading,
+  link,
   newTestament = false,
 }: {
   testamentReading: ITestamentReading[]
+  // Where the card opens: rybt.app, which opens the app where it is installed, or BibleGateway.
+  link: string
   newTestament?: boolean
 }): React.ReactElement => {
   let reading: IDisplayReading[] = []
@@ -45,12 +49,6 @@ const Testament = ({
       reading.push({book: item.name, chapters: [item.chapter]})
     }
   }
-
-  const link =
-    reading &&
-    `https://www.biblegateway.com/passage/?version=AKJV&search=${encodeURIComponent(
-      reading.map((x) => `${x.book} ${x.chapters.join(',')}`).join(','),
-    )}`
 
   const item = (
     <div className="relative rounded-lg border-2 border-gray-300 bg-white px-6 py-5 shadow-sm space-x-3 cursor-pointer hover:border-primary-300 group">
@@ -119,11 +117,22 @@ const Reading = (pageState: IPageState): React.ReactElement => {
     )
   }
 
+  // The Bible Plan's Day has two passages, so its links say which; the others have one.
+  const link = (testamentReading: ITestamentReading[], testament: 'ot' | 'nt') =>
+    passageUrl(
+      testamentReading,
+      pageToPassageType(page),
+      reading.date.format('YYYY-MM-DD'),
+      page === pages.home ? testament : undefined,
+    )
+
   return (
     <div className="grid grid-cols-1 gap-4">
-      <Testament testamentReading={reading.otReading} />
+      <Testament testamentReading={reading.otReading} link={link(reading.otReading, 'ot')} />
 
-      {page === pages.home && <Testament testamentReading={reading.ntReading} newTestament />}
+      {page === pages.home && (
+        <Testament testamentReading={reading.ntReading} link={link(reading.ntReading, 'nt')} newTestament />
+      )}
     </div>
   )
 }
