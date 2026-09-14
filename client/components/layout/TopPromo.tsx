@@ -10,7 +10,11 @@ const TopPromo = (): React.ReactElement => {
   const {showHideLearnModal} = useContext(LayoutContext)
 
   return (
-    <div className="fixed bg-primary-600 w-full z-10 pt-14 sm:pt-0">
+    // Clear of the status bar only where the page is drawn under it: saved to the Home
+    // Screen, where the page is edge to edge (viewportFit cover, black-translucent). In
+    // Safari itself the page already starts below the status bar, which Safari tints with
+    // the theme color, and a fixed 56px there left an empty band of purple under it.
+    <div className="fixed bg-primary-600 w-full z-10 pt-[env(safe-area-inset-top)]">
       <div className="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
         <div className="pr-16 sm:text-center sm:px-16">
           <p className="font-medium text-white">

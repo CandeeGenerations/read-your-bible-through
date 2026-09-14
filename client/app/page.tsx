@@ -12,7 +12,7 @@ import Layout from '../components/layout'
 export default function Home() {
   return (
     <Layout>
-      <div className="mt-24 md:mt-14 mb-16 mx-5">
+      <div className="mt-10 md:mt-14 mb-16 mx-5">
         <Image
           src="/images/default.png"
           className="mx-auto"
