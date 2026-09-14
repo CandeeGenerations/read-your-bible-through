@@ -13,11 +13,9 @@ export const metadata: Metadata = {
 }
 
 /**
- * The screenshots in the phones, from `public/images/app/`, each the shape of an iPhone's
- * screen. 786 by 1704 keeps the app's text sharp on a phone's own screen - three times the
- * widest frame here; these are smaller, and will do until the App Store's are taken (see
- * `docs/app-store.md` in the app's repository). A shot without `src` shows a placeholder
- * saying which screenshot goes there.
+ * The screenshots in the phones, from `public/images/app/`: 786 pixels wide, the shape of an
+ * iPhone's screen - three times the widest frame here, which keeps the app's text sharp on
+ * a phone's own screen. A shot without `src` shows a placeholder saying which goes there.
  */
 const shots: Record<'today' | 'bible' | 'chapters', {src?: string; title: string; alt: string}> = {
   today: {
