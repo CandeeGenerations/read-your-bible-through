@@ -1,6 +1,6 @@
 import {APP_STORE_URL, SHOW_APP, TESTFLIGHT_URL} from '@/helpers/links'
 import dayjs from 'dayjs'
-import type {Metadata} from 'next'
+import type {Metadata, Viewport} from 'next'
 import Link from 'next/link'
 import {notFound} from 'next/navigation'
 
@@ -11,6 +11,12 @@ export const metadata: Metadata = {
   description:
     'The whole Bible in a year, the Psalms three times, or Proverbs every month - with the King James Version built in. Free, ad-free, and it works offline.',
 }
+
+/**
+ * Safari tints the status bar, and the space around its floating bar, with the page's
+ * theme color and background. The site's are lavender and white; this page is dark.
+ */
+export const viewport: Viewport = {themeColor: '#1a1724'}
 
 /**
  * The screenshots in the phones, from `public/images/app/`: 786 pixels wide, the shape of an

@@ -6,6 +6,16 @@
    color that carries text is measured against what it sits on, and written beside it:
    4.5:1 for text, 3:1 for a control's edge. */
 
+/* The document under the page, which Safari shows above and below it - at the status bar,
+   around its floating bar, and when the page is pulled past either end - in the page's
+   ground rather than the site's lavender and white. Only while this page is showing: the
+   rule matches no other page, so it needs no undoing when the reader goes to one. */
+:global(html):has(.page),
+:global(body):has(.page) {
+  background-color: #1a1724;
+  color-scheme: dark;
+}
+
 .page {
   --bg: #1a1724;
   --surface: #26222f;
@@ -91,11 +101,17 @@
   width: 26px;
   height: auto;
 }
-/* Below this the name, three links and the button cannot share a line. The button goes:
-   the hero offers it again just below. */
+/* Below this the name, three links and the button cannot share a line. The button goes -
+   the hero offers it again just below - and the name takes a line of its own, with the
+   links together on the next, rather than wrapping one at a time and leaving "Privacy"
+   alone under the rest. */
 @media (max-width: 640px) {
   .nav {
-    gap: 4px 16px;
+    gap: 0 20px;
+  }
+  .brand {
+    flex-basis: 100%;
+    margin-right: 0;
   }
   .nav .navButton {
     display: none !important;
