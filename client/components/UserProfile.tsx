@@ -1,6 +1,7 @@
 'use client'
 
 import Avvvatars from 'avvvatars-react'
+import Link from 'next/link'
 import React, {useState} from 'react'
 
 import {classNames} from '../helpers'
@@ -29,6 +30,10 @@ const UserProfile = (): React.ReactElement | null => {
       <p className="text-secondary-600">{userInfo.name}</p>
 
       <p className="text-secondary-600">{userInfo.email}</p>
+
+      <Link className="block py-2 underline" href="/account">
+        Sign-in methods
+      </Link>
 
       {userInfo && (
         <a

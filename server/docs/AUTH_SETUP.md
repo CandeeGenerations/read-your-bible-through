@@ -26,6 +26,12 @@ restarts the server.
 | `APPLE_KEY_ID`                              | server       | the Sign in with Apple key's Key ID                                 |
 | `APPLE_PRIVATE_KEY`                         | server       | the key's `.p8` contents (newlines may be written as `\n`)          |
 | `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | client (web) | web OAuth client (NextAuth)                                         |
+| `APPLE_WEB_CLIENT_ID`                       | client (web) | the **Services ID** (`com.candeegenerations.rybt.web`)              |
+| `APPLE_TEAM_ID` / `APPLE_KEY_ID`            | client (web) | the same as the server's                                            |
+| `APPLE_PRIVATE_KEY`                         | client (web) | the same `.p8` as the server's (newlines may be written as `\n`)    |
+
+The website offers Sign in with Apple only once all four `APPLE_*` client settings are set;
+without them it is Google alone, as before.
 
 The server's `GOOGLE_CLIENT_IDS` **must include** the web `GOOGLE_CLIENT_ID` NextAuth
 uses, plus the iOS client ID once the app exists. Same idea for Apple.
@@ -83,7 +89,9 @@ progress). Apple is mandatory for App Store review (Guideline 4.8).
   first authorization payload, separately from the token. So:
   - **Native:** read `fullName` from the first `ASAuthorization` and send it to
     `/api/auth` as the `name` field (the server persists it on first sign-in).
-  - **Web (NextAuth AppleProvider):** name arrives in the first callback `user.name`.
+  - **Web (NextAuth AppleProvider):** the name comes in the first callback's form POST as
+    a `user` field, which NextAuth v4 passes on to nothing. The NextAuth route reads it off
+    the request itself and sends it to `/api/auth` as `name`, as the app does.
 - **Email may be a private relay** (`…@privaterelay.appleid.com`). That's fine — we key
   users by whatever email Apple returns.
 - **Audience (`aud`)** = the **Services ID** for web, the **app bundle ID** for native.
@@ -97,7 +105,7 @@ progress). Apple is mandatory for App Store review (Guideline 4.8).
 3. Enable the **Sign In with Apple** capability. Register.
 4. Add the **bundle ID** to the server's `APPLE_CLIENT_IDS`.
 
-### 2. Services ID (web — needed when web Apple login is added)
+### 2. Services ID (web)
 
 1. **Identifiers → + → Services IDs**. Description + identifier
    (e.g. `com.candeegenerations.rybt.web`). Register.
@@ -115,8 +123,15 @@ Apple's "client secret" is a short-lived JWT you generate, signed with a private
    **download the `.p8` once** (you can't re-download). Note the **Key ID** and your
    **Team ID**.
 2. NextAuth's AppleProvider needs: Services ID (clientId), Team ID, Key ID, and the
-   `.p8` contents to generate the client secret JWT (max 6-month expiry — automate
-   regeneration).
+   `.p8` contents. The website makes the client secret JWT from them each time it starts
+   (`appleClientSecret` in the NextAuth route), good for 180 days, so it never expires
+   on a deploy nobody redid. The server's key works: it is the team's Sign in with Apple
+   key, and the Services ID's primary App ID is the app's.
+3. Apple answers with a cross-site `form_post`, so NextAuth's state and PKCE cookies are
+   set `SameSite=None; Secure` when Apple is on - with the default `Lax`, the browser
+   drops them on Apple's POST and every Apple sign-in fails its checks. Local Apple
+   sign-in therefore needs HTTPS (or a browser that treats localhost as secure), and
+   Apple accepts no `localhost` return URL anyway: test it on a deploy preview.
 
 > The server verifies `iss = https://appleid.apple.com`, `aud ∈ APPLE_CLIENT_IDS`,
 > signature (Apple JWKS), `exp`, and the hashed `nonce` when supplied. It does **not**
@@ -143,6 +158,20 @@ account, whatever email Apple gives. Signing in finds the account by its `SignIn
 (provider and `sub`) first, then by a matching email - verified only - and otherwise makes a
 new one. Adding one that already opens a different account is refused, never merged. The
 reasoning is ADR 0004 in the iOS app's repo (`docs/adr/0004-sign-in-methods-link-never-merge.md`).
+
+The website does the same from its **Sign-in methods** page (`/account`, linked under the
+signed-in name on the home page). Adding one sets a short-lived cookie
+(`rybt-adding-sign-in-method`) and signs in with the other provider; the NextAuth `jwt`
+callback, seeing the cookie and the session already in the browser, sends the new sign-in to
+`POST /api/user/sign-in-methods` with that session's app token instead of signing in afresh,
+so the reader stays in the account they were in. A refusal (`SignInMethodInUse`, `EmailInUse`,
+`ProviderAlreadyAdded`) comes back to the page and is said in words. Removing one is
+`DELETE /api/user/sign-in-methods/:provider`, never the last.
+
+A web Apple sign-in sends no `authorizationCode` (NextAuth spends it), so nothing is kept to
+revoke it with when the account is deleted - unlike the app's, which Guideline 5.1.1(v) is
+about. Revoking web sign-ins too would need the server to accept the refresh token NextAuth
+receives.
 
 Accounts from before this have no `SignInMethod` rows. They are matched by the `subject` their
 first sign-in recorded on the user, and get their first row then.
