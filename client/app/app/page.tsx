@@ -13,22 +13,27 @@ export const metadata: Metadata = {
 }
 
 /**
- * The screenshots in the phones: 786 by 1704 pixels, from `docs/app-store.md` in the app's
- * repository. Put each in `public/images/app/` and name it here; until then the phone shows
- * a placeholder saying which screenshot goes in it.
+ * The screenshots in the phones, from `public/images/app/`, each the shape of an iPhone's
+ * screen. 786 by 1704 keeps the app's text sharp on a phone's own screen - three times the
+ * widest frame here; these are smaller, and will do until the App Store's are taken (see
+ * `docs/app-store.md` in the app's repository). A shot without `src` shows a placeholder
+ * saying which screenshot goes there.
  */
 const shots: Record<'today' | 'bible' | 'chapters', {src?: string; title: string; alt: string}> = {
   today: {
+    src: '/images/app/today.webp',
     title: 'Today',
-    alt: "The Today page: the day's Old and New Testament reading, Mark as Read, and the month's calendar.",
+    alt: "The Today page for Monday, September 14: the Old Testament's Psalms 105-107, the New Testament finished, the day marked read, and the month's calendar.",
   },
   bible: {
+    src: '/images/app/bible.webp',
     title: 'The Bible',
-    alt: 'A chapter in the King James Version built into the app, with the words of Jesus in red.',
+    alt: 'Psalm 105 in the King James Version built into the app, a verse to a line, with the LORD in small capitals.',
   },
   chapters: {
+    src: '/images/app/chapters.webp',
     title: 'Chapters',
-    alt: 'Every chapter of the Bible in a grid, filled in as it is read, colored by section.',
+    alt: 'The Chapters page: 60% of the Bible read - 725 chapters, 37 books finished, a best streak of 15 days - above the grid of every chapter.',
   },
 }
 
