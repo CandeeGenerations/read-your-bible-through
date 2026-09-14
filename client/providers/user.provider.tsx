@@ -3,6 +3,7 @@
 import axios, {AxiosResponse} from 'axios'
 import {signOut, useSession} from 'next-auth/react'
 import Image from 'next/image'
+import {usePathname} from 'next/navigation'
 import React, {ReactElement, ReactNode, createContext, useContext, useEffect, useState} from 'react'
 import {clearTimeout} from 'timers'
 
@@ -33,6 +34,9 @@ const UserContext = createContext<IUserContext>({
 
 const UserProvider = ({children}: {children: ReactNode}): ReactElement => {
   const {data: session, status} = useSession()
+  // The app's landing page shows nothing of the reader's, and a visitor should not wait on
+  // the splash for a session it never uses.
+  const standalone = usePathname() === '/app'
 
   const [showLogo, setShowLogo] = useState<boolean>(false)
   const [ready, setReady] = useState<boolean>(false)
@@ -104,7 +108,7 @@ const UserProvider = ({children}: {children: ReactNode}): ReactElement => {
 
   return (
     <UserContext.Provider value={{userInfo, logOut, loadTracks, tracks}}>
-      {ready ? (
+      {ready || standalone ? (
         children
       ) : (
         <div className="fixed inset-0 flex items-center justify-center bg-primary-600">

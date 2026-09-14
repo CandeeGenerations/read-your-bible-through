@@ -1,0 +1,483 @@
+/* The iPhone app's landing page, laid out as Lockstep's (locksteptracker.app) is - a split
+   hero with two tilted phones, numbered steps beside a third, what it does not do, a band
+   at the foot - in this site's own colors and Linden Hill.
+
+   Dark, as Lockstep's is, on a ground taken from the logo's lavender at its deepest. Every
+   color that carries text is measured against what it sits on, and written beside it:
+   4.5:1 for text, 3:1 for a control's edge. */
+
+.page {
+  --bg: #1a1724;
+  --surface: #26222f;
+  --text: #eceaf2; /* 14.78:1 on --bg */
+  --accent: #b4a8dd; /* the website's primary-200: 8.04:1 on --bg, 7.09:1 on --surface */
+  --accent-hover: #c8bcf1;
+  --rose: #e4a8aa; /* the logo's rose: 8.79:1 on --bg */
+  --on-accent: #1a1724; /* on a filled lavender pill: 8.04:1 */
+  --band: #2e2748;
+  --band-glow: #463c6e;
+  --divider: color-mix(in srgb, #eceaf2 16%, transparent);
+  --bezel: #2c2838;
+
+  /* Text at less than full strength, over --bg: 9.39:1, 8.13:1, 6.04:1 and 5.27:1. */
+  --ink-78: color-mix(in srgb, var(--text) 78%, transparent);
+  --ink-72: color-mix(in srgb, var(--text) 72%, transparent);
+  --ink-60: color-mix(in srgb, var(--text) 60%, transparent);
+  --ink-55: color-mix(in srgb, var(--text) 55%, transparent);
+
+  color-scheme: dark;
+  min-height: 100vh;
+  color: var(--text);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Roboto, 'Segoe UI', Arial,
+    sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  text-wrap: pretty;
+  -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(1200px 720px at 82% -160px, color-mix(in srgb, #463c6e 60%, transparent), transparent 60%),
+    radial-gradient(900px 700px at -10% 100%, color-mix(in srgb, #e4a8aa 7%, transparent), transparent 55%), var(--bg);
+}
+
+.page a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+.page a:hover {
+  color: var(--accent-hover);
+}
+.page :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Chrome ─────────────────────────────────────────────────────────────────────────── */
+
+.shell {
+  max-width: 1264px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 72px);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 22px;
+  max-width: 1264px;
+  margin: 0 auto;
+  padding: 14px clamp(20px, 5vw, 72px);
+}
+.page .nav a {
+  color: inherit;
+  text-decoration: none;
+  font-size: 14px;
+  /* A link in the bar is 44px tall to tap, whatever it draws. */
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.page .nav a:hover {
+  color: var(--accent);
+}
+.brand {
+  margin-right: auto;
+  gap: 10px;
+  font-family: 'linden_hillregular', serif;
+  font-size: 20px !important;
+}
+.brand img {
+  width: 26px;
+  height: auto;
+}
+/* Below this the name, three links and the button cannot share a line. The button goes:
+   the hero offers it again just below. */
+@media (max-width: 640px) {
+  .nav {
+    gap: 4px 16px;
+  }
+  .nav .navButton {
+    display: none !important;
+  }
+}
+
+.footer {
+  max-width: 1264px;
+  margin: 0 auto;
+  padding: 40px clamp(20px, 5vw, 72px) 56px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  font-size: 13px;
+  color: var(--ink-55);
+}
+.footer img {
+  width: 28px;
+  height: auto;
+  opacity: 0.8;
+}
+.colophon {
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+.page .colophon a {
+  color: var(--ink-78);
+  text-decoration: underline;
+}
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+.page .footerLinks a {
+  color: inherit;
+  text-decoration: none;
+}
+.page .footerLinks a:hover {
+  color: var(--accent);
+}
+@media (max-width: 700px) {
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .colophon {
+    margin-right: 0;
+  }
+}
+
+/* ── Rules ──────────────────────────────────────────────────────────────────────────── */
+
+.rule,
+.ruleSoft {
+  height: 1px;
+  border: 0;
+  margin: 0;
+}
+.rule {
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--divider) 48px,
+    var(--divider) calc(100% - 48px),
+    transparent
+  );
+}
+.ruleSoft {
+  background: linear-gradient(to right, transparent, #4a4558 48px, #4a4558 calc(100% - 48px), transparent);
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+}
+.page .primary {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.page .primary:hover {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.page .ghost {
+  color: var(--accent);
+}
+.page .ghost:hover {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.badgeText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  text-align: left;
+}
+.badgeText small {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+.badgeText span {
+  font-size: 15px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ── Type ───────────────────────────────────────────────────────────────────────────── */
+
+.kicker {
+  display: block;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.heroTitle {
+  font-family: 'linden_hillregular', serif;
+  font-weight: normal;
+  font-size: clamp(44px, 6vw, 80px);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.heroTitle span {
+  display: block;
+}
+.heroTitle em {
+  font-style: normal;
+  color: var(--rose);
+}
+.lede {
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 52ch;
+  color: var(--ink-78);
+}
+.heading {
+  font-family: 'linden_hillregular', serif;
+  font-weight: normal;
+  font-size: 28px;
+  line-height: 1.12;
+  margin: 0;
+}
+.prose {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--ink-72);
+}
+.fine {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-55);
+}
+.note {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-60);
+}
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Sections ───────────────────────────────────────────────────────────────────────── */
+
+.hero {
+  padding: clamp(40px, 7vw, 104px) 0 clamp(48px, 6vw, 84px);
+}
+.section {
+  padding: clamp(56px, 7vw, 96px) 0;
+}
+.split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  gap: 56px clamp(24px, 5vw, 96px);
+  align-items: center;
+}
+.cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 32px clamp(24px, 4vw, 64px);
+  align-items: start;
+}
+
+.stepRow {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 8px 20px;
+  padding: 22px 0;
+  align-items: baseline;
+}
+.stepRow .num {
+  margin: 0;
+  font-size: 15px;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.stepRow .prose {
+  grid-column: 2;
+  max-width: 50ch;
+}
+
+.band {
+  background:
+    radial-gradient(900px 420px at 85% -40%, color-mix(in srgb, var(--band-glow) 70%, transparent), transparent 64%),
+    var(--band);
+  padding: clamp(48px, 6vw, 80px) 0;
+}
+.bandInner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  gap: 28px clamp(24px, 5vw, 96px);
+  align-items: center;
+}
+.bandTitle {
+  font-family: 'linden_hillregular', serif;
+  font-weight: normal;
+  font-size: clamp(30px, 3.2vw, 44px);
+  line-height: 1.1;
+  margin: 0;
+}
+/* On the band an outline button would be lavender on lavender; it is the filled pill
+   instead - its label 8.04:1, its edge 4.50:1 against the brightest of the band. */
+.page .pill {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+  border-radius: 999px;
+  padding: 12px 22px;
+}
+.page .pill:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: var(--on-accent);
+}
+
+/* ── Phones ─────────────────────────────────────────────────────────────────────────────
+   Lockstep's frames: each holds one screenshot, 786 by 1704 - three times the widest they
+   are drawn at, so the app's text stays sharp on a phone's own screen. Until there are
+   screenshots, each holds a placeholder that says which one goes there. */
+
+.phone {
+  position: relative;
+  aspect-ratio: 393 / 852;
+  border-radius: 46px;
+  padding: 9px;
+  background: var(--bezel);
+  box-shadow:
+    0 0 0 1px #5a5468,
+    0 6px 18px rgba(0, 0, 0, 0.55);
+}
+.phone::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 84px;
+  height: 24px;
+  border-radius: 12px;
+  background: var(--bezel);
+  z-index: 2;
+}
+.screen {
+  width: 100%;
+  height: 100%;
+  border-radius: 38px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.screen > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16%;
+  text-align: center;
+  background:
+    linear-gradient(160deg, color-mix(in srgb, #968abf 38%, transparent), color-mix(in srgb, #e4a8aa 22%, transparent)),
+    var(--surface);
+}
+.placeholder strong {
+  font-family: 'linden_hillregular', serif;
+  font-weight: normal;
+  font-size: clamp(16px, 2vw, 22px);
+  color: var(--text);
+}
+.placeholder span {
+  font-size: 11px;
+  color: var(--ink-78);
+}
+
+.heroDevices {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.glow {
+  position: absolute;
+  inset: 10% 5%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, #968abf 45%, transparent), transparent);
+  filter: blur(24px);
+  pointer-events: none;
+}
+/* 86%: a phone turned 7 degrees is wider than it is, and the room for that keeps the page
+   from scrolling sideways on a narrow screen. Proportions, not pixels, so the pair holds
+   together all the way down to a phone. */
+.heroStage {
+  position: relative;
+  width: min(470px, 86%);
+  aspect-ratio: 470 / 580;
+}
+.heroStage .phone {
+  position: absolute;
+  width: 50.2%;
+  padding: 1.915%;
+  border-radius: 18.6% / 8.6%;
+}
+.heroStage .screen {
+  border-radius: 16.5% / 7.3%;
+}
+.heroStage .phone::before {
+  top: 3.9%;
+  width: 33%;
+  height: 4.3%;
+  border-radius: 999px;
+}
+.back {
+  left: 0;
+  top: 8.28%;
+  transform: rotate(-7deg);
+}
+.front {
+  right: 0;
+  top: 0;
+  transform: rotate(7deg);
+  z-index: 1;
+  box-shadow:
+    0 0 0 1px #9b94ad,
+    0 16px 40px rgba(0, 0, 0, 0.65) !important;
+}
+.single {
+  display: flex;
+  justify-content: center;
+}
+.single .phone {
+  width: 260px;
+}

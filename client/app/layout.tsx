@@ -2,6 +2,7 @@ import type {Metadata, Viewport} from 'next'
 import process from 'process'
 import type React from 'react'
 
+import {APP_STORE_ID, SHOW_APP} from '../helpers/links'
 import '../styles/globals.css'
 import {Providers} from './providers'
 
@@ -61,6 +62,9 @@ export const metadata: Metadata = {
     'http-equiv': 'X-UA-Compatible',
     content: 'IE=edge',
   },
+  // Safari on an iPhone offers the app in a banner at the top of the page, once it is on the
+  // App Store - see helpers/links.
+  ...(SHOW_APP && APP_STORE_ID ? {itunes: {appId: APP_STORE_ID}} : {}),
 }
 
 export const viewport: Viewport = {

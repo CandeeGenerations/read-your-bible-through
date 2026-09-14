@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import Link from 'next/link'
 
+import {SHOW_APP} from '../../helpers/links'
 import {gtagEvent} from '../../libs/gtag'
 
 const Footer = () => {
@@ -29,6 +30,23 @@ const Footer = () => {
             Central Baptist Church
           </a>
           <br />
+          {SHOW_APP && (
+            <>
+              <Link
+                href="/app"
+                onClick={() =>
+                  gtagEvent({
+                    action: 'app__footer__link',
+                    category: 'engagement',
+                    label: 'click_event',
+                  })
+                }
+              >
+                iPhone App
+              </Link>{' '}
+              |{' '}
+            </>
+          )}
           <Link
             href="/support"
             onClick={() =>
