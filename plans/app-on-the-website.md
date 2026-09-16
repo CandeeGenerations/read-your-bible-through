@@ -52,7 +52,9 @@ added, and what has to be done outside the code before each part works.
 5. **Screenshots.** Three at 786 × 1704 in `client/public/images/app/`, named in `shots`.
 6. **On release.** Set `APP_STORE_ID`, and update the App Store listing's "Signed in with
    Google? Sign in to readyourbiblethrough.com with the same account" - Apple works on the
-   website now too.
+   website now too. **`APP_STORE_ID` set 2026-09-16** to `6811186794`, the Apple ID of the
+   released app; `https://apps.apple.com/app/id6811186794` answers `200` at the app's
+   listing. The listing's text lives in App Store Connect, not here.
 
 ## Checked
 

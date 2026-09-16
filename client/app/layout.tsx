@@ -62,8 +62,8 @@ export const metadata: Metadata = {
     'http-equiv': 'X-UA-Compatible',
     content: 'IE=edge',
   },
-  // Safari on an iPhone offers the app in a banner at the top of the page, once it is on the
-  // App Store - see helpers/links.
+  // Safari on an iPhone offers the app, from the App Store, in a banner at the top of the
+  // page - see helpers/links.
   ...(SHOW_APP && APP_STORE_ID ? {itunes: {appId: APP_STORE_ID}} : {}),
 }
 

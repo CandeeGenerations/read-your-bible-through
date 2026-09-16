@@ -9,15 +9,18 @@ import {ITestamentReading} from './types'
 // eslint-disable-next-line no-undef
 export const SHOW_APP = process.env.NEXT_PUBLIC_SHOW_APP === 'true'
 
-/** The public TestFlight beta - where the iPhone app is until it is on the App Store. */
+/**
+ * The public TestFlight beta, for trying a build before it reaches the App Store. The landing
+ * page links here only while `APP_STORE_ID` is unset.
+ */
 export const TESTFLIGHT_URL = 'https://candee.link/rybtb'
 
 /**
- * The app's Apple ID in App Store Connect (App Information > Apple ID), a number. Set it when
- * the app is released: the landing page's button becomes the App Store badge, and Safari on
- * an iPhone offers the app in a banner at the top of every page. Until then, TestFlight.
+ * The app's Apple ID in App Store Connect (App Information > Apple ID), a number. The app is
+ * on the App Store: the landing page's button is the App Store badge, and Safari on an iPhone
+ * offers the app in a banner at the top of every page.
  */
-export const APP_STORE_ID: string | undefined = undefined
+export const APP_STORE_ID: string | undefined = '6811186794'
 
 export const APP_STORE_URL = APP_STORE_ID ? `https://apps.apple.com/app/id${APP_STORE_ID}` : undefined
 

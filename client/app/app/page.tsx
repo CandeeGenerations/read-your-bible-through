@@ -60,7 +60,7 @@ const Phone = ({shot, className}: {shot: keyof typeof shots; className?: string}
   )
 }
 
-/** The App Store badge once the app is there, and TestFlight until it is. */
+/** The App Store badge, or TestFlight's while `APP_STORE_ID` is unset - see helpers/links. */
 const GetTheApp = () =>
   APP_STORE_URL ? (
     <a className={`${styles.btn} ${styles.primary}`} href={APP_STORE_URL}>
