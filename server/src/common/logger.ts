@@ -20,21 +20,21 @@ const logger = createLogger({
   exceptionHandlers: [new transports.Console()],
 })
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 export const logInfo = (message: string, data?: any): ILog => {
   logger.info(message, {data})
 
   return {message, data, level: LOG_LEVELS.INFO}
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 export const logDebug = (message: string, data?: any): ILog => {
   logger.debug(message, {data})
 
   return {message, data, level: LOG_LEVELS.DEBUG}
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 export const logError = (message: string, data?: any): ILog => {
   logger.error(message, {data})
 

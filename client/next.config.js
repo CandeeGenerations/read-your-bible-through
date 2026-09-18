@@ -1,6 +1,6 @@
-/* eslint-disable no-undef */
+/* oxlint-disable no-undef */
 /** @type {import('next').NextConfig} */
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// oxlint-disable-next-line typescript/no-require-imports
 const path = require('path')
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://readyourbiblethrough.com'

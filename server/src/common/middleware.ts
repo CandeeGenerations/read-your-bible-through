@@ -6,7 +6,7 @@ import {NextFunction, Request, Response} from 'express'
 // (structural typing) rather than an ambient global augmentation, because ts-node-dev
 // type-checks files in isolation and won't reliably load a separate `.d.ts`.
 // `any` generics so any Request<...> from a typed handler is accepted.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 export const userIdOf = (req: Request<any, any, any, any>): string => (req as {userId?: string}).userId as string
 
 // Requires a valid Bearer app-JWT whose user still exists. Sets req.userId from the token's

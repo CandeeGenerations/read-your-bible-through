@@ -5,12 +5,12 @@ import {NextResponse} from 'next/server'
 // computer, an Android phone, an iPhone without it. The same paths the app claims - /read
 // and /bible (see app/aasa) - so a link is one URL whether or not the app is there.
 
-// eslint-disable-next-line no-undef
+// oxlint-disable-next-line no-undef
 export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://readyourbiblethrough.com'
 
 /** The Bible's books, as the reading plan and the Chapters grid know them. Kept a day. */
 export const fetchBooks = async (): Promise<IBibleBook[]> => {
-  // eslint-disable-next-line no-undef
+  // oxlint-disable-next-line no-undef
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/books`, {next: {revalidate: 86_400}})
 
   if (!response.ok) throw new Error(`books: ${response.status}`)

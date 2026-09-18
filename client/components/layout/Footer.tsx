@@ -6,7 +6,7 @@ import {gtagEvent} from '../../libs/gtag'
 
 const Footer = () => {
   const year = dayjs().format('YYYY')
-  // eslint-disable-next-line no-undef
+  // oxlint-disable-next-line no-undef
   const version = process.env.NEXT_PUBLIC_APP_VERSION
 
   return (

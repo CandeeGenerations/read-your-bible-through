@@ -17,12 +17,12 @@ export interface IPageState {
 }
 
 export const LayoutContext = React.createContext<{
-  // eslint-disable-next-line no-unused-vars
+  // oxlint-disable-next-line no-unused-vars
   showHideLearnModal?: (open: boolean, page?: PageType) => void
 }>({})
 
 // Set axios base URL
-// eslint-disable-next-line no-undef
+// oxlint-disable-next-line no-undef
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL
 
 // Attach the app JWT (from the NextAuth session) to every API request.

@@ -16,7 +16,7 @@ overrides:
   js-yaml: '>=4.3.2 <5.0.0'
   qs: '>=6.16.0 <7.0.0'
   # brace-expansion is vulnerable across three majors with different fixes, and
-  # 1.x/2.x consumers (older eslint and commitlint tooling) cannot cross a major.
+  # 1.x/2.x consumers (commitlint and other older tooling) cannot cross a major.
   'brace-expansion@1': '>=1.1.18 <2.0.0'
   'brace-expansion@2': '>=2.1.4 <3.0.0'
   'brace-expansion@5': '>=5.0.9 <6.0.0'

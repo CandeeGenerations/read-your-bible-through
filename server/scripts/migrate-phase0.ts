@@ -1,4 +1,4 @@
-/* eslint-disable no-undef, no-console */
+/* oxlint-disable no-undef, no-console */
 /*
  * Phase 0 migration — run ONCE, with a DB backup.
  *

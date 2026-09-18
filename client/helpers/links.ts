@@ -6,7 +6,7 @@ import {ITestamentReading} from './types'
  * the footer, Safari's banner, and passages opening through rybt.app. `NEXT_PUBLIC_SHOW_APP`
  * true shows them; anything else leaves the website as it was before the app.
  */
-// eslint-disable-next-line no-undef
+// oxlint-disable-next-line no-undef
 export const SHOW_APP = process.env.NEXT_PUBLIC_SHOW_APP === 'true'
 
 /**
@@ -31,7 +31,7 @@ export const APP_STORE_URL = APP_STORE_ID ? `https://apps.apple.com/app/id${APP_
  * iOS opens a link to the domain of the page it is on in Safari, never in the app. Unset,
  * passages link to BibleGateway directly, as before.
  */
-// eslint-disable-next-line no-undef
+// oxlint-disable-next-line no-undef
 export const APP_LINK_URL = SHOW_APP ? process.env.NEXT_PUBLIC_APP_LINK_URL : undefined
 
 /** A reading as BibleGateway is searched for it: "Genesis 1,2,Matthew 1". */
