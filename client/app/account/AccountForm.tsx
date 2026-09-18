@@ -99,7 +99,7 @@ export default function AccountForm({providers}: {providers: string[]}) {
         <h1 className="font-linden text-5xl text-primary-900 mb-4">Sign-in methods</h1>
         <p className="text-secondary-600 mb-10">
           The ways you sign in to Read Your Bible Through. With both, either one opens this account - here and in the
-          iPhone app - whatever email address each one gives.
+          app - whatever email address each one gives.
         </p>
 
         {message && (

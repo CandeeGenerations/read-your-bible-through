@@ -209,7 +209,7 @@ const GetTheApp = () => (
       </span>
 
       <span className="flex min-w-0 flex-col text-left">
-        <span className="text-xl font-semibold leading-tight">Get the iPhone App</span>
+        <span className="text-xl font-semibold leading-tight">Get the App</span>
         <span className="text-sm leading-snug">Free on the App Store</span>
       </span>
     </a>

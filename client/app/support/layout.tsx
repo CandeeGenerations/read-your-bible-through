@@ -3,7 +3,7 @@ import React from 'react'
 
 export const metadata: Metadata = {
   title: 'Support',
-  description: 'Get help with the Read Your Bible Through website and iPhone app.',
+  description: 'Get help with the Read Your Bible Through website and app.',
 }
 
 export default function SupportLayout({children}: {children: React.ReactNode}) {

@@ -15,7 +15,7 @@ export default function Data() {
 
       <Section title="Delete your account in the app">
         <List ordered>
-          <li>Open Read Your Bible Through on your iPhone.</li>
+          <li>Open Read Your Bible Through on your iPhone or iPad.</li>
           <li>Tap the person icon at the top right of the screen. If you’re not signed in, sign in first.</li>
           <li>Tap Delete Account, then Delete Account again to confirm.</li>
         </List>
@@ -27,7 +27,7 @@ export default function Data() {
         </Paragraph>
 
         <Paragraph>
-          What you’ve marked stays on your iPhone, just as it does when you sign out, until you delete the app.
+          What you’ve marked stays on your device, just as it does when you sign out, until you delete the app.
         </Paragraph>
       </Section>
 
@@ -39,7 +39,7 @@ export default function Data() {
           <li>
             Tell us the email address on your account and whether you sign in with Apple or Google. If you use Sign in
             with Apple and chose to hide your email, your account’s address ends in @privaterelay.appleid.com. You can
-            find it in your iPhone’s Settings under Sign in with Apple.
+            find it in your device’s Settings under Sign in with Apple.
           </li>
           <li>We may reply to confirm that the account is yours.</li>
           <li>
@@ -55,7 +55,7 @@ export default function Data() {
 
       <Section title="If you use the app without an account">
         <Paragraph>
-          We don’t have anything to delete. Your reading progress and settings are only on your iPhone, and deleting the
+          We don’t have anything to delete. Your reading progress and settings are only on your device, and deleting the
           app removes them.
         </Paragraph>
       </Section>

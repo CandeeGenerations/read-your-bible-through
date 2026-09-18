@@ -16,7 +16,7 @@ export default function Support() {
   return (
     <InfoPage title="Support" eventPrefix="support" lastUpdated="11 September 2026">
       <Paragraph>
-        Questions, problems or ideas for the Read Your Bible Through website or iPhone app? We’d love to hear from you.
+        Questions, problems or ideas for the Read Your Bible Through website or app? We’d love to hear from you.
       </Paragraph>
 
       <Section title="Contact us">
@@ -28,7 +28,7 @@ export default function Support() {
 
         <List>
           <li>whether you’re using the website or the app</li>
-          <li>for the app, your iPhone model and iOS version</li>
+          <li>for the app, your iPhone or iPad model and iOS version</li>
           <li>which reading plan and day you were looking at</li>
           <li>what happened, and what you expected to happen</li>
         </List>
@@ -86,7 +86,7 @@ export default function Support() {
 
         <Question question="Which Bible translation do the readings use?">
           <Paragraph>
-            The King James Version. The iPhone app has it built in, so a reading opens right in the app. On the website,
+            The King James Version. The app has it built in, so a reading opens right in the app. On the website,
             passages open on BibleGateway in the Authorized King James Version (AKJV), the same text.
           </Paragraph>
         </Question>

@@ -7,7 +7,7 @@ import {notFound} from 'next/navigation'
 import styles from './landing.module.css'
 
 export const metadata: Metadata = {
-  title: 'The iPhone App',
+  title: 'The App',
   description:
     'The whole Bible in a year, the Psalms three times, or Proverbs every month - with the King James Version built in. Free, ad-free, and it works offline.',
 }
@@ -166,7 +166,8 @@ export default function AppLanding() {
               </Link>
             </div>
             <p className={styles.fine}>
-              Free, and the app has no ads and no tracking. iPhone for now.
+              Free, and the app has no ads and no tracking. iPhone and iPad, with widgets for your Home Screen and Lock
+              Screen.
               {!APP_STORE_URL && ' On the App Store soon - until then, TestFlight installs it from the link above.'}
             </p>
           </div>

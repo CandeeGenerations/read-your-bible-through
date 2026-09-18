@@ -10,14 +10,14 @@ export default function Privacy() {
       <Paragraph>
         Read Your Bible Through is a ministry of <a href="https://cbcwoodbridge.org">Central Baptist Church</a>, built
         and run by <a href="https://candeegenerations.com">Candee Generations</a>. This policy covers the website at
-        readyourbiblethrough.com and the Read Your Bible Through app for iPhone. “We” and “us” mean the people who run
-        them.
+        readyourbiblethrough.com and the Read Your Bible Through app for iPhone and iPad. “We” and “us” mean the people
+        who run them.
       </Paragraph>
 
       <Section title="The short version">
         <List>
           <li>You can follow every reading plan without an account, on the website or in the app.</li>
-          <li>In the app, anything you do without signing in stays on your iPhone.</li>
+          <li>In the app, anything you do without signing in stays on your device.</li>
           <li>
             If you sign in, we keep your name, your email address and the readings you’ve marked as read, so we can show
             you your progress.
@@ -31,7 +31,7 @@ export default function Privacy() {
       <Section title="Using the app without an account">
         <Paragraph>
           The reading plans are built into the app. The plan you last chose, the days and chapters you mark as read and
-          your settings are stored on your iPhone and are not sent to us. Deleting the app deletes them.
+          your settings are stored on your device and are not sent to us. Deleting the app deletes them.
         </Paragraph>
       </Section>
 
@@ -72,9 +72,9 @@ export default function Privacy() {
 
       <Section title="Daily reminders">
         <Paragraph>
-          If you turn on the daily reminder in the app, your iPhone schedules it. The day’s reading in it is worked out
-          on your iPhone. We don’t send reminders from a server, and we don’t know whether you’ve turned them on. You
-          can turn them off in the app or in your iPhone’s Settings.
+          If you turn on the daily reminder in the app, your device schedules it. The day’s reading in it is worked out
+          on your device. We don’t send reminders from a server, and we don’t know whether you’ve turned them on. You
+          can turn them off in the app or in your device’s Settings.
         </Paragraph>
       </Section>
 
@@ -112,7 +112,7 @@ export default function Privacy() {
           </li>
           <li>
             <strong>Apple crash reports</strong>: if you’ve chosen to share analytics with app developers in your
-            iPhone’s Settings, Apple may send us crash reports and anonymous usage statistics. Apple controls this. You
+            device’s Settings, Apple may send us crash reports and anonymous usage statistics. Apple controls this. You
             can turn it off under Settings › Privacy &amp; Security › Analytics &amp; Improvements.
           </li>
         </List>
@@ -149,7 +149,7 @@ export default function Privacy() {
           </li>
           <li>
             <strong>Stop using Apple or Google sign-in.</strong> If your account has both, you can remove either one in
-            the app, under the person icon at the top right. For Apple, you can also open your iPhone’s Settings, tap
+            the app, under the person icon at the top right. For Apple, you can also open your device’s Settings, tap
             your name, then find Read Your Bible Through under Sign in with Apple. For Google, remove it at{' '}
             <a href="https://myaccount.google.com/connections">myaccount.google.com/connections</a>. This stops us
             receiving your sign-in, but doesn’t delete what we already hold. To do that, ask us to delete your account.

@@ -42,7 +42,7 @@ const Footer = () => {
                   })
                 }
               >
-                iPhone App
+                The App
               </Link>{' '}
               |{' '}
             </>
