@@ -11,13 +11,6 @@ updates:
       separator: '-' # Use hyphens to separate branch name segments
     schedule:
       interval: 'monthly'
-    ignore:
-      - dependency-name: 'prisma'
-        update-types:
-          - 'version-update:semver-major'
-      - dependency-name: '@prisma/client'
-        update-types:
-          - 'version-update:semver-major'
     groups:
       minor-updates:
         update-types:
@@ -29,6 +22,11 @@ updates:
       - dependency-name: 'prisma'
         update-types: ['version-update:semver-major']
       - dependency-name: '@prisma/client'
+        update-types: ['version-update:semver-major']
+      # muted 2026-09-18 — @types/node tracks the Node major actually in use, which .nvmrc,
+      # engines.node and the Dockerfile all pin to 24. Latest stays unreachable until Node 26
+      # reaches Active LTS (~Oct 2026), so this otherwise reopens every month. Dashboard #86
+      - dependency-name: '@types/node'
         update-types: ['version-update:semver-major']
   - package-ecosystem: 'github-actions' # Check for updates to GitHub Actions every week
     directory: '/'
