@@ -1,6 +1,6 @@
 import config from '@src/common/config'
+import {loadJose} from '@src/common/jose'
 import {logError, logInfo} from '@src/common/logger'
-import {SignJWT, importPKCS8} from 'jose'
 
 // Sign in with Apple's REST API, for the one thing the server needs it for: revoking a user's
 // Apple sign-in when they delete their account, which App Review requires (Guideline
@@ -20,6 +20,7 @@ export const isAppleKeyConfigured = (): boolean =>
 // Apple's "client secret": a short-lived JWT signed with the team's Sign in with Apple key.
 export const appleClientSecret = async (clientId: string): Promise<string> => {
   const {teamId, keyId, privateKey} = config.auth.apple
+  const {SignJWT, importPKCS8} = await loadJose()
   const key = await importPKCS8(privateKey as string, 'ES256')
 
   return await new SignJWT({})
