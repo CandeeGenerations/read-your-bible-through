@@ -1,12 +1,22 @@
 import config from '@src/common/config'
 import {PROVIDERS, Provider} from '@src/common/constants'
-import {SignJWT, createRemoteJWKSet, jwtVerify} from 'jose'
+import {Jose, loadJose} from '@src/common/jose'
 
 const APPLE_ISS = 'https://appleid.apple.com'
 const GOOGLE_ISS = ['https://accounts.google.com', 'accounts.google.com']
 
-const appleJwks = createRemoteJWKSet(new URL('https://appleid.apple.com/auth/keys'))
-const googleJwks = createRemoteJWKSet(new URL('https://www.googleapis.com/oauth2/v3/certs'))
+type RemoteJWKSet = ReturnType<Jose['createRemoteJWKSet']>
+
+// Both key sets, built once. `createRemoteJWKSet` caches a provider's signing keys behind the
+// handle it returns, so a fresh one per verification would refetch Apple's or Google's keys on
+// every single sign-in. Memoised as a promise for the same reason as the import itself.
+let jwksPromise: Promise<{apple: RemoteJWKSet; google: RemoteJWKSet}> | undefined
+
+const loadJwks = (): Promise<{apple: RemoteJWKSet; google: RemoteJWKSet}> =>
+  (jwksPromise ??= loadJose().then(({createRemoteJWKSet}) => ({
+    apple: createRemoteJWKSet(new URL('https://appleid.apple.com/auth/keys')),
+    google: createRemoteJWKSet(new URL('https://www.googleapis.com/oauth2/v3/certs')),
+  })))
 
 const appSecret = new TextEncoder().encode(config.auth.jwtSecret)
 
@@ -30,10 +40,10 @@ export const verifyProviderToken = async (
   nonce?: string,
 ): Promise<ProviderIdentity> => {
   const isApple = provider === PROVIDERS.APPLE
-  const jwks = isApple ? appleJwks : googleJwks
+  const [{jwtVerify}, jwks] = await Promise.all([loadJose(), loadJwks()])
   const audiences = isApple ? config.auth.apple.clientIds : config.auth.google.clientIds
 
-  const {payload} = await jwtVerify(idToken, jwks, {
+  const {payload} = await jwtVerify(idToken, isApple ? jwks.apple : jwks.google, {
     issuer: isApple ? APPLE_ISS : GOOGLE_ISS,
     audience: audiences.length > 0 ? audiences : undefined,
   })
@@ -67,15 +77,19 @@ export interface AppTokenClaims {
   email: string
 }
 
-export const signAppToken = async (claims: AppTokenClaims): Promise<string> =>
-  await new SignJWT({email: claims.email})
+export const signAppToken = async (claims: AppTokenClaims): Promise<string> => {
+  const {SignJWT} = await loadJose()
+
+  return await new SignJWT({email: claims.email})
     .setProtectedHeader({alg: 'HS256'})
     .setSubject(claims.sub)
     .setIssuedAt()
     .setExpirationTime(config.auth.jwtExpiry)
     .sign(appSecret)
+}
 
 export const verifyAppToken = async (token: string): Promise<AppTokenClaims> => {
+  const {jwtVerify} = await loadJose()
   const {payload} = await jwtVerify(token, appSecret)
 
   return {sub: payload.sub as string, email: payload.email as string}
