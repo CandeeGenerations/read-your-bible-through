@@ -34,12 +34,16 @@ const nextConfig = {
   },
   outputFileTracingRoot: path.join(__dirname, '..'),
 
-  // The apple-app-site-association file, at the one path Apple fetches it from. A rewrite,
-  // not a file in public/.well-known - a leading-dot directory is dropped by a hand-dragged
-  // Netlify deploy, which is how Lockstep's first deploy of its own came to 404 there - and
-  // not a redirect, which Apple will not follow. See app/aasa.
+  // The two files that let the apps open links on this site, each at the one path its
+  // platform fetches it from. Rewrites, not files in public/.well-known - a leading-dot
+  // directory is dropped by a hand-dragged Netlify deploy, which is how Lockstep's first
+  // deploy of its own came to 404 there - and not redirects, which neither platform
+  // follows. See app/aasa and app/assetlinks.
   async rewrites() {
-    return [{source: '/.well-known/apple-app-site-association', destination: '/aasa'}]
+    return [
+      {source: '/.well-known/apple-app-site-association', destination: '/aasa'},
+      {source: '/.well-known/assetlinks.json', destination: '/assetlinks'},
+    ]
   },
 
   // rybt.app serves only the links into the app (/read, /bible) and the file that lets the
@@ -52,7 +56,7 @@ const nextConfig = {
     return [
       {source: '/', has: rybtApp, destination: showApp ? `${siteUrl}/app` : `${siteUrl}/`, permanent: false},
       {
-        source: '/:path((?!read/|bible/|aasa$|\\.well-known/).*)',
+        source: '/:path((?!read/|bible/|aasa$|assetlinks$|\\.well-known/).*)',
         has: rybtApp,
         destination: `${siteUrl}/:path`,
         permanent: false,
