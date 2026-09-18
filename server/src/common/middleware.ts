@@ -3,7 +3,7 @@ import client from '@src/common/client'
 import {NextFunction, Request, Response} from 'express'
 
 // userId is attached to the request by requireAuth. Read/written via these helpers
-// (structural typing) rather than an ambient global augmentation, because ts-node-dev
+// (structural typing) rather than an ambient global augmentation, because the dev runner
 // type-checks files in isolation and won't reliably load a separate `.d.ts`.
 // `any` generics so any Request<...> from a typed handler is accepted.
 // oxlint-disable-next-line typescript/no-explicit-any
