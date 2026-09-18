@@ -25,11 +25,11 @@
     "preinstall": "sh ../scripts/check-versions.sh && npx only-allow pnpm",
     "lint": "oxlint src",
     "lint:fix": "oxlint src --fix",
-    "migrate:phase0": "phase run 'pnpm exec ts-node -r tsconfig-paths/register scripts/migrate-phase0.ts'",
+    "migrate:phase0": "phase run 'pnpm exec tsx scripts/migrate-phase0.ts'",
     "pcheck": "npm-check -u -i '{prisma,@prisma/client}' && pnpm audit",
     "prettier": "prettier --cache --check --write --ignore-unknown .",
     "prettier:ci": "prettier --check .",
-    "start": "fnm use; phase run 'pnpm generate && NODE_ENV=development ts-node-dev --respawn -r tsconfig-paths/register src/index.ts'"
+    "start": "fnm use; phase run 'pnpm generate && NODE_ENV=development tsx watch src/index.ts'"
   },
   "dependencies": {
     "@prisma/client": "^6.18.0",
@@ -48,11 +48,9 @@
     "oxlint": "1.83.0",
     "prettier": "3.9.7",
     "prisma": "6.19.3",
-    "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0",
     "tsc-alias": "1.9.5",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "^6.0.3"
+    "tsx": "4.23.13",
+    "typescript": "^7.0.2"
   },
   "engines": {
     "node": ">=24.0.0",

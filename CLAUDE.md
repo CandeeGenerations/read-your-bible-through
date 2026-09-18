@@ -52,7 +52,7 @@ cd ../server && phase init
 - `pnpm run fix` - Run linting and formatting together
 
 ### Server (`cd server`)
-- `pnpm run start` - Start development server with ts-node-dev hot reload
+- `pnpm run start` - Start development server with tsx watch hot reload
 - `pnpm run build` - Build TypeScript to JavaScript in `dist/`
 - `pnpm run generate` - Generate Prisma client from schema
 - `pnpm run db:push` - Push Prisma schema changes to MongoDB
