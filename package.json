@@ -14,10 +14,12 @@
   "license": "MIT",
   "author": "Candee Generations <admin@candeegenerations.com>",
   "scripts": {
-    "eslint": "cd client && pnpm eslint && cd ../server && pnpm eslint",
+    "eslint": "pnpm run lint",
     "preinstall": "sh scripts/check-versions.sh && npx only-allow pnpm",
     "install:all": "pnpm install && pnpm --filter read-your-bible-through-server generate",
     "install:ci": "pnpm install --ignore-scripts",
+    "lint": "cd client && pnpm lint && cd ../server && pnpm lint",
+    "lint:fix": "cd client && pnpm lint:fix && cd ../server && pnpm lint:fix",
     "prepare": "husky",
     "prettier": "cd client && pnpm prettier && cd ../server && pnpm prettier",
     "prettier:ci": "cd client && pnpm prettier:ci && cd ../server && pnpm prettier:ci",

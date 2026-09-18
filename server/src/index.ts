@@ -13,7 +13,7 @@ import userRoutes from './domains/user/routes'
 const app = express()
 const {port} = config
 const pjson = JSON.parse(
-  // eslint-disable-next-line no-undef
+  // oxlint-disable-next-line no-undef
   fs.readFileSync(path.join(__dirname, '../', 'package.json'), 'utf8'),
 )
 const sep = ' -------------------------------------'
@@ -35,7 +35,7 @@ ${sep}
 ${sep}
  Routes:`)
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 const cleanseRouteName = (routeObject: any): string => {
   const routeName = Object.keys(routeObject)[0]
 
@@ -45,7 +45,7 @@ const cleanseRouteName = (routeObject: any): string => {
     .toLowerCase()
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 const useRoute = (routeObject: any, parentRouteName?: string): void => {
   const routeName = cleanseRouteName(routeObject)
   const route = `/api/${parentRouteName ? `${parentRouteName}/` : ''}${routeName}`

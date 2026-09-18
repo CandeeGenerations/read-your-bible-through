@@ -1,5 +1,5 @@
 {
   "**/*.+(js|md|ts|tsx|css|sass|less|yml|yaml|json|vue)": "prettier --write --ignore-unknown",
-  "**/*.+(ts|tsx)": ["eslint --fix"],
+  "**/*.+(ts|tsx)": ["oxlint --fix"],
   "package.json": ["sort-package-json"]
 }

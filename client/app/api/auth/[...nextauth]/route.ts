@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* oxlint-disable no-undef */
 import {PROVIDERS, Provider} from '@/helpers/constants'
 import {LINK_COOKIE} from '@/helpers/signInMethods'
 import {AsyncLocalStorage} from 'async_hooks'

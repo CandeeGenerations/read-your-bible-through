@@ -12,7 +12,7 @@ import ButtonLink from '../buttonLink'
 import {Dialog, DialogContent, DialogHeader, DialogTitle} from '../ui/dialog'
 
 interface ILearnModal {
-  // eslint-disable-next-line no-unused-vars
+  // oxlint-disable-next-line no-unused-vars
   onChange: (open: boolean) => void
   open: boolean
   page?: PageType

@@ -37,7 +37,8 @@ cd ../server && phase init
 ### Root Level
 - `pnpm run install:all` - Install dependencies for root, client, and server
 - `pnpm run install:ci` - Install dependencies without scripts (for CI)
-- `pnpm eslint` - Run ESLint on both client and server
+- `pnpm lint` - Run oxlint on both client and server
+- `pnpm lint:fix` - Run oxlint with autofix on both
 - `pnpm prettier` - Format code in both client and server
 - `pnpm prettier:ci` - Check code formatting
 - `pnpm release` - Create a new release using standard-version
@@ -46,7 +47,8 @@ cd ../server && phase init
 - `pnpm run dev` - Start development server with phase.dev environment (default port 3000)
 - `pnpm run build` - Build production Next.js application
 - `pnpm run start` - Start production server
-- `pnpm run eslint` - Lint TypeScript files
+- `pnpm run lint` - Lint TypeScript files with oxlint
+- `pnpm run lint:fix` - Lint with autofix
 - `pnpm run fix` - Run linting and formatting together
 
 ### Server (`cd server`)
@@ -54,7 +56,8 @@ cd ../server && phase init
 - `pnpm run build` - Build TypeScript to JavaScript in `dist/`
 - `pnpm run generate` - Generate Prisma client from schema
 - `pnpm run db:push` - Push Prisma schema changes to MongoDB
-- `pnpm run eslint` - Lint TypeScript files
+- `pnpm run lint` - Lint `src/` with oxlint
+- `pnpm run lint:fix` - Lint with autofix
 - `pnpm run fix` - Run linting and formatting together
 
 ## Architecture

@@ -10,7 +10,7 @@ dayjs.extend(advancedFormat)
 export const classNames = (...classes: string[]): string => classes.filter(Boolean).join(' ')
 
 export function setPageState<T>(
-  // eslint-disable-next-line no-unused-vars
+  // oxlint-disable-next-line no-unused-vars
   setState: (updates: T) => void,
   current: T,
   updates: T,

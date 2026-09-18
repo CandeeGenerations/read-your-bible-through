@@ -9,5 +9,5 @@ export const handleError = (res: Response, error: IException): Response => {
   return res.status(error.status ?? 500).send(`${error.name}: ${error.message}`)
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 export const handleSuccess = (res: Response, data?: any): Response => res.status(200).send(data)

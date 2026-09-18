@@ -13,7 +13,7 @@ import {IPassageTrack, ITracksResponse} from '../helpers/types'
 interface IUserContext {
   userInfo?: IUserInfo
   logOut: () => void
-  // eslint-disable-next-line no-unused-vars
+  // oxlint-disable-next-line no-unused-vars
   loadTracks?: (initial?: boolean) => Promise<IPassageTrack[]>
   tracks: IPassageTrack[]
 }
@@ -70,7 +70,7 @@ const UserProvider = ({children}: {children: ReactNode}): ReactElement => {
   }, [])
 
   useEffect(() => {
-    // eslint-disable-next-line no-undef
+    // oxlint-disable-next-line no-undef
     let timeout: NodeJS.Timeout
 
     if (status === 'unauthenticated') {

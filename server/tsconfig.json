@@ -20,5 +20,5 @@
       "change-case-all": ["./types/change-case-all"]
     }
   },
-  "include": ["src/**/*", "eslintrc.config.mjs"]
+  "include": ["src/**/*"]
 }
