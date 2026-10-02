@@ -44,12 +44,12 @@
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/cors": "2.8.19",
     "@types/express": "5.0.6",
-    "@types/node": "24.13.5",
-    "oxlint": "1.83.0",
-    "prettier": "3.9.7",
+    "@types/node": "24.19.0",
+    "oxlint": "1.86.0",
+    "prettier": "3.9.9",
     "prisma": "6.19.3",
-    "tsc-alias": "1.9.5",
-    "tsx": "4.23.13",
+    "tsc-alias": "1.9.7",
+    "tsx": "4.23.15",
     "typescript": "^7.0.2"
   },
   "engines": {
