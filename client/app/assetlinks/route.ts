@@ -12,14 +12,16 @@
  *
  * **A fingerprint for every key that signs the app.** Android checks the certificate the
  * installed app was signed with against this list, so a build signed with a key that is not
- * here simply does not get the links. Add Play App Signing's SHA-256 (Play Console → Test
- * and release → Setup → App signing) with the first upload, and the upload key's beside it.
+ * here simply does not get the links. Play App Signing's SHA-256 is in Play Console → Test and
+ * release → App integrity → Play app signing, beside the upload key's.
  */
 export const dynamic = 'force-static'
 
 const FINGERPRINTS = [
   // The debug key of the Mac the app is built on, so the emulators verify these links.
   'D5:09:1D:77:49:6A:47:0C:A3:BF:93:FE:E1:F0:D5:0B:5D:68:CB:E9:77:B7:39:DF:93:0C:BD:00:82:37:C6:1E',
+  // The upload key, which signs the release builds made on that Mac (rybt-upload.jks).
+  '04:C6:A7:8D:08:38:8C:D1:1C:BF:47:F5:69:74:F2:02:2D:CB:12:00:BD:29:0C:BC:11:F9:F9:14:D2:2D:C4:CD',
 ]
 
 export function GET() {
