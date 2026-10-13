@@ -144,6 +144,12 @@
   color: var(--ink-78);
   text-decoration: underline;
 }
+/* The credit line Apple asks for wherever its badge is used. */
+.trademarks {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 12px;
+}
 .footerLinks {
   display: flex;
   flex-wrap: wrap;
@@ -233,6 +239,18 @@
 }
 .badgeText span {
   font-size: 15px;
+}
+/* 48px tall, above Apple's 40px minimum, with a quarter of its height clear around it: the
+   margin and the row's 10px gap make the 12px. The badge is the button - no .btn around it. */
+.storeBadge {
+  display: inline-flex;
+  margin: 2px 2px 2px 0;
+  border-radius: 8px;
+}
+.storeBadge img {
+  display: block;
+  height: 48px;
+  width: auto;
 }
 .actions {
   display: flex;

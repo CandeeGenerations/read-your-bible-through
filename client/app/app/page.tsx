@@ -60,15 +60,15 @@ const Phone = ({shot, className}: {shot: keyof typeof shots; className?: string}
   )
 }
 
-/** The App Store badge, or TestFlight's while `APP_STORE_ID` is unset - see helpers/links. */
+/**
+ * Apple's own App Store badge, or a TestFlight button while `APP_STORE_ID` is unset - see
+ * helpers/links. The badge is Apple's file, unmodified, as its marketing guidelines require
+ * (developer.apple.com/app-store/marketing/guidelines): never redrawn.
+ */
 const GetTheApp = () =>
   APP_STORE_URL ? (
-    <a className={`${styles.btn} ${styles.primary}`} href={APP_STORE_URL}>
-      <AppleLogo />
-      <span className={styles.badgeText}>
-        <small>Download on the</small>
-        <span>App Store</span>
-      </span>
+    <a className={styles.storeBadge} href={APP_STORE_URL}>
+      <img src="/images/app-store-badge.svg" alt="Download on the App Store" width={144} height={48} />
     </a>
   ) : (
     <a className={`${styles.btn} ${styles.primary}`} href={TESTFLIGHT_URL}>
@@ -291,6 +291,12 @@ export default function AppLanding() {
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>
         </nav>
+        {APP_STORE_URL && (
+          <p className={styles.trademarks}>
+            Apple, the Apple logo, iPhone and iPad are trademarks of Apple Inc., registered in the U.S. and other
+            countries. App Store is a service mark of Apple Inc.
+          </p>
+        )}
       </footer>
     </div>
   )

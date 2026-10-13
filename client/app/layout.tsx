@@ -44,9 +44,10 @@ export const metadata: Metadata = {
     siteName: siteTitle,
     images: [
       {
-        url: '/favicon_io/android-chrome-512x512.png',
-        width: 512,
-        height: 512,
+        url: '/images/og.jpg',
+        width: 1200,
+        height: 630,
+        alt: "Read Your Bible Through - the whole Bible, one day at a time. Today's reading on an iPhone, and the App Store badge.",
       },
     ],
     locale: 'en_US',
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: siteTitle,
     description: siteDescription,
-    images: ['/favicon_io/android-chrome-512x512.png'],
+    images: ['/images/og.jpg'],
   },
   other: {
     'http-equiv': 'X-UA-Compatible',
