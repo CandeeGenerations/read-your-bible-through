@@ -23,7 +23,10 @@ export default function Privacy() {
             you your progress.
           </li>
           <li>We never sell your information, show you ads, or share your information for marketing.</li>
-          <li>The app has no advertising or analytics, and it doesn’t track you.</li>
+          <li>
+            The app has no advertising and no third-party analytics, and it doesn’t track you. We, who run Read Your
+            Bible Through, can see how it’s used by people who sign in.
+          </li>
           <li>You can delete your account and your information at any time, in the app or by asking us.</li>
         </List>
       </Section>
@@ -57,7 +60,8 @@ export default function Privacy() {
           </li>
           <li>
             <strong>Your reading progress</strong>: which days’ readings, and which chapters, you’ve marked as read or
-            unread, and when.
+            unread, and when, and whether that was in the iPhone or iPad app, the Android app or the website, and which
+            version of it.
           </li>
           <li>
             <strong>Your settings</strong>, such as whether marking a day as read also marks its chapters.
@@ -65,8 +69,15 @@ export default function Privacy() {
         </List>
 
         <Paragraph>
-          We never see your Apple or Google password. We use this information only to sign you in, save your progress
-          and show it back to you.
+          We never see your Apple or Google password. We use this information to sign you in, save your progress and
+          show it back to you.
+        </Paragraph>
+
+        <Paragraph>
+          We, the people who run Read Your Bible Through, also use it to see how it’s used: who has an account, which
+          reading plans they follow, how often they mark readings as read, and in which app and version. This happens on
+          our own server. It isn’t sent to an analytics company, sold or shared, and it never includes anyone who hasn’t
+          signed in.
         </Paragraph>
       </Section>
 

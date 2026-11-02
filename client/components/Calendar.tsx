@@ -164,6 +164,10 @@ const Calendar = (): React.ReactElement => {
           passageType: pageToPassageType(page),
           isRead: !pageState.passageTrack,
           updatedAt: new Date().toISOString(),
+          // The app that made the change (ADR 0010 in the app's repo).
+          client: 'web',
+          // oxlint-disable-next-line no-undef
+          clientVersion: process.env.appVersion,
         },
       ],
     })

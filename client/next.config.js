@@ -27,6 +27,8 @@ const nextConfig = {
   },
   env: {
     siteUrl: process.env.NEXT_PUBLIC_SITE_URL,
+    // What a track marked here says it was made with (ADR 0010 in the app's repo).
+    appVersion: require('./package.json').version,
   },
   experimental: {
     workerThreads: false,
