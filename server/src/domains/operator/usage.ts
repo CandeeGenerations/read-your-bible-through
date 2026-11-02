@@ -82,6 +82,13 @@ const zeroPlans = (): ByPlan => ({bible: 0, psalms: 0, proverbs: 0})
 const platformOf = (track: UsageTrack): Platform =>
   CLIENT_VALUES.includes(track.client as Client) ? (track.client as Client) : 'unknown'
 
+// Google's test lab, which signs in as a new account each time Play tests a build. Nobody
+// else can have an address there, so these are left out without being written by hand.
+const TEST_LAB = '@cloudtestlabaccounts.com'
+
+export const isTestLab = (emails: (string | null | undefined)[]): boolean =>
+  emails.some((e) => e?.toLowerCase().endsWith(TEST_LAB))
+
 export const joinedAt = (id: string): Date => new Date(parseInt(id.slice(0, 8), 16) * 1000)
 
 const dayOf = (time: number): string => new Date(time).toISOString().slice(0, 10)

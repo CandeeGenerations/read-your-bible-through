@@ -1,7 +1,7 @@
 import client from '@src/common/client'
 import {IException} from '@src/types/logger'
 
-import {OperatorUsage, UsageTrack, usage} from './usage'
+import {OperatorUsage, UsageTrack, isTestLab, usage} from './usage'
 
 // Whether this account is an Operator. Written by hand into `Operator`, never by a route.
 const isOperator = async (userId: string): Promise<boolean> =>
@@ -14,7 +14,9 @@ const getUsage = async (userId: string): Promise<OperatorUsage> => {
   if (!(await isOperator(userId))) throw refuse
 
   const [users, leftOut, passages, chapters] = await Promise.all([
-    client.user.findMany({select: {id: true, name: true, email: true, settings: true}}),
+    client.user.findMany({
+      select: {id: true, name: true, email: true, settings: true, signInMethods: {select: {email: true}}},
+    }),
     client.operatorLeavesOut.findMany({select: {userId: true}}),
     client.passageTrack.findMany({
       select: {
@@ -78,7 +80,10 @@ const getUsage = async (userId: string): Promise<OperatorUsage> => {
       autoTrack: (u.settings as {autoTrackChapters?: boolean} | null)?.autoTrackChapters !== false,
     })),
     tracks,
-    new Set(leftOut.map((l) => l.userId)),
+    new Set([
+      ...leftOut.map((l) => l.userId),
+      ...users.filter((u) => isTestLab([u.email, ...u.signInMethods.map((m) => m.email)])).map((u) => u.id),
+    ]),
   )
 }
 

@@ -5,7 +5,7 @@
  *
  *   pnpm verify:operator
  */
-import {UsageTrack, UsageUser, usage} from '../src/domains/operator/usage'
+import {UsageTrack, UsageUser, isTestLab, usage} from '../src/domains/operator/usage'
 import {stampOf} from '../src/domains/track/stamp'
 
 let failures = 0
@@ -205,6 +205,15 @@ check(
 check('this week days', same(thisWeek.days, {bible: 3, psalms: 0, proverbs: 0}), thisWeek.days)
 const oct19 = result.weeks.find((w) => w.week === '2026-10-19')!
 check('a web week', same(oct19.readersBy, {ios: 0, android: 0, web: 1, unknown: 0}) && oct19.days.psalms === 1, oct19)
+
+// --- Google's test lab -----------------------------------------------------------------
+
+check('test lab by account email', isTestLab(['SZB3DY2SSI5SRNUHZKYWT4-LVL-00@cloudtestlabaccounts.com']))
+check('test lab by a sign-in method', isTestLab(['someone@privaterelay.appleid.com', 'x@CloudTestLabAccounts.com']))
+check(
+  'not a look-alike',
+  !isTestLab(['reader@cloudtestlabaccounts.com.example.org', 'cloudtestlabaccounts.com@gmail.com', null]),
+)
 
 // --- The stamp --------------------------------------------------------------------------
 
