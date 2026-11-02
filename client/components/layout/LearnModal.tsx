@@ -1,7 +1,7 @@
 'use client'
 
 import {PageType, pages} from '@/helpers/constants'
-import {APP_STORE_URL, SHOW_APP} from '@/helpers/links'
+import {APP_STORE_URL, PLAY_STORE_URL, SHOW_APP} from '@/helpers/links'
 import {faBook} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
@@ -172,7 +172,7 @@ const ProverbsPlanContent = () => (
 )
 
 /**
- * The iPhone app, offered under the plan - dressed as the app's own Mark as Read button, the
+ * The app, offered under the plan - dressed as the app's own Mark as Read button, the
  * one filled button on its Today page: the logo's lavender-to-rose, a round badge with the
  * book, and white type. The gradient runs between the app's light-appearance steps of the
  * logo colors, primary-900 `#6E6297` and rose `#A0525E`, which carry white at 5.44:1 at
@@ -181,40 +181,53 @@ const ProverbsPlanContent = () => (
  * mode, so the light values are the only ones. Hovering deepens the shadow rather than
  * lightening the fill, which would take the white toward 4.5:1.
  */
-const GetTheApp = () => (
-  <>
-    <Divider />
+const GetTheApp = () => {
+  // An Android phone goes to Google Play, anything else to the App Store. Read after the
+  // first render, so the server's HTML and the browser's agree.
+  const [android, setAndroid] = React.useState(false)
+  React.useEffect(() => setAndroid(Boolean(PLAY_STORE_URL) && /Android/i.test(navigator.userAgent)), [])
 
-    <p className="text-sm text-gray-500 mt-10">
-      Rather read on your phone? The app has today&apos;s reading, the King James Version built in, and a reminder each
-      morning.
-    </p>
+  return (
+    <>
+      <Divider />
 
-    <a
-      href={APP_STORE_URL}
-      onClick={() =>
-        gtagEvent({
-          action: 'learn_how_modal__get_the_app__link',
-          category: 'engagement',
-          label: 'click_event',
-        })
-      }
-      className="mt-4 flex min-h-[72px] w-full items-center gap-3.5 rounded-[22px] bg-linear-to-r from-primary-900 to-[#a0525e] px-4 py-3.5 text-white no-underline shadow-[0_6px_14px_rgb(150_138_191/0.45)] hover:text-white hover:shadow-[0_8px_20px_rgb(150_138_191/0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-900 focus-visible:ring-offset-2 motion-safe:transition-shadow"
-    >
-      <span
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/[0.18] text-[17px]"
-        aria-hidden="true"
+      <p className="text-sm text-gray-500 mt-10">
+        Rather read on your phone? The app has today&apos;s reading, the King James Version built in, and a reminder
+        each morning.
+      </p>
+
+      <a
+        href={android ? PLAY_STORE_URL : APP_STORE_URL}
+        onClick={() =>
+          gtagEvent({
+            action: 'learn_how_modal__get_the_app__link',
+            category: 'engagement',
+            label: 'click_event',
+          })
+        }
+        className="mt-4 flex min-h-[72px] w-full items-center gap-3.5 rounded-[22px] bg-linear-to-r from-primary-900 to-[#a0525e] px-4 py-3.5 text-white no-underline shadow-[0_6px_14px_rgb(150_138_191/0.45)] hover:text-white hover:shadow-[0_8px_20px_rgb(150_138_191/0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-900 focus-visible:ring-offset-2 motion-safe:transition-shadow"
       >
-        <FontAwesomeIcon icon={faBook} />
-      </span>
+        <span
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/[0.18] text-[17px]"
+          aria-hidden="true"
+        >
+          <FontAwesomeIcon icon={faBook} />
+        </span>
 
-      <span className="flex min-w-0 flex-col text-left">
-        <span className="text-xl font-semibold leading-tight">Get the App</span>
-        <span className="text-sm leading-snug">Free on the App Store</span>
-      </span>
-    </a>
-  </>
-)
+        <span className="flex min-w-0 flex-col text-left">
+          <span className="text-xl font-semibold leading-tight">Get the App</span>
+          <span className="text-sm leading-snug">
+            {android
+              ? 'Free on Google Play'
+              : PLAY_STORE_URL
+                ? 'Free on the App Store and Google Play'
+                : 'Free on the App Store'}
+          </span>
+        </span>
+      </a>
+    </>
+  )
+}
 
 const getTitle = (page: PageType): string => {
   switch (page) {

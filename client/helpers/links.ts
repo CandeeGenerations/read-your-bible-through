@@ -25,6 +25,17 @@ export const APP_STORE_ID: string | undefined = '6811186794'
 export const APP_STORE_URL = APP_STORE_ID ? `https://apps.apple.com/app/id${APP_STORE_ID}` : undefined
 
 /**
+ * The Android app's package name on Google Play. Set, the landing pages show Google's badge
+ * beside Apple's and say Android as well as iPhone and iPad, and the Learn How modal sends an
+ * Android phone to Play. Unset, the website offers only the iPhone app, as before.
+ */
+export const PLAY_STORE_ID: string | undefined = 'com.candeegenerations.rybt'
+
+export const PLAY_STORE_URL = PLAY_STORE_ID
+  ? `https://play.google.com/store/apps/details?id=${PLAY_STORE_ID}`
+  : undefined
+
+/**
  * rybt.app, once it serves this site. A passage links there rather than to BibleGateway:
  * on an iPhone with the app, iOS opens the app on the Day's reading; anywhere else the same
  * path here sends the reader on to BibleGateway (app/read). It has to be another domain -

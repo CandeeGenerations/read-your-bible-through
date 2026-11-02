@@ -6,12 +6,12 @@ import InfoPage, {Email, List, Paragraph, Section} from '../../components/InfoPa
 
 export default function Privacy() {
   return (
-    <InfoPage title="Privacy Policy" eventPrefix="privacy" lastUpdated="11 September 2026">
+    <InfoPage title="Privacy Policy" eventPrefix="privacy" lastUpdated="2 November 2026">
       <Paragraph>
         Read Your Bible Through is a ministry of <a href="https://cbcwoodbridge.org">Central Baptist Church</a>, built
         and run by <a href="https://candeegenerations.com">Candee Generations</a>. This policy covers the website at
-        readyourbiblethrough.com and the Read Your Bible Through app for iPhone and iPad. “We” and “us” mean the people
-        who run them.
+        readyourbiblethrough.com and the Read Your Bible Through app for iPhone, iPad and Android. “We” and “us” mean
+        the people who run them.
       </Paragraph>
 
       <Section title="The short version">
@@ -115,6 +115,11 @@ export default function Privacy() {
             device’s Settings, Apple may send us crash reports and anonymous usage statistics. Apple controls this. You
             can turn it off under Settings › Privacy &amp; Security › Analytics &amp; Improvements.
           </li>
+          <li>
+            <strong>Google Play crash reports</strong>: on Android, if you’ve chosen to share usage and diagnostics with
+            Google, Google Play may send us crash reports and anonymous statistics about how the app runs. Google
+            controls this. You can turn it off in your device’s Google settings, under Usage &amp; diagnostics.
+          </li>
         </List>
       </Section>
 
@@ -140,8 +145,8 @@ export default function Privacy() {
         <List>
           <li>
             <strong>Delete your data.</strong> If you haven’t signed in, delete the app. If you have, delete your
-            account in the app: tap the person icon at the top right, then Delete Account. Or follow the steps on our{' '}
-            <Link href="/data">Data Deletion</Link> page.
+            account in the app: tap the person icon at the top right (on Android, the gear at the top left), then Delete
+            Account. Or follow the steps on our <Link href="/data">Data Deletion</Link> page.
           </li>
           <li>
             <strong>See or correct your data.</strong> Email us and we’ll send you a copy of what we hold about you, or
@@ -149,8 +154,9 @@ export default function Privacy() {
           </li>
           <li>
             <strong>Stop using Apple or Google sign-in.</strong> If your account has both, you can remove either one in
-            the app, under the person icon at the top right. For Apple, you can also open your device’s Settings, tap
-            your name, then find Read Your Bible Through under Sign in with Apple. For Google, remove it at{' '}
+            the app, under the person icon at the top right (on Android, the gear at the top left). For Apple, you can
+            also open Settings on an iPhone or iPad, tap your name, then find Read Your Bible Through under Sign in with
+            Apple. For Google, remove it at{' '}
             <a href="https://myaccount.google.com/connections">myaccount.google.com/connections</a>. This stops us
             receiving your sign-in, but doesn’t delete what we already hold. To do that, ask us to delete your account.
           </li>

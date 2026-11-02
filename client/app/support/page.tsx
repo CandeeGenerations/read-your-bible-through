@@ -14,7 +14,7 @@ const Question = ({children, question}: {children: React.ReactNode; question: st
 
 export default function Support() {
   return (
-    <InfoPage title="Support" eventPrefix="support" lastUpdated="11 September 2026">
+    <InfoPage title="Support" eventPrefix="support" lastUpdated="2 November 2026">
       <Paragraph>
         Questions, problems or ideas for the Read Your Bible Through website or app? We’d love to hear from you.
       </Paragraph>
@@ -28,7 +28,7 @@ export default function Support() {
 
         <List>
           <li>whether you’re using the website or the app</li>
-          <li>for the app, your iPhone or iPad model and iOS version</li>
+          <li>for the app, your phone or tablet model and its iOS or Android version</li>
           <li>which reading plan and day you were looking at</li>
           <li>what happened, and what you expected to happen</li>
         </List>

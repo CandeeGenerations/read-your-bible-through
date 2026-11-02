@@ -515,3 +515,78 @@
 .single .phone {
   width: 260px;
 }
+
+/* Google's badge file carries its own clear space, 41 of its 250px on every side. Drawn at
+   72px tall, the badge itself is 48px, the height of Apple's beside it, and the negative
+   margin lets the row line the two up by what is drawn rather than by the file - side by side
+   and, on a narrow screen, one above the other at the same left edge. */
+.storeBadge.playBadge {
+  margin: -12px;
+}
+.storeBadge.playBadge img {
+  height: 72px;
+}
+
+/* ── The pages for each kind of reader ─────────────────────────────────────────────────
+   Lockstep's /for/ pages: ideas to run as cards, then the questions an organizer asks. */
+
+.ideas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 20px;
+}
+.idea {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 26px;
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px #3a3548;
+}
+.idea .heading {
+  font-size: 24px;
+}
+.idea .plan {
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--rose); /* 7.75:1 on --surface */
+}
+
+.questions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 40px clamp(24px, 5vw, 96px);
+  align-items: start;
+}
+.qa {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 0;
+}
+.qa .heading {
+  font-size: 22px;
+}
+
+/* The other pages for each kind of reader, a line of their own above the rest of the footer. */
+.audiences {
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 20px;
+  padding-bottom: 12px;
+}
+.page .audiences a {
+  color: var(--ink-78);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.page .audiences a[aria-current='page'] {
+  color: var(--text);
+  text-decoration: none;
+}

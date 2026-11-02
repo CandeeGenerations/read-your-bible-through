@@ -7,7 +7,7 @@ import InfoPage, {Email, List, Paragraph, Section} from '../../components/InfoPa
 
 export default function Data() {
   return (
-    <InfoPage title="Data Deletion" eventPrefix="data" lastUpdated="11 September 2026">
+    <InfoPage title="Data Deletion" eventPrefix="data" lastUpdated="2 November 2026">
       <Paragraph>
         You can delete your Read Your Bible Through account and everything saved with it at any time, in the app or by
         asking us.
@@ -15,8 +15,11 @@ export default function Data() {
 
       <Section title="Delete your account in the app">
         <List ordered>
-          <li>Open Read Your Bible Through on your iPhone or iPad.</li>
-          <li>Tap the person icon at the top right of the screen. If you’re not signed in, sign in first.</li>
+          <li>Open Read Your Bible Through on your phone or tablet.</li>
+          <li>
+            On an iPhone or iPad, tap the person icon at the top right of the screen. On Android, tap the gear at the
+            top left. If you’re not signed in, sign in first.
+          </li>
           <li>Tap Delete Account, then Delete Account again to confirm.</li>
         </List>
 
