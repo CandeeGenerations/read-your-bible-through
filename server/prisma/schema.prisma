@@ -69,6 +69,7 @@ model ChapterTrack {
   user   User?   @relation("chapterTracks", fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   userId String? @db.ObjectId
 
+  year      Int // the calendar year it was read in: a Read Chapter is one year's, as a plan is
   book      String // USFM id: GEN, PRO, PSA, ...
   chapter   String
   isRead    Boolean
@@ -76,5 +77,5 @@ model ChapterTrack {
   updatedAt String // client action-time; sync version (LWW)
   serverAt  String
 
-  @@unique([userId, book, chapter])
+  @@unique([userId, year, book, chapter])
 }

@@ -25,6 +25,7 @@
     "preinstall": "sh ../scripts/check-versions.sh && npx only-allow pnpm",
     "lint": "oxlint src",
     "lint:fix": "oxlint src --fix",
+    "migrate:chapter-years": "phase run 'pnpm exec tsx scripts/migrate-chapter-years.ts'",
     "migrate:phase0": "phase run 'pnpm exec tsx scripts/migrate-phase0.ts'",
     "pcheck": "npm-check -u -i '{prisma,@prisma/client}' && pnpm audit",
     "prettier": "prettier --cache --check --write --ignore-unknown .",

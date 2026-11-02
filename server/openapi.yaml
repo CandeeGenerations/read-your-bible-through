@@ -56,6 +56,11 @@ components:
       required: [book, chapter, isRead, updatedAt]
       properties:
         id: {type: string}
+        year:
+          type: integer
+          description: >-
+            The calendar year it was read in. Always in a response. Optional in a request, for
+            app versions released before chapters had a year: those get the year of updatedAt, UTC.
         book: {type: string, description: USFM id (GEN, PRO, PSA, ...)}
         chapter: {type: string}
         isRead: {type: boolean}
@@ -224,6 +229,13 @@ paths:
           required: false
           schema: {type: string}
           description: ISO-8601 UTC. Returns rows with updatedAt > since. Omit for full pull.
+        - name: chapterYears
+          in: query
+          required: false
+          schema: {type: string, enum: [all]}
+          description: >-
+            `all` returns every year's chapters. Without it, only the current year's - what an
+            app version that keeps chapters without a year can merge.
       responses:
         '200':
           content:

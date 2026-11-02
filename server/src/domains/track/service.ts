@@ -14,6 +14,9 @@ export interface PassageInput {
 }
 
 export interface ChapterInput {
+  // Missing from app versions released before Read Chapters were kept by the year
+  // (iOS 1.1.1, Android 1.1.0): those get the year of their updatedAt.
+  year?: number
   book: string
   chapter: string
   isRead: boolean
@@ -24,6 +27,15 @@ const isSaneTime = (updatedAt: string): boolean => {
   const t = dayjs(updatedAt)
 
   return t.isValid() && t.valueOf() <= Date.now() + FUTURE_SKEW_MS
+}
+
+// The year a chapter is read in: the app's own, or for an app that sends none, the year
+// of its updatedAt - UTC, so a mark made late on December 31st west of Greenwich lands in
+// the new year. Accepted for the versions on their way out.
+const yearOf = (input: ChapterInput): number | null => {
+  const year = input.year ?? dayjs(input.updatedAt).toDate().getUTCFullYear()
+
+  return Number.isInteger(year) && year >= 2000 && year <= dayjs().year() + 1 ? year : null
 }
 
 // --- Pull (incremental) ---------------------------------------------------
@@ -41,18 +53,25 @@ const getPassages = async (userId: string, since?: string): Promise<PassageTrack
     },
   })
 
-// Chapters: lifetime-cumulative (naturally bounded at ~1,189 rows/user).
-const getChapters = async (userId: string, since?: string): Promise<ChapterTrack[]> =>
+// Chapters: a calendar year's at a time (at most 1,189 rows a user a year). Every year for
+// an app that asks for them all; the current year's for one that does not - an app
+// released before chapters had a year, which keeps them by book and chapter alone.
+const getChapters = async (userId: string, allYears: boolean, since?: string): Promise<ChapterTrack[]> =>
   await client.chapterTrack.findMany({
-    where: {userId, ...(since ? {updatedAt: {gt: since}} : {})},
+    where: {
+      userId,
+      ...(allYears ? {} : {year: dayjs().year()}),
+      ...(since ? {updatedAt: {gt: since}} : {}),
+    },
   })
 
 const getAll = async (
   userId: string,
+  allYears: boolean,
   since?: string,
 ): Promise<{passages: PassageTrack[]; chapters: ChapterTrack[]}> => ({
   passages: await getPassages(userId, since),
-  chapters: await getChapters(userId, since),
+  chapters: await getChapters(userId, allYears, since),
 })
 
 // --- Upsert (LWW by updatedAt) -------------------------------------------
@@ -87,10 +106,12 @@ const upsertPassage = async (userId: string, input: PassageInput): Promise<Passa
 
 const upsertChapter = async (userId: string, input: ChapterInput): Promise<ChapterTrack | null> => {
   if (!isSaneTime(input.updatedAt)) return null
+  const year = yearOf(input)
+  if (year === null) return null
 
   const serverAt = dayjs().format()
   const existing = await client.chapterTrack.findFirst({
-    where: {userId, book: input.book, chapter: input.chapter},
+    where: {userId, year, book: input.book, chapter: input.chapter},
   })
 
   if (existing && existing.updatedAt >= input.updatedAt) return existing
@@ -107,7 +128,7 @@ const upsertChapter = async (userId: string, input: ChapterInput): Promise<Chapt
   }
 
   return await client.chapterTrack.create({
-    data: {userId, book: input.book, chapter: input.chapter, ...data},
+    data: {userId, year, book: input.book, chapter: input.chapter, ...data},
   })
 }
 
