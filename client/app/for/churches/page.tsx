@@ -95,7 +95,7 @@ const churches: Audience = {
       answer: (
         <>
           Read Your Bible Through is a ministry of <a href="https://cbcwoodbridge.org">Central Baptist Church</a>. It
-          began as this website in 2022, and the app came after.
+          began as this website in 2022, and the app followed in 2026.
         </>
       ),
     },
