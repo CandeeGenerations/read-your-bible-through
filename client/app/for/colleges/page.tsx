@@ -1,17 +1,19 @@
 import {APP_PAGE_URL} from '@/helpers/links'
-import type {Metadata, Viewport} from 'next'
+import type {Viewport} from 'next'
 import Link from 'next/link'
 
-import AudiencePage, {type Audience} from '../AudiencePage'
+import AudiencePage, {type Audience, audienceMetadata} from '../AudiencePage'
 
 const description =
   'Every student on the same chapters every day, with the King James Version built in and nothing to set up. Free, with no ads.'
 
-export const metadata: Metadata = {
-  title: 'For Colleges',
+export const metadata = audienceMetadata(
+  'For Colleges',
+  'Read Your Bible Through for Christian colleges',
   description,
-  openGraph: {title: 'Read Your Bible Through for Christian colleges', description},
-}
+  '/images/og-colleges.jpg',
+  'Read Your Bible Through for Christian colleges - every student, the same chapters. Today’s reading on an iPhone, and the Google Play and App Store badges.',
+)
 
 export const viewport: Viewport = {themeColor: '#1a1724'}
 

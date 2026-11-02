@@ -1,4 +1,5 @@
 import {APP_PAGE_URL, SHOW_APP} from '@/helpers/links'
+import type {Metadata} from 'next'
 import Link from 'next/link'
 import {notFound} from 'next/navigation'
 import type {ReactNode} from 'react'
@@ -11,6 +12,24 @@ import {DEVICES, Footer, GET_THE_APP, Nav, Phone, StoreBadges} from '../app/part
  * are (locksteptracker.app/for/churches.html): the hero, ideas to run, how it works beside a
  * phone, the questions an organizer asks, and a band at the foot. Each page is its words.
  */
+/**
+ * A page's title and description, and its own share image (`public/images/og-*.jpg`, made
+ * in Canva from "RYBT Website - Share Image"). Next replaces the site's `openGraph` and
+ * `twitter` with a page's own rather than merging them, so the image is named here in full.
+ */
+export const audienceMetadata = (
+  title: string,
+  shareTitle: string,
+  description: string,
+  image: string,
+  alt: string,
+): Metadata => ({
+  title,
+  description,
+  openGraph: {title: shareTitle, description, images: [{url: image, width: 1200, height: 630, alt}]},
+  twitter: {card: 'summary_large_image', title: shareTitle, description, images: [image]},
+})
+
 export type Audience = {
   path: string
   kicker: string

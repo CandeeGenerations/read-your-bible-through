@@ -47,7 +47,7 @@ export const metadata: Metadata = {
         url: '/images/og.jpg',
         width: 1200,
         height: 630,
-        alt: "Read Your Bible Through - the whole Bible, one day at a time. Today's reading on an iPhone, and the App Store badge.",
+        alt: "Read Your Bible Through - the whole Bible, one day at a time. Today's reading on an iPhone, and the Google Play and App Store badges.",
       },
     ],
     locale: 'en_US',
