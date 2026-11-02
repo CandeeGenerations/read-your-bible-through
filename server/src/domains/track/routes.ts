@@ -32,8 +32,9 @@ router.get(
 /*
  * PUT: `/api/user/tracks`  -> batch upsert (outbox drain). Idempotent, LWW by updatedAt.
  * PAYLOAD: {
- *   passages?: [{ passageDate, passageType, isRead, updatedAt }],
- *   chapters?: [{ year?, book, chapter, isRead, updatedAt }]  (no year: the year of updatedAt, UTC)
+ *   passages?: [{ passageDate, passageType, isRead, updatedAt, client?, clientVersion? }],
+ *   chapters?: [{ year?, book, chapter, isRead, updatedAt, client?, clientVersion? }]
+ *   (no year: the year of updatedAt, UTC; no client: the stamp is cleared to unknown)
  * }
  * RETURNS: resolved server state for the upserted keys.
  */

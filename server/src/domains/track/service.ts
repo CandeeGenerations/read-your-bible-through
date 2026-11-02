@@ -3,6 +3,8 @@ import client from '@src/common/client'
 import {PASSAGE_TYPE_VALUES, PassageType} from '@src/common/constants'
 import dayjs from 'dayjs'
 
+import {stampOf} from './stamp'
+
 // Reject client action-times more than this far in the future (clock-skew guard).
 const FUTURE_SKEW_MS = 5 * 60 * 1000
 
@@ -11,6 +13,8 @@ export interface PassageInput {
   passageType: string
   isRead: boolean
   updatedAt: string // client action-time (ISO)
+  client?: string
+  clientVersion?: string
 }
 
 export interface ChapterInput {
@@ -21,6 +25,8 @@ export interface ChapterInput {
   chapter: string
   isRead: boolean
   updatedAt: string // client action-time (ISO)
+  client?: string
+  clientVersion?: string
 }
 
 const isSaneTime = (updatedAt: string): boolean => {
@@ -93,6 +99,7 @@ const upsertPassage = async (userId: string, input: PassageInput): Promise<Passa
     trackDate: input.isRead ? input.updatedAt : existing?.trackDate || input.updatedAt,
     updatedAt: input.updatedAt,
     serverAt,
+    ...stampOf(input),
   }
 
   if (existing) {
@@ -121,6 +128,7 @@ const upsertChapter = async (userId: string, input: ChapterInput): Promise<Chapt
     trackDate: input.isRead ? input.updatedAt : existing?.trackDate || input.updatedAt,
     updatedAt: input.updatedAt,
     serverAt,
+    ...stampOf(input),
   }
 
   if (existing) {

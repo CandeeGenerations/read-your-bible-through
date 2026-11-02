@@ -16,6 +16,7 @@
   "type": "commonjs",
   "main": "dist/src/index.js",
   "scripts": {
+    "backfill:client": "phase run 'pnpm exec tsx scripts/backfill-client.ts'",
     "build": "rm -rf dist && pnpm generate && NODE_ENV=production tsc && tsc-alias",
     "db:push": "phase run 'pnpm exec prisma db push'",
     "dev": "pnpm start",
@@ -27,10 +28,13 @@
     "lint:fix": "oxlint src --fix",
     "migrate:chapter-years": "phase run 'pnpm exec tsx scripts/migrate-chapter-years.ts'",
     "migrate:phase0": "phase run 'pnpm exec tsx scripts/migrate-phase0.ts'",
+    "operator:add": "tsx scripts/operator.ts add",
+    "operator:leave-out": "tsx scripts/operator.ts leave-out",
     "pcheck": "npm-check -u -i '{prisma,@prisma/client}' && pnpm audit",
     "prettier": "prettier --cache --check --write --ignore-unknown .",
     "prettier:ci": "prettier --check .",
-    "start": "fnm use; phase run 'pnpm generate && NODE_ENV=development tsx watch src/index.ts'"
+    "start": "fnm use; phase run 'pnpm generate && NODE_ENV=development tsx watch src/index.ts'",
+    "verify:operator": "tsx scripts/verify-operator.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.18.0",

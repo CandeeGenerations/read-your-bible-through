@@ -60,6 +60,13 @@ model PassageTrack {
   updatedAt   String // client action-time; sync version (LWW)
   serverAt    String // server receive time (audit)
 
+  // The app that made the latest change, and its version: 'ios' | 'android' | 'web', and
+  // '1.1.3 (10)' or the website's package version. Null: unknown - a change from an app
+  // released before the stamp, or anything synced from 2026-09-16 until it. ADR 0010 in the
+  // app's repo.
+  client        String?
+  clientVersion String?
+
   @@unique([userId, passageDate, passageType])
 }
 
@@ -77,5 +84,29 @@ model ChapterTrack {
   updatedAt String // client action-time; sync version (LWW)
   serverAt  String
 
+  // The app that made the latest change, and its version: 'ios' | 'android' | 'web', and
+  // '1.1.3 (10)' or the website's package version. Null: unknown - a change from an app
+  // released before the stamp, or anything synced from 2026-09-16 until it. ADR 0010 in the
+  // app's repo.
+  client        String?
+  clientVersion String?
+
   @@unique([userId, year, book, chapter])
+}
+
+// The Operator: who can see how the app is used (CONTEXT.md in the app's repo, and its
+// docs/operator-plan.md). Written by hand, never by a route - not a field on User, which
+// saving an account writes. Keyed by the account, so every sign-in method of it opens it.
+model Operator {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  userId  String @unique @db.ObjectId
+  addedAt String
+}
+
+// Accounts left out of everything the Operator sees - test accounts, and Google Play's
+// review accounts. Written by hand, with `pnpm operator:leave-out <email>`.
+model OperatorLeavesOut {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  userId  String @unique @db.ObjectId
+  addedAt String
 }
