@@ -25,6 +25,13 @@ export const APP_STORE_ID: string | undefined = '6811186794'
 export const APP_STORE_URL = APP_STORE_ID ? `https://apps.apple.com/app/id${APP_STORE_ID}` : undefined
 
 /**
+ * The address the website gives for the app's landing page: rybt.app, which redirects to
+ * /app (next.config.js). Short enough to read off a screen or a bulletin, and the same
+ * address everywhere the app is offered.
+ */
+export const APP_PAGE_URL = 'https://rybt.app'
+
+/**
  * The Android app's package name on Google Play. Set, the landing pages show Google's badge
  * beside Apple's and say Android as well as iPhone and iPad, and the Learn How modal sends an
  * Android phone to Play. Unset, the website offers only the iPhone app, as before.

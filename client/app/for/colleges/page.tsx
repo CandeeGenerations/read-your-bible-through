@@ -1,3 +1,4 @@
+import {APP_PAGE_URL} from '@/helpers/links'
 import type {Metadata, Viewport} from 'next'
 import Link from 'next/link'
 
@@ -49,8 +50,8 @@ const colleges: Audience = {
       title: 'Share the link.',
       prose: (
         <>
-          Put <Link href="/app">readyourbiblethrough.com/app</Link> on the chapel screen, in the student portal or in
-          the orientation packet. There is nothing for the college to set up.
+          Put <Link href={APP_PAGE_URL}>rybt.app</Link> on the chapel screen, in the student portal or in the
+          orientation packet. There is nothing for the college to set up.
         </>
       ),
     },

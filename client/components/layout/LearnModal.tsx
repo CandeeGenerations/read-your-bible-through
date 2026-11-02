@@ -1,7 +1,7 @@
 'use client'
 
 import {PageType, pages} from '@/helpers/constants'
-import {APP_STORE_URL, PLAY_STORE_URL, SHOW_APP} from '@/helpers/links'
+import {APP_PAGE_URL, APP_STORE_URL, PLAY_STORE_URL, SHOW_APP} from '@/helpers/links'
 import {faBook} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
@@ -182,10 +182,18 @@ const ProverbsPlanContent = () => (
  * lightening the fill, which would take the white toward 4.5:1.
  */
 const GetTheApp = () => {
-  // An Android phone goes to Google Play, anything else to the App Store. Read after the
-  // first render, so the server's HTML and the browser's agree.
-  const [android, setAndroid] = React.useState(false)
-  React.useEffect(() => setAndroid(Boolean(PLAY_STORE_URL) && /Android/i.test(navigator.userAgent)), [])
+  // An Android phone or tablet goes to Google Play, an iPhone or iPad to the App Store, and
+  // anything else - a Windows PC, a Mac, a Chromebook - to the landing page, which has both
+  // badges. An iPad's Safari says it is a Mac, and gives itself away by its touch screen.
+  // Read after the first render, so the server's HTML and the browser's agree.
+  const [device, setDevice] = React.useState<'android' | 'apple' | 'other'>('other')
+  React.useEffect(() => {
+    const agent = navigator.userAgent
+    if (PLAY_STORE_URL && /Android/i.test(agent)) setDevice('android')
+    else if (/iPhone|iPad|iPod/.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1))
+      setDevice('apple')
+  }, [])
+  const href = device === 'android' ? PLAY_STORE_URL : device === 'apple' ? APP_STORE_URL : APP_PAGE_URL
 
   return (
     <>
@@ -197,7 +205,7 @@ const GetTheApp = () => {
       </p>
 
       <a
-        href={android ? PLAY_STORE_URL : APP_STORE_URL}
+        href={href}
         onClick={() =>
           gtagEvent({
             action: 'learn_how_modal__get_the_app__link',
@@ -217,11 +225,11 @@ const GetTheApp = () => {
         <span className="flex min-w-0 flex-col text-left">
           <span className="text-xl font-semibold leading-tight">Get the App</span>
           <span className="text-sm leading-snug">
-            {android
+            {device === 'android'
               ? 'Free on Google Play'
-              : PLAY_STORE_URL
-                ? 'Free on the App Store and Google Play'
-                : 'Free on the App Store'}
+              : device === 'apple' || !PLAY_STORE_URL
+                ? 'Free on the App Store'
+                : 'Free on the App Store and Google Play'}
           </span>
         </span>
       </a>

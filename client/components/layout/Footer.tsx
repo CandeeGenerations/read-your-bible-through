@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import Link from 'next/link'
 
-import {SHOW_APP} from '../../helpers/links'
+import {APP_PAGE_URL, SHOW_APP} from '../../helpers/links'
 import {gtagEvent} from '../../libs/gtag'
 
 const Footer = () => {
@@ -33,7 +33,7 @@ const Footer = () => {
           {SHOW_APP && (
             <>
               <Link
-                href="/app"
+                href={APP_PAGE_URL}
                 onClick={() =>
                   gtagEvent({
                     action: 'app__footer__link',

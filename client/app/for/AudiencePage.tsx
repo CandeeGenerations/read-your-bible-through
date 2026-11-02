@@ -1,4 +1,4 @@
-import {SHOW_APP} from '@/helpers/links'
+import {APP_PAGE_URL, SHOW_APP} from '@/helpers/links'
 import Link from 'next/link'
 import {notFound} from 'next/navigation'
 import type {ReactNode} from 'react'
@@ -69,7 +69,7 @@ export default function AudiencePage({audience}: {audience: Audience}) {
           </div>
           <p className={styles.note}>
             Every plan runs by the date, the same for everyone, in the app and on this website.{' '}
-            <Link href="/app">See the three plans</Link>.
+            <Link href={APP_PAGE_URL}>See the three plans</Link>.
           </p>
         </section>
 

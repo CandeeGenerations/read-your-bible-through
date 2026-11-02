@@ -1,3 +1,4 @@
+import {APP_PAGE_URL} from '@/helpers/links'
 import type {Metadata, Viewport} from 'next'
 import Link from 'next/link'
 
@@ -49,8 +50,8 @@ const churches: Audience = {
       title: 'Tell the church.',
       prose: (
         <>
-          Put <Link href="/app">readyourbiblethrough.com/app</Link> in the bulletin or on the screen before the service.
-          Nothing to set up and nobody to sign up - the plan is the same for everyone already.
+          Put <Link href={APP_PAGE_URL}>rybt.app</Link> in the bulletin or on the screen before the service. Nothing to
+          set up and nobody to sign up - the plan is the same for everyone already.
         </>
       ),
     },

@@ -1,4 +1,4 @@
-import {APP_STORE_URL, PLAY_STORE_URL, TESTFLIGHT_URL} from '@/helpers/links'
+import {APP_PAGE_URL, APP_STORE_URL, PLAY_STORE_URL, TESTFLIGHT_URL} from '@/helpers/links'
 import dayjs from 'dayjs'
 import Link from 'next/link'
 import type {ReactNode} from 'react'
@@ -53,7 +53,7 @@ export const Phone = ({shot, className}: {shot: keyof typeof shots; className?: 
 }
 
 /** Where a "Get the app" button goes: the badges, which say which store is whose. */
-export const GET_THE_APP = '/app#get'
+export const GET_THE_APP = `${APP_PAGE_URL}#get`
 
 /**
  * Apple's own App Store badge, or a TestFlight button while `APP_STORE_ID` is unset, and
