@@ -8,10 +8,13 @@
 //
 // A day of reading is a UTC day of `trackDate`, the instant a mark was made - not the
 // reader's own Day, which the server does not know.
+//
+// A reading day is one person on one such day, however much they marked: what the charts
+// count, so somebody catching up a month of Days in one sitting is one day, not thirty.
 import {CLIENT_VALUES, Client, PASSAGE_TYPE_VALUES, PassageType} from '@src/common/constants'
 
 const DAY_MS = 24 * 60 * 60 * 1000
-export const WEEKS = 26
+export const WEEKS = 52
 
 export interface UsageUser {
   id: string // an ObjectId, whose first four bytes are when it was made
@@ -46,6 +49,15 @@ export interface OperatorTotals {
 export interface OperatorClient {
   client: Client
   clientVersion: string | null // the latest seen
+  lastAt: string // the latest change made in it
+}
+
+// One of a person's weeks with any reading in it; the weeks with none are left out.
+export interface OperatorPersonWeek {
+  week: string
+  readingDays: number // 0 to 7
+  plans: ByPlan // reading days with a Day of each plan marked
+  chapterDays: number // reading days with a chapter marked
 }
 
 export interface OperatorPerson {
@@ -58,7 +70,8 @@ export interface OperatorPerson {
   daysThisYear: ByPlan
   chaptersThisYear: number
   autoTrack: boolean
-  clients: OperatorClient[]
+  clients: OperatorClient[] // the latest first
+  weeks: OperatorPersonWeek[]
 }
 
 export interface OperatorWeek {
@@ -68,6 +81,8 @@ export interface OperatorWeek {
   readersBy: ByPlatform
   days: ByPlan // Days marked read that week, each plan
   chapters: number // Read Chapters marked that week
+  readingDays: ByPlan // reading days with a Day of each plan marked
+  chapterDays: number // reading days with a chapter marked
 }
 
 export interface OperatorUsage {
@@ -131,6 +146,8 @@ export const usage = (
         readersBy: zeroPlatforms(),
         days: zeroPlans(),
         chapters: 0,
+        readingDays: zeroPlans(),
+        chapterDays: 0,
         readerSets: {ios: new Set(), android: new Set(), web: new Set(), unknown: new Set(), all: new Set()},
       },
     ]),
@@ -138,7 +155,11 @@ export const usage = (
 
   const people = new Map<
     string,
-    OperatorPerson & {days30: Set<string>; latest: Map<Client, {at: string; version: string | null}>}
+    OperatorPerson & {
+      days30: Set<string>
+      latest: Map<Client, {at: string; version: string | null}>
+      byWeek: Map<string, Record<PassageType | 'chapter' | 'all', Set<string>>>
+    }
   >()
 
   for (const user of counted) {
@@ -158,8 +179,10 @@ export const usage = (
       chaptersThisYear: 0,
       autoTrack: user.autoTrack,
       clients: [],
+      weeks: [],
       days30: new Set(),
       latest: new Map(),
+      byWeek: new Map(),
     })
   }
 
@@ -209,17 +232,38 @@ export const usage = (
       read30By[platform].add(track.userId)
     }
 
-    const week = weeks.get(mondayOf(at))
+    const monday = mondayOf(at)
+    const week = weeks.get(monday)
 
     if (week) {
       week.readerSets[platform].add(track.userId)
       week.readerSets.all.add(track.userId)
 
+      let mine = person.byWeek.get(monday)
+
+      if (!mine) {
+        mine = {bible: new Set(), psalms: new Set(), proverbs: new Set(), chapter: new Set(), all: new Set()}
+        person.byWeek.set(monday, mine)
+      }
+
+      mine.all.add(dayOf(at))
+
       if (track.kind === 'chapter') {
         week.chapters++
+        mine.chapter.add(dayOf(at))
       } else if (PASSAGE_TYPE_VALUES.includes(track.passageType as PassageType)) {
         week.days[track.passageType as PassageType]++
+        mine[track.passageType as PassageType].add(dayOf(at))
       }
+    }
+  }
+
+  for (const person of people.values()) {
+    for (const [monday, mine] of person.byWeek) {
+      const week = weeks.get(monday)!
+
+      for (const plan of PASSAGE_TYPE_VALUES) week.readingDays[plan] += mine[plan].size
+      week.chapterDays += mine.chapter.size
     }
   }
 
@@ -233,13 +277,24 @@ export const usage = (
       plansThisYear: sizes(plansThisYear),
       readLast30DaysBy: sizes(read30By),
     },
-    people: [...people.values()].map(({days30, latest, ...person}) => ({
+    people: [...people.values()].map(({days30, latest, byWeek, ...person}) => ({
       ...person,
       daysReadLast30: days30.size,
-      clients: CLIENT_VALUES.filter((c) => latest.has(c)).map((client) => ({
-        client,
-        clientVersion: latest.get(client)!.version,
-      })),
+      clients: [...latest.entries()]
+        .sort(([, a], [, b]) => (a.at < b.at ? 1 : a.at > b.at ? -1 : 0))
+        .map(([client, seen]) => ({client, clientVersion: seen.version, lastAt: seen.at})),
+      weeks: weekKeys
+        .filter((week) => byWeek.has(week))
+        .map((week) => {
+          const mine = byWeek.get(week)!
+
+          return {
+            week,
+            readingDays: mine.all.size,
+            plans: {bible: mine.bible.size, psalms: mine.psalms.size, proverbs: mine.proverbs.size},
+            chapterDays: mine.chapter.size,
+          }
+        }),
     })),
     weeks: [...weeks.values()].map(({readerSets, ...week}) => ({
       ...week,

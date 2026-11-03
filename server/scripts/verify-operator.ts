@@ -96,8 +96,10 @@ const tracks: UsageTrack[] = [
     client: null,
     clientVersion: null,
   }),
-  // App Only: one Day on Android this week.
+  // App Only: three Days on Android this week, caught up in one sitting - one reading day.
   t(appOnly, {trackDate: '2026-11-02T01:00:00.000Z', client: 'android', clientVersion: '1.1.2 (6)'}),
+  t(appOnly, {trackDate: '2026-11-02T01:01:00.000Z', client: 'android', clientVersion: '1.1.2 (6)'}),
+  t(appOnly, {trackDate: '2026-11-02T01:02:00.000Z', client: 'android', clientVersion: '1.1.2 (6)'}),
   // Left out: reads a lot, and must be nowhere.
   t(leftOut, {trackDate: '2026-11-03T10:00:00.000Z'}),
   t(leftOut, {kind: 'chapter', passageType: undefined, trackDate: '2026-11-03T10:00:00.000Z'}),
@@ -127,13 +129,35 @@ check(
       'chaptersThisYear',
       'autoTrack',
       'clients',
+      'weeks',
     ]),
   ),
   result.people.map((p) => Object.keys(p)),
 )
 check(
   'week fields',
-  result.weeks.every((w) => same(Object.keys(w), ['week', 'newAccounts', 'readers', 'readersBy', 'days', 'chapters'])),
+  result.weeks.every((w) =>
+    same(Object.keys(w), [
+      'week',
+      'newAccounts',
+      'readers',
+      'readersBy',
+      'days',
+      'chapters',
+      'readingDays',
+      'chapterDays',
+    ]),
+  ),
+)
+check(
+  'person week fields',
+  result.people.every((p) =>
+    p.weeks.every((w) => same(Object.keys(w), ['week', 'readingDays', 'plans', 'chapterDays'])),
+  ),
+)
+check(
+  'client fields',
+  result.people.every((p) => p.clients.every((c) => same(Object.keys(c), ['client', 'clientVersion', 'lastAt']))),
 )
 check('top-level fields', same(Object.keys(result), ['totals', 'people', 'weeks']))
 
@@ -179,22 +203,42 @@ check(
 )
 check('chapters this year', r.chaptersThisYear === 1)
 check(
-  'clients: latest version each, un-marks included, unknown left out',
+  'clients: latest version each, latest first, un-marks included, unknown left out',
   same(r.clients, [
-    {client: 'ios', clientVersion: '1.1.4 (11)'},
-    {client: 'android', clientVersion: '1.1.2 (6)'},
-    {client: 'web', clientVersion: '1.13.0'},
+    {client: 'android', clientVersion: '1.1.2 (6)', lastAt: '2026-11-04T08:00:00.000Z'},
+    {client: 'ios', clientVersion: '1.1.4 (11)', lastAt: '2026-11-03T22:00:00.000Z'},
+    {client: 'web', clientVersion: '1.13.0', lastAt: '2026-10-21T08:00:00.000Z'},
   ]),
   r.clients,
 )
 
+check(
+  "a person's weeks: reading days, only weeks with some, oldest first",
+  same(r.weeks, [
+    {week: '2025-12-29', readingDays: 1, plans: {bible: 1, psalms: 0, proverbs: 0}, chapterDays: 0},
+    {week: '2026-08-31', readingDays: 1, plans: {bible: 0, psalms: 0, proverbs: 1}, chapterDays: 0},
+    {week: '2026-10-19', readingDays: 2, plans: {bible: 1, psalms: 1, proverbs: 0}, chapterDays: 0},
+    {week: '2026-11-02', readingDays: 1, plans: {bible: 1, psalms: 0, proverbs: 0}, chapterDays: 1},
+  ]),
+  r.weeks,
+)
+const a = result.people.find((p) => p.userId === appOnly)!
+check(
+  'caught up in one sitting is one reading day',
+  same(
+    a.weeks.map((w) => w.readingDays),
+    [1],
+  ),
+  a.weeks,
+)
+
 const n = result.people.find((p) => p.userId === never)!
-check('never read', n.lastReadAt === null && n.daysReadLast30 === 0 && same(n.clients, []), n)
+check('never read', n.lastReadAt === null && n.daysReadLast30 === 0 && same(n.clients, []) && same(n.weeks, []), n)
 check('auto-track', result.people.find((p) => p.userId === appOnly)!.autoTrack === false)
 
 // --- Weeks ------------------------------------------------------------------------------
 
-check('26 weeks, oldest first', result.weeks.length === 26 && result.weeks.at(-1)!.week === '2026-11-02')
+check('52 weeks, oldest first', result.weeks.length === 52 && result.weeks.at(-1)!.week === '2026-11-02')
 const thisWeek = result.weeks.at(-1)!
 check('this week joined', thisWeek.newAccounts === 1, thisWeek)
 check(
@@ -202,7 +246,12 @@ check(
   thisWeek.readers === 2 && same(thisWeek.readersBy, {ios: 1, android: 1, web: 0, unknown: 0}),
   thisWeek,
 )
-check('this week days', same(thisWeek.days, {bible: 3, psalms: 0, proverbs: 0}), thisWeek.days)
+check('this week days', same(thisWeek.days, {bible: 5, psalms: 0, proverbs: 0}), thisWeek.days)
+check(
+  'this week reading days',
+  same(thisWeek.readingDays, {bible: 2, psalms: 0, proverbs: 0}) && thisWeek.chapterDays === 1,
+  thisWeek,
+)
 const oct19 = result.weeks.find((w) => w.week === '2026-10-19')!
 check('a web week', same(oct19.readersBy, {ios: 0, android: 0, web: 1, unknown: 0}) && oct19.days.psalms === 1, oct19)
 

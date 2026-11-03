@@ -290,7 +290,8 @@ paths:
   /operator/usage:
     get:
       summary: >-
-        How the app is used, for an Operator only - totals, one row per account, and 26 weeks.
+        How the app is used, for an Operator only - totals, one row per account with its own
+        weeks, and 52 weeks of everybody. Charts count reading days - a person on a UTC day.
         Counts only, never a Day or a chapter. Fields in src/domains/operator/usage.ts, held
         to exactly those by scripts/verify-operator.ts.
       responses:
