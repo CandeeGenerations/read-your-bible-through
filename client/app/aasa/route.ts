@@ -22,6 +22,7 @@ export function GET() {
             components: [
               {'/': '/read/*', comment: "A Day's reading: /read/bible/2026-03-10/ot"},
               {'/': '/bible/*', comment: 'A chapter: /bible/JHN/3'},
+              {'/': '/today/*', comment: "A plan's Today page: /today/proverbs"},
             ],
           },
         ],

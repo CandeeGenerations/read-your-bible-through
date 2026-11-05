@@ -48,7 +48,7 @@ const nextConfig = {
     ]
   },
 
-  // rybt.app serves only the links into the app (/read, /bible) and the file that lets the
+  // rybt.app serves only the links into the app (/read, /bible, /today) and the file that lets the
   // app open them. Everything else there goes to this site, so it is one site with a short
   // name rather than a second copy of it: the bare domain to the app's landing page, for a
   // bulletin or a slide, and any other path to the same path here.
@@ -58,7 +58,7 @@ const nextConfig = {
     return [
       {source: '/', has: rybtApp, destination: showApp ? `${siteUrl}/app` : `${siteUrl}/`, permanent: false},
       {
-        source: '/:path((?!read/|bible/|aasa$|assetlinks$|\\.well-known/).*)',
+        source: '/:path((?!read/|bible/|today/|aasa$|assetlinks$|\\.well-known/).*)',
         has: rybtApp,
         destination: `${siteUrl}/:path`,
         permanent: false,

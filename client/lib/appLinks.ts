@@ -3,7 +3,7 @@ import {NextResponse} from 'next/server'
 
 // What rybt.app answers when a link into the app is opened somewhere the app is not: a
 // computer, an Android phone, an iPhone without it. The same paths the app claims - /read
-// and /bible (see app/aasa) - so a link is one URL whether or not the app is there.
+// /bible and /today (see app/aasa) - so a link is one URL whether or not the app is there.
 
 // oxlint-disable-next-line no-undef
 export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://readyourbiblethrough.com'

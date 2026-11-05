@@ -3,7 +3,8 @@
  * this site the Android app may open, and which builds of it. Android fetches it from
  * rybt.app, the host in the app's own intent filters, when the app is installed.
  *
- * The same two paths the iPhone app claims (see app/aasa): a Day's reading and a chapter.
+ * The same three paths the iPhone app claims (see app/aasa): a Day's reading, a chapter and a
+ * plan's Today page.
  * Everything else - the landing page, the privacy policy, /data - stays a web page, which
  * Google Play requires of the page that deletes an Account.
  *
