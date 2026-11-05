@@ -78,9 +78,9 @@ const colleges: Audience = {
       question: 'Does the college get any student data?',
       answer: (
         <>
-          No. There are no groups and no leader’s view, and the app has no analytics. What a student marks stays on
-          their phone, or in their own account if they sign in. The <Link href="/privacy">privacy policy</Link> sets it
-          out.
+          No. There are no groups and no leader’s view, and nothing goes to an analytics company. What a student marks
+          stays on their phone, or in their own account if they sign in, which we who run the app can count but never
+          share. The <Link href="/privacy">privacy policy</Link> sets it out.
         </>
       ),
     },

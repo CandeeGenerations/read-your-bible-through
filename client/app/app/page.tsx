@@ -157,7 +157,10 @@ export default function AppLanding() {
           <div className={styles.cols}>
             <div className={styles.stack} style={{gap: 10}}>
               <h3 className={styles.heading}>No ads, no tracking.</h3>
-              <p className={styles.prose}>No analytics in the app, and nothing sold to anybody. It is free.</p>
+              <p className={styles.prose}>
+                No ad networks, no analytics companies, and nothing sold to anybody. It is free. We count how signed-in
+                readers use it, on our own server, and share that with no one.
+              </p>
             </div>
             <div className={styles.stack} style={{gap: 10}}>
               <h3 className={styles.heading}>No account needed.</h3>
