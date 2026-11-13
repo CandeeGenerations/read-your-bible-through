@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import Link from 'next/link'
 import type {ReactNode} from 'react'
 
+import {StoreLink} from './StoreLink'
 import styles from './landing.module.css'
 
 /**
@@ -64,9 +65,9 @@ export const GET_THE_APP = `${APP_PAGE_URL}#get`
 export const StoreBadges = ({id, children}: {id?: string; children?: ReactNode}) => (
   <div className={styles.actions} id={id}>
     {APP_STORE_URL ? (
-      <a className={styles.storeBadge} href={APP_STORE_URL}>
+      <StoreLink store="ios" className={styles.storeBadge} href={APP_STORE_URL}>
         <img src="/images/app-store-badge.svg" alt="Download on the App Store" width={144} height={48} />
-      </a>
+      </StoreLink>
     ) : (
       <a className={`${styles.btn} ${styles.primary}`} href={TESTFLIGHT_URL}>
         <AppleLogo />
@@ -77,9 +78,9 @@ export const StoreBadges = ({id, children}: {id?: string; children?: ReactNode})
       </a>
     )}
     {PLAY_STORE_URL && (
-      <a className={`${styles.storeBadge} ${styles.playBadge}`} href={PLAY_STORE_URL}>
+      <StoreLink store="android" className={`${styles.storeBadge} ${styles.playBadge}`} href={PLAY_STORE_URL}>
         <img src="/images/google-play-badge.png" alt="Get it on Google Play" width={186} height={72} />
-      </a>
+      </StoreLink>
     )}
     {children}
   </div>

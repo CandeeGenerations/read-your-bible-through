@@ -43,6 +43,35 @@ export const PLAY_STORE_URL = PLAY_STORE_ID
   : undefined
 
 /**
+ * App Store Connect's provider token (Analytics > Acquisition > Campaign links): the account's,
+ * the same in every campaign link. Only the campaign token changes from link to link.
+ */
+const PROVIDER_TOKEN = '129094825'
+
+/**
+ * A campaign token as the campaigns name them, `<channel>-<campaign>-<creative>`
+ * (meta-m1-static): lowercase letters, numbers and hyphens, and no longer than the 30
+ * characters App Store Connect keeps.
+ */
+export const isCampaign = (campaign: string | null | undefined): campaign is string =>
+  !!campaign && campaign.length <= 30 && /^[a-z0-9]+(-[a-z0-9]+)*$/.test(campaign)
+
+/** The App Store page with a campaign's tokens, which App Store Connect reports views and installs by. */
+export const appStoreCampaignUrl = (campaign: string): string | undefined =>
+  APP_STORE_ID
+    ? `https://apps.apple.com/app/apple-store/id${APP_STORE_ID}?pt=${PROVIDER_TOKEN}&ct=${campaign}&mt=8`
+    : undefined
+
+/**
+ * The Play page with a campaign as its install referrer, which Play Console reports installs by.
+ * The source is the campaign's first word, its channel: meta-m1-static is meta.
+ */
+export const playStoreCampaignUrl = (campaign: string): string | undefined =>
+  PLAY_STORE_URL
+    ? `${PLAY_STORE_URL}&referrer=${encodeURIComponent(`utm_source=${campaign.split('-')[0]}&utm_campaign=${campaign}`)}`
+    : undefined
+
+/**
  * rybt.app, once it serves this site. A passage links there rather than to BibleGateway:
  * on an iPhone with the app, iOS opens the app on the Day's reading; anywhere else the same
  * path here sends the reader on to BibleGateway (app/read). It has to be another domain -
